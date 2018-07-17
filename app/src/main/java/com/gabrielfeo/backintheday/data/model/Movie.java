@@ -1,4 +1,4 @@
-package com.gabrielfeo.backintheday;
+package com.gabrielfeo.backintheday.data.model;
 
 /**
  * Placeholder class, valid until the movieDb API is integrated with the app.
