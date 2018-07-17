@@ -1,9 +1,13 @@
-package com.gabrielfeo.backintheday;
+package com.gabrielfeo.backintheday.ui.activity;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+
+import com.gabrielfeo.backintheday.R;
+import com.gabrielfeo.backintheday.data.adapter.MovieAdapter;
+import com.gabrielfeo.backintheday.data.viewmodel.MoviesListViewModel;
 
 public class MoviesListActivity extends AppCompatActivity {
 

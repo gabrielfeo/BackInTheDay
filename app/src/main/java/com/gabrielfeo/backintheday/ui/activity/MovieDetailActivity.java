@@ -1,7 +1,9 @@
-package com.gabrielfeo.backintheday;
+package com.gabrielfeo.backintheday.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.gabrielfeo.backintheday.R;
 
 public class MovieDetailActivity extends AppCompatActivity {
 

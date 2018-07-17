@@ -1,8 +1,10 @@
-package com.gabrielfeo.backintheday;
+package com.gabrielfeo.backintheday.data.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
+
+import com.gabrielfeo.backintheday.data.model.Movie;
 
 public class MoviesListViewModel extends AndroidViewModel {
 
