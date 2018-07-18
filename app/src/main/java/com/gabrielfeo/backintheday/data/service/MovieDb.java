@@ -5,23 +5,23 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class MovieDb {
 
+	private static final String BASE_URL = "https://api.themoviedb.org/3/";
 	private static Retrofit retrofit;
-	private static final String BASE_URL = "https://api.themoviedb.org/3";
 
-	private static final Retrofit getRetrofit() {
-		if (retrofit == null) buildRetrofit();
+	public static MovieService getMovieService() {
+		return getRetrofit().create(MovieService.class);
+	}
+
+	private static Retrofit getRetrofit() {
+		if (retrofit == null) { buildRetrofit(); }
 		return retrofit;
 	}
 
-	private static void buildRetrofit(){
+	private static void buildRetrofit() {
 		retrofit = new Retrofit.Builder()
 				.baseUrl(BASE_URL)
 				.addConverterFactory(GsonConverterFactory.create())
 				.build();
-	}
-
-	public static MovieService getMovieService() {
-		return getRetrofit().create(MovieService.class);
 	}
 
 }
