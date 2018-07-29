@@ -33,7 +33,7 @@ public final class MovieDb {
 	}
 
 	private static OkHttpClient getNewClient() {
-		return new OkHttpClient.Builder().addNetworkInterceptor(getApiKeyInterceptor()).build();
+		return new OkHttpClient.Builder().addInterceptor(getApiKeyInterceptor()).build();
 	}
 
 	private static Interceptor getApiKeyInterceptor() {
