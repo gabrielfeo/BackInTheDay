@@ -10,12 +10,15 @@ import android.widget.TextView;
 import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.data.model.Movie;
 
+import java.util.List;
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
-	private Movie[] movies;
+	private List<Movie> movies;
 
-	public MovieAdapter(Movie[] movies) {
+	public void setMovies(List<Movie> movies) {
 		this.movies = movies;
+		notifyDataSetChanged();
 	}
 
 	@NonNull
@@ -28,13 +31,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
 	@Override
 	public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
-		holder.title.setText(movies[position].getTitle());
-		String year = String.valueOf(movies[position].getYear());
-		holder.year.setText(year);
+		if (movies == null) { return; }
+		Movie currentMovie = movies.get(position);
+		holder.title.setText(currentMovie.getTitle());
+		holder.year.setText(currentMovie.getReleaseYear());
 	}
 
 	@Override
-	public int getItemCount() { return movies.length; }
+	public int getItemCount() { return movies.size(); }
 
 	class MovieViewHolder extends RecyclerView.ViewHolder {
 		private final TextView title;
