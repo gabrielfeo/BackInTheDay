@@ -7,6 +7,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
 import com.gabrielfeo.backintheday.data.model.Movie;
+import com.gabrielfeo.backintheday.data.model.MoviesResponse;
 import com.gabrielfeo.backintheday.data.service.MovieDb;
 
 import java.util.Collections;
@@ -31,14 +32,14 @@ public class MoviesListViewModel extends AndroidViewModel {
 	}
 
 	private void refreshMovies() {
-		MovieDb.getMovieService().getPopular().enqueue(new Callback<List<Movie>>() {
+		MovieDb.getMovieService().getPopular().enqueue(new Callback<MoviesResponse>() {
 			@Override
-			public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
-				movies.setValue(response.body());
+			public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
+				if (response.body() != null) { movies.setValue(response.body().getMoviesList()); }
 			}
 
 			@Override
-			public void onFailure(Call<List<Movie>> call, Throwable t) {
+			public void onFailure(Call<MoviesResponse> call, Throwable t) {
 				throw new RuntimeException(t);
 			}
 		});

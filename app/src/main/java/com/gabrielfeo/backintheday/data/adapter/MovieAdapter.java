@@ -17,10 +17,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 	private List<Movie> movies;
 
 	public MovieAdapter(List<Movie> movies) {
-		this.movies = movies;
+		setMovies(movies);
 	}
 
-	public void setMovies(List<Movie> movies) { this.movies = movies; }
+	public void setMovies(List<Movie> movies) {
+		this.movies = movies;
+		notifyDataSetChanged();
+	}
 
 	@NonNull
 	@Override
@@ -34,8 +37,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 	public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
 		Movie currentMovie = movies.get(position);
 		holder.title.setText(currentMovie.getTitle());
-		String year = String.valueOf(currentMovie.getYear());
-		holder.year.setText(year);
+		holder.year.setText(currentMovie.getReleaseYear());
 	}
 
 	@Override

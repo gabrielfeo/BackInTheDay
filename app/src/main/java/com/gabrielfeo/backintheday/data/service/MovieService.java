@@ -1,8 +1,6 @@
 package com.gabrielfeo.backintheday.data.service;
 
-import com.gabrielfeo.backintheday.data.model.Movie;
-
-import java.util.List;
+import com.gabrielfeo.backintheday.data.model.MoviesResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -10,9 +8,9 @@ import retrofit2.http.GET;
 public interface MovieService {
 
 	@GET("movie/top_rated")
-	Call<List<Movie>> getTopRated();
+	Call<MoviesResponse> getTopRated();
 
 	@GET("movie/popular")
-	Call<List<Movie>> getPopular();
+	Call<MoviesResponse> getPopular();
 
 }

@@ -1,24 +1,32 @@
 package com.gabrielfeo.backintheday.data.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Placeholder class, valid until the movieDb API is integrated with the app.
  */
 public class Movie {
 
+	@SerializedName("original_title")
 	private final String title;
-	private final int year;
 
-	public Movie(String title, int year) {
+	@SerializedName("release_date")
+	private final String releaseDate;
+
+	public Movie(String title, String releaseDate) {
 		this.title = title;
-		this.year = year;
+		this.releaseDate = releaseDate;
 	}
 
 	public String getTitle() {
 		return title;
 	}
 
-	public int getYear() {
-		return year;
+	public String getReleaseYear() {
+		return getReleaseDate().substring(0, 4);
 	}
 
+	public String getReleaseDate() {
+		return releaseDate;
+	}
 }
