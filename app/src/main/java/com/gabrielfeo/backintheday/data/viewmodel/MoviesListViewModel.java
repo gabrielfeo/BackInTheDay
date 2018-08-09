@@ -7,6 +7,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.data.callback.UiErrorCallback;
 import com.gabrielfeo.backintheday.data.model.Movie;
 import com.gabrielfeo.backintheday.data.model.MoviesResponse;
@@ -38,13 +39,21 @@ public class MoviesListViewModel extends AndroidViewModel {
 		MovieDb.getMovieService().getPopular().enqueue(new Callback<MoviesResponse>() {
 			@Override
 			public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
-				if (response.body() != null) { movies.setValue(response.body().getMoviesList()); }
+				if (response.body() != null && response.isSuccessful()) {
+					movies.setValue(response.body().getMoviesList());
+				} else {
+					uiErrorCallback.onError(getErrorMessage());
+				}
+			}
+
+			private String getErrorMessage() {
+				return getApplication().getString(R.string.movieslist_error_refresh);
 			}
 
 			@Override
 			public void onFailure(Call<MoviesResponse> call, Throwable t) {
 				Log.e(TAG, "API call failed with " + call.request().toString(), t);
-				uiErrorCallback.onError("Failed to refresh movies");
+				uiErrorCallback.onError(getErrorMessage());
 			}
 		});
 	}
