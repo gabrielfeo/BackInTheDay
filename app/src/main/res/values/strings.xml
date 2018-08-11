@@ -1,3 +1,4 @@
 <resources>
 	<string name = "app_name">Back In The Day</string>
+	<string name = "movieslist_error_refresh">Failed to refresh movies</string>
 </resources>
