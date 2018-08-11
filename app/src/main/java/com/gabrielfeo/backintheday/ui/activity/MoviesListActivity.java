@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.data.adapter.MovieAdapter;
-import com.gabrielfeo.backintheday.data.callback.UiErrorCallback;
+import com.gabrielfeo.backintheday.data.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.data.viewmodel.MoviesListViewModel;
 
 public class MoviesListActivity extends AppCompatActivity {
@@ -32,7 +32,7 @@ public class MoviesListActivity extends AppCompatActivity {
 	private void setupAdapter(RecyclerView recyclerView) {
 		MovieAdapter adapter = new MovieAdapter();
 		recyclerView.setAdapter(adapter);
-		UiErrorCallback errorCallback = message ->
+		ErrorCallback errorCallback = message ->
 				Snackbar.make(recyclerView, message, Snackbar.LENGTH_SHORT).show();
 		viewModel.getMovies(errorCallback).observe(this, adapter::setMovies);
 	}
