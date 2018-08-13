@@ -6,11 +6,8 @@ import com.gabrielfeo.backintheday.data.service.MovieService;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
-import okio.BufferedSource;
 import retrofit2.Retrofit;
 
 public class ResponseLoggingMovieDb {
@@ -22,7 +19,7 @@ public class ResponseLoggingMovieDb {
 			Class<MovieDb> movieDb = MovieDb.class;
 			OkHttpClient client = getNewClientFrom(movieDb)
 					.newBuilder()
-					.addInterceptor(getBodyLoggingInterceptor(logger))
+					.addInterceptor(new ResponseBodyLoggingInterceptor(logger))
 					.addInterceptor(new HttpLoggingInterceptor(System.out::println).setLevel
 							(HttpLoggingInterceptor.Level.BASIC))
 					.build();
@@ -36,29 +33,16 @@ public class ResponseLoggingMovieDb {
 
 	private OkHttpClient getNewClientFrom(Class<MovieDb> movieDb)
 			throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-		Method getNewClient = movieDb.getDeclaredMethod("getNewClient", null);
+		Method getNewClient = movieDb.getDeclaredMethod("getNewClient");
 		getNewClient.setAccessible(true);
-		return (OkHttpClient) getNewClient.invoke(movieDb, null);
-	}
-
-	private Interceptor getBodyLoggingInterceptor(HttpLoggingInterceptor.Logger logger) {
-		return chain -> {
-			Response response = chain.proceed(chain.request());
-			if (response.body() != null) {
-				BufferedSource bodySource = response.body().source();
-				bodySource.request(Integer.MAX_VALUE);
-				String responseBody = bodySource.buffer().snapshot().utf8();
-				logger.log(responseBody);
-			}
-			return response;
-		};
+		return (OkHttpClient) getNewClient.invoke(movieDb);
 	}
 
 	private Retrofit getRetrofitFrom(Class<MovieDb> movieDb)
 			throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-		Method getRetrofit = movieDb.getDeclaredMethod("getRetrofit", null);
+		Method getRetrofit = movieDb.getDeclaredMethod("getRetrofit");
 		getRetrofit.setAccessible(true);
-		return (Retrofit) getRetrofit.invoke(movieDb, null);
+		return (Retrofit) getRetrofit.invoke(movieDb);
 	}
 
 	public MovieService getMovieService() {
