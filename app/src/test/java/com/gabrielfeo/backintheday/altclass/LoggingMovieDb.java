@@ -8,23 +8,29 @@ import java.lang.reflect.Method;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.logging.HttpLoggingInterceptor.Level;
 import retrofit2.Retrofit;
 
 public class LoggingMovieDb {
 
 	private Retrofit retrofit;
 
-	public LoggingMovieDb(HttpLoggingInterceptor.Logger logger) {
+	public LoggingMovieDb(HttpLoggingInterceptor.Logger logger,
+	                      HttpLoggingInterceptor.Level httpLogLevel) {
 		try {
 			Class<MovieDb> movieDb = MovieDb.class;
-			OkHttpClient client = getNewClientFrom(movieDb)
-					.newBuilder()
-					.addInterceptor(new ResponseBodyLoggingInterceptor(logger))
-					.addInterceptor(new HttpLoggingInterceptor(System.out::println).setLevel
-							(HttpLoggingInterceptor.Level.BASIC))
-					.build();
+			OkHttpClient.Builder clientBuilder = getNewClientFrom(movieDb).newBuilder();
+			HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(logger);
+
+			if (httpLogLevel == Level.BODY) {
+				clientBuilder.addInterceptor(new ResponseBodyLoggingInterceptor(logger))
+				             .addInterceptor(httpLoggingInterceptor.setLevel(Level.HEADERS));
+			} else {
+				clientBuilder.addInterceptor(httpLoggingInterceptor.setLevel(httpLogLevel));
+			}
+
 			retrofit = getRetrofitFrom(movieDb).newBuilder()
-			                                   .client(client)
+			                                   .client(clientBuilder.build())
 			                                   .build();
 		} catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {
 			ex.printStackTrace();
