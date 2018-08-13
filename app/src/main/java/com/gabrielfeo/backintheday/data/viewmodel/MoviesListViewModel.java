@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.gabrielfeo.backintheday.R;
-import com.gabrielfeo.backintheday.data.callback.UiErrorCallback;
+import com.gabrielfeo.backintheday.data.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.data.model.Movie;
 import com.gabrielfeo.backintheday.data.model.MoviesResponse;
 import com.gabrielfeo.backintheday.data.service.MovieDb;
@@ -30,19 +30,19 @@ public class MoviesListViewModel extends AndroidViewModel {
 		movies.setValue(Collections.emptyList());
 	}
 
-	public LiveData<List<Movie>> getMovies(UiErrorCallback uiErrorCallback) {
-		refreshMovies(uiErrorCallback);
+	public LiveData<List<Movie>> getMovies(ErrorCallback errorCallback) {
+		refreshMovies(errorCallback);
 		return movies;
 	}
 
-	private void refreshMovies(UiErrorCallback uiErrorCallback) {
+	private void refreshMovies(ErrorCallback errorCallback) {
 		MovieDb.getMovieService().getPopular().enqueue(new Callback<MoviesResponse>() {
 			@Override
 			public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
 				if (response.body() != null && response.isSuccessful()) {
 					movies.setValue(response.body().getMoviesList());
 				} else {
-					uiErrorCallback.onError(getErrorMessage());
+					errorCallback.onError(getErrorMessage());
 				}
 			}
 
@@ -53,7 +53,7 @@ public class MoviesListViewModel extends AndroidViewModel {
 			@Override
 			public void onFailure(Call<MoviesResponse> call, Throwable t) {
 				Log.e(TAG, "API call failed with " + call.request().toString(), t);
-				uiErrorCallback.onError(getErrorMessage());
+				errorCallback.onError(getErrorMessage());
 			}
 		});
 	}

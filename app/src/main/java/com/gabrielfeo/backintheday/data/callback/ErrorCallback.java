@@ -1,6 +1,6 @@
 package com.gabrielfeo.backintheday.data.callback;
 
-public interface UiErrorCallback {
+public interface ErrorCallback {
 
 	public void onError(String message);
 
