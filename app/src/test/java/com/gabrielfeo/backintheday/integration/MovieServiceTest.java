@@ -13,6 +13,7 @@ import org.junit.runners.JUnit4;
 
 import java.io.IOException;
 
+import okhttp3.logging.HttpLoggingInterceptor.Level;
 import retrofit2.Response;
 
 import static org.junit.Assert.assertFalse;
@@ -31,7 +32,7 @@ public class MovieServiceTest {
 
 	@Before
 	public void setUp() throws IOException {
-		response = new LoggingMovieDb(this::setJson)
+		response = new LoggingMovieDb(this::setJson, Level.BODY)
 				.getMovieService().getPopular().execute();
 	}
 
