@@ -1,6 +1,6 @@
 package com.gabrielfeo.backintheday.integration;
 
-import com.gabrielfeo.backintheday.altclass.ResponseLoggingMovieDb;
+import com.gabrielfeo.backintheday.altclass.LoggingMovieDb;
 import com.gabrielfeo.backintheday.data.model.MoviesResponse;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -31,7 +31,7 @@ public class MovieServiceTest {
 
 	@Before
 	public void setUp() throws IOException {
-		response = new ResponseLoggingMovieDb(this::setJson)
+		response = new LoggingMovieDb(this::setJson)
 				.getMovieService().getPopular().execute();
 	}
 

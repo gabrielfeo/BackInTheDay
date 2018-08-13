@@ -10,11 +10,11 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 
-public class ResponseLoggingMovieDb {
+public class LoggingMovieDb {
 
 	private Retrofit retrofit;
 
-	public ResponseLoggingMovieDb(HttpLoggingInterceptor.Logger logger) {
+	public LoggingMovieDb(HttpLoggingInterceptor.Logger logger) {
 		try {
 			Class<MovieDb> movieDb = MovieDb.class;
 			OkHttpClient client = getNewClientFrom(movieDb)
