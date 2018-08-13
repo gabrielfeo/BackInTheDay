@@ -24,7 +24,7 @@ public class MoviesListActivity extends AppCompatActivity {
 	}
 
 	private void setupRecyclerView() {
-		RecyclerView recyclerView = findViewById(R.id.list_rv_movies_list);
+		RecyclerView recyclerView = findViewById(R.id.movieslist_rv);
 		recyclerView.setHasFixedSize(true);
 		setupAdapter(recyclerView);
 	}
