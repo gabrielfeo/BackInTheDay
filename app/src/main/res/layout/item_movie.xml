@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-	android:layout_width = "match_parent"
-	android:layout_height = "@dimen/listitem_item_size"
-	android:gravity="center"
-	android:orientation = "horizontal">
+<android.support.constraint.ConstraintLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+	xmlns:app = "http://schemas.android.com/apk/res-auto"
+	xmlns:tools = "http://schemas.android.com/tools"
+	android:layout_width = "150dp"
+	android:layout_height = "225dp">
 
-	<TextView
-		android:id = "@+id/list_item_tv_title"
-		android:layout_width = "0dp"
-		android:gravity="center"
+	<ImageView
+		android:id = "@+id/list_item_iv_movie_poster"
+		android:layout_width = "match_parent"
 		android:layout_height = "match_parent"
-		android:layout_weight = "1" />
+		android:scaleType = "centerCrop"
+		tools:src = "@tools:sample/avatars" />
 
 	<TextView
-		android:id = "@+id/list_item_tv_year"
-		android:layout_width = "wrap_content"
-		android:gravity="center"
-		android:layout_height = "match_parent" />
+		android:id = "@+id/list_item_tv_movie_info"
+		android:layout_width = "match_parent"
+		android:layout_height = "0dp"
+		android:background = "#7e000000"
+		android:padding = "10dp"
+		android:textColor = "@android:color/white"
+		app:layout_constraintBottom_toBottomOf = "parent"
+		tools:text = "The Godfather\n1972" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
