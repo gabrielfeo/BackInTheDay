@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.gabrielfeo.backintheday.R;
@@ -25,6 +26,8 @@ public class MoviesListActivity extends AppCompatActivity {
 
 	private void setupRecyclerView() {
 		RecyclerView recyclerView = findViewById(R.id.movieslist_rv);
+		GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+		recyclerView.setLayoutManager(layoutManager);
 		recyclerView.setHasFixedSize(true);
 		setupAdapter(recyclerView);
 	}
