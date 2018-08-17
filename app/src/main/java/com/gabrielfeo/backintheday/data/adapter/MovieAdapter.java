@@ -47,8 +47,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 	}
 
 	private void setInfo(MovieViewHolder holder, Movie currentMovie) {
-		String info = currentMovie.getTitle() + "\n" + currentMovie.getReleaseYear();
-		holder.info.setText(info);
+		holder.title.setText(currentMovie.getTitle());
+		holder.year.setText(currentMovie.getReleaseYear());
 	}
 
 	@Override
@@ -56,12 +56,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
 	class MovieViewHolder extends RecyclerView.ViewHolder {
 		private final ImageView poster;
-		private final TextView info;
+		private final TextView title;
+		private final TextView year;
 
 		MovieViewHolder(View itemView) {
 			super(itemView);
 			this.poster = itemView.findViewById(R.id.list_item_iv_movie_poster);
-			this.info = itemView.findViewById(R.id.list_item_tv_movie_info);
+			this.title = itemView.findViewById(R.id.list_item_tv_movie_title);
+			this.year = itemView.findViewById(R.id.list_item_tv_movie_year);
 		}
 
 	}

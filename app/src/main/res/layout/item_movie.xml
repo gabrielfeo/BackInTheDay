@@ -3,23 +3,41 @@
 	xmlns:app = "http://schemas.android.com/apk/res-auto"
 	xmlns:tools = "http://schemas.android.com/tools"
 	android:layout_width = "match_parent"
-	android:layout_height = "wrap_content">
+	android:layout_height = "wrap_content"
+	tools:layout_width = "200dp">
 
 	<ImageView
 		android:id = "@+id/list_item_iv_movie_poster"
 		android:layout_width = "match_parent"
 		android:layout_height = "wrap_content"
-		android:scaleType = "centerCrop"
+		android:adjustViewBounds = "true"
+		app:layout_constraintBottom_toBottomOf = "parent"
 		tools:src = "@tools:sample/avatars" />
 
-	<TextView
-		android:id = "@+id/list_item_tv_movie_info"
+	<View
+		android:id = "@+id/list_item_v_movie_info_background"
 		android:layout_width = "match_parent"
 		android:layout_height = "0dp"
 		android:background = "#7e000000"
-		android:padding = "10dp"
-		android:textColor = "@android:color/white"
-		app:layout_constraintBottom_toBottomOf = "parent"
-		tools:text = "The Godfather\n1972" />
+		app:layout_constraintBottom_toBottomOf = "@id/list_item_tv_movie_year"
+		app:layout_constraintTop_toTopOf = "@id/list_item_tv_movie_title" />
+
+	<TextView
+		android:id = "@+id/list_item_tv_movie_title"
+		style = "@style/Text.MovieInfoFooter"
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		android:paddingTop = "8dp"
+		app:layout_constraintBottom_toTopOf = "@id/list_item_tv_movie_year"
+		tools:text = "The Godfather" />
+
+	<TextView
+		android:id = "@+id/list_item_tv_movie_year"
+		style = "@style/Text.MovieInfoFooter"
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		android:paddingBottom = "8dp"
+		app:layout_constraintTop_toBottomOf = "@id/list_item_tv_movie_title"
+		tools:text = "1972" />
 
 </android.support.constraint.ConstraintLayout>
