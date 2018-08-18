@@ -42,7 +42,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 	private void setPoster(MovieViewHolder holder, Movie currentMovie) {
 		//TODO add image uri property to Movie class
 		Picasso.get()
-		       .load("http://image.tmdb.org/t/p/w342/rPdtLWNsZmAtoZl9PK7S2wE3qiS.jpg")
+		       .load(currentMovie.getPosterUrl())
 		       .into(holder.poster);
 	}
 

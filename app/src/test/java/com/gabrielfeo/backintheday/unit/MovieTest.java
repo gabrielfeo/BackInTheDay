@@ -17,10 +17,11 @@ public class MovieTest {
 	private String title = "The Godfather";
 	private String releaseDate = "1972-03-14";
 	private String releaseYear = "1972";
+	private String posterPath = "/rPdtLWNsZmAtoZl9PK7S2wE3qiS.jpg";
 
 	@Before
 	public void setUp() {
-		movie = new Movie(title, releaseDate);
+		movie = new Movie(title, releaseDate, posterPath);
 	}
 
 	@Test
