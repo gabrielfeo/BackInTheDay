@@ -1,5 +1,8 @@
 package com.gabrielfeo.backintheday.data.model;
 
+import android.net.Uri;
+
+import com.gabrielfeo.backintheday.data.url.MoviePosterUrl;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -13,9 +16,13 @@ public class Movie {
 	@SerializedName("release_date")
 	private final String releaseDate;
 
-	public Movie(String title, String releaseDate) {
+	@SerializedName("poster_path")
+	private final String posterPath;
+
+	public Movie(String title, String releaseDate, String posterPath) {
 		this.title = title;
 		this.releaseDate = releaseDate;
+		this.posterPath = posterPath;
 	}
 
 	public String getTitle() {
@@ -28,5 +35,9 @@ public class Movie {
 
 	public String getReleaseDate() {
 		return releaseDate;
+	}
+
+	public Uri getPosterUrl() {
+		return MoviePosterUrl.getFor(posterPath);
 	}
 }
