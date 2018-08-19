@@ -52,7 +52,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 	}
 
 	@Override
-	public int getItemCount() { return movies.size(); }
+	public int getItemCount() {
+		if (movies != null) { return movies.size(); } else { return 0; }
+	}
 
 	class MovieViewHolder extends RecyclerView.ViewHolder {
 		private final ImageView poster;
