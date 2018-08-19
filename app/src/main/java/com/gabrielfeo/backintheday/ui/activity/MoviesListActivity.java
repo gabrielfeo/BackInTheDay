@@ -15,26 +15,31 @@ import com.gabrielfeo.backintheday.data.viewmodel.MoviesListViewModel;
 public class MoviesListActivity extends AppCompatActivity {
 
 	private MoviesListViewModel viewModel;
+	private RecyclerView recyclerView;
+	private MovieAdapter adapter = new MovieAdapter();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_movies_list);
 		viewModel = ViewModelProviders.of(this).get(MoviesListViewModel.class);
+		setContentView(R.layout.activity_movies_list);
+		findViews();
 		setupRecyclerView();
+		getMovies();
+	}
+
+	private void findViews() {
+		recyclerView = findViewById(R.id.movieslist_rv);
 	}
 
 	private void setupRecyclerView() {
-		RecyclerView recyclerView = findViewById(R.id.movieslist_rv);
 		GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
 		recyclerView.setLayoutManager(layoutManager);
 		recyclerView.setHasFixedSize(true);
-		setupAdapter(recyclerView);
+		recyclerView.setAdapter(adapter);
 	}
 
-	private void setupAdapter(RecyclerView recyclerView) {
-		MovieAdapter adapter = new MovieAdapter();
-		recyclerView.setAdapter(adapter);
+	private void getMovies() {
 		ErrorCallback errorCallback = message ->
 				Snackbar.make(recyclerView, message, Snackbar.LENGTH_SHORT).show();
 		viewModel.getMovies(errorCallback).observe(this, adapter::setMovies);
