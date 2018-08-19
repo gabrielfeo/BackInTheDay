@@ -2,5 +2,6 @@
 <resources>
 
 	<dimen name = "listitem_item_size">48dp</dimen>
+	<dimen name = "movieslist_progressbar_wh_loading">48dp</dimen>
 
 </resources>

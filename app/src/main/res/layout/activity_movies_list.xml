@@ -20,4 +20,10 @@
 
 	<include layout = "@layout/content_movies_list" />
 
+	<ProgressBar
+		android:id = "@+id/movieslist_pb_loading"
+		android:layout_width = "@dimen/movieslist_progressbar_wh_loading"
+		android:layout_height = "@dimen/movieslist_progressbar_wh_loading"
+		android:layout_gravity = "center" />
+
 </android.support.design.widget.CoordinatorLayout>
