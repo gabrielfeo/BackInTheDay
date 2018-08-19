@@ -13,7 +13,6 @@ import com.gabrielfeo.backintheday.data.model.Movie;
 import com.gabrielfeo.backintheday.data.model.MoviesResponse;
 import com.gabrielfeo.backintheday.data.service.MovieDb;
 
-import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -27,7 +26,6 @@ public class MoviesListViewModel extends AndroidViewModel {
 
 	public MoviesListViewModel(@NonNull Application application) {
 		super(application);
-		movies.setValue(Collections.emptyList());
 	}
 
 	public LiveData<List<Movie>> getMovies(ErrorCallback errorCallback) {
