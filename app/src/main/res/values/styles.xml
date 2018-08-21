@@ -11,11 +11,18 @@
 		<item name = "android:ellipsize">end</item>
 	</style>
 
-	<style name = "Text.MovieInfoFooter">
+	<style name = "Text.SingleLine">
+		<item name = "android:maxLines">1</item>
+	</style>
+
+	<style name = "Text.SingleLine.MovieInfoFooter">
 		<item name = "android:paddingStart">10dp</item>
 		<item name = "android:paddingEnd">10dp</item>
-		<item name = "android:maxLines">1</item>
 		<item name = "android:textColor">@color/textPrimary</item>
+	</style>
+
+	<style name = "Text.SingleLine.MovieDetailTechnicalInfo" parent = "TextAppearance.MaterialComponents.Caption">
+		<item name = "android:textColor">@android:color/darker_gray</item>
 	</style>
 
 </resources>
