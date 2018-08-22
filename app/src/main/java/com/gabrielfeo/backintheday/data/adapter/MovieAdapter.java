@@ -1,5 +1,6 @@
 package com.gabrielfeo.backintheday.data.adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.data.model.Movie;
+import com.gabrielfeo.backintheday.ui.activity.MovieDetailActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -37,6 +39,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 		Movie currentMovie = movies.get(position);
 		setPoster(holder, currentMovie);
 		setInfo(holder, currentMovie);
+		setClickAction(holder, currentMovie);
 	}
 
 	private void setPoster(MovieViewHolder holder, Movie currentMovie) {
@@ -49,6 +52,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 	private void setInfo(MovieViewHolder holder, Movie currentMovie) {
 		holder.title.setText(currentMovie.getTitle());
 		holder.year.setText(currentMovie.getReleaseYear());
+	}
+
+	private void setClickAction(MovieViewHolder holder, Movie currentMovie) {
+		holder.poster.setOnClickListener(view -> openMovieDetail(holder.itemView.getContext(),
+		                                                         currentMovie.getId()));
+	}
+
+	private void openMovieDetail(Context context, int movieId) {
+		context.startActivity(MovieDetailActivity.getNewIntent(context, movieId));
 	}
 
 	@Override
