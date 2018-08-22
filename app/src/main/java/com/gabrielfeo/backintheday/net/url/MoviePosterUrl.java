@@ -1,4 +1,4 @@
-package com.gabrielfeo.backintheday.data.url;
+package com.gabrielfeo.backintheday.net.url;
 
 import android.net.Uri;
 

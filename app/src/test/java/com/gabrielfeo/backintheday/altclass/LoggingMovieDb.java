@@ -1,7 +1,7 @@
 package com.gabrielfeo.backintheday.altclass;
 
-import com.gabrielfeo.backintheday.data.service.MovieDb;
-import com.gabrielfeo.backintheday.data.service.MovieService;
+import com.gabrielfeo.backintheday.net.moviedb.MovieDb;
+import com.gabrielfeo.backintheday.net.moviedb.MovieService;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

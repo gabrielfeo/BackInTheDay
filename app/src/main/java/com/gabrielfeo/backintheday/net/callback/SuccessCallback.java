@@ -1,4 +1,4 @@
-package com.gabrielfeo.backintheday.data.callback;
+package com.gabrielfeo.backintheday.net.callback;
 
 public interface SuccessCallback<T> {
 

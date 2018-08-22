@@ -1,7 +1,10 @@
-package com.gabrielfeo.backintheday.data.callback;
+package com.gabrielfeo.backintheday.net;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+
+import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
+import com.gabrielfeo.backintheday.net.callback.SuccessCallback;
 
 import retrofit2.Call;
 import retrofit2.Callback;

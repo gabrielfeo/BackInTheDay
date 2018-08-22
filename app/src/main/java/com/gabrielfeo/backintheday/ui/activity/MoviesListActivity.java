@@ -11,8 +11,8 @@ import android.widget.ProgressBar;
 
 import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.data.adapter.MovieAdapter;
-import com.gabrielfeo.backintheday.data.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.data.viewmodel.MoviesListViewModel;
+import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;

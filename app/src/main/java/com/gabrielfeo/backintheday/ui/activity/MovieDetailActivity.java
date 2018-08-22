@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gabrielfeo.backintheday.R;
-import com.gabrielfeo.backintheday.data.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.data.model.Movie;
 import com.gabrielfeo.backintheday.data.viewmodel.MovieDetailViewModel;
+import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
 import com.squareup.picasso.Picasso;
 
 public class MovieDetailActivity extends AppCompatActivity {

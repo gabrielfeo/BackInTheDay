@@ -7,11 +7,11 @@ import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
 import com.gabrielfeo.backintheday.R;
-import com.gabrielfeo.backintheday.data.callback.ApiResponseHandler;
-import com.gabrielfeo.backintheday.data.callback.ErrorCallback;
-import com.gabrielfeo.backintheday.data.callback.SuccessCallback;
 import com.gabrielfeo.backintheday.data.model.Movie;
-import com.gabrielfeo.backintheday.data.service.MovieDb;
+import com.gabrielfeo.backintheday.net.ApiResponseHandler;
+import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
+import com.gabrielfeo.backintheday.net.callback.SuccessCallback;
+import com.gabrielfeo.backintheday.net.moviedb.MovieDb;
 
 public class MovieDetailViewModel extends AndroidViewModel {
 
