@@ -10,6 +10,8 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Movie {
 
+	private final int id;
+
 	@SerializedName("original_title")
 	private final String title;
 
@@ -19,7 +21,8 @@ public class Movie {
 	@SerializedName("poster_path")
 	private final String posterPath;
 
-	public Movie(String title, String releaseDate, String posterPath) {
+	public Movie(int id, String title, String releaseDate, String posterPath) {
+		this.id = id;
 		this.title = title;
 		this.releaseDate = releaseDate;
 		this.posterPath = posterPath;
@@ -40,4 +43,9 @@ public class Movie {
 	public Uri getPosterUrl() {
 		return MoviePosterUrl.getFor(posterPath);
 	}
+
+	public int getId() {
+		return id;
+	}
+
 }
