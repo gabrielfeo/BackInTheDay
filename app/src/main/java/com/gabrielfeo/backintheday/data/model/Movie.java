@@ -14,10 +14,8 @@ public class Movie {
 
 	@SerializedName("original_title")
 	private final String title;
-
 	@SerializedName("release_date")
 	private final String releaseDate;
-
 	@SerializedName("poster_path")
 	private final String posterPath;
 
