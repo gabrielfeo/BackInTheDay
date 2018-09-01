@@ -2,7 +2,7 @@ package com.gabrielfeo.backintheday.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
-class CastMember {
+public class CastMember {
 
 	@SerializedName("id")
 	private final String id;

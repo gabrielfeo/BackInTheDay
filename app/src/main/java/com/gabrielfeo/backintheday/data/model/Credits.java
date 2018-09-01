@@ -2,9 +2,13 @@ package com.gabrielfeo.backintheday.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Credits {
+
+	private static final String JOB_DIRECTOR = "Director";
+	private static final String JOB_PRODUCER = "Producer";
 
 	@SerializedName("cast")
 	private final List<CastMember> cast;
@@ -22,6 +26,22 @@ public class Credits {
 
 	public List<CrewMember> getCrew() {
 		return crew;
+	}
+
+	public List<CrewMember> getDirectors() {
+		List<CrewMember> directors = new ArrayList<>();
+		for (CrewMember member : crew) {
+			if (member.getJob().equals(JOB_DIRECTOR)) { directors.add(member); }
+		}
+		return directors;
+	}
+
+	public List<CrewMember> getProducers() {
+		List<CrewMember> producers = new ArrayList<>();
+		for (CrewMember member : crew) {
+			if (member.getJob().equals(JOB_PRODUCER)) { producers.add(member); }
+		}
+		return producers;
 	}
 
 }
