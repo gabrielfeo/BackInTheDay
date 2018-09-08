@@ -11,15 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gabrielfeo.backintheday.R;
-import com.gabrielfeo.backintheday.data.model.Movie;
-import com.gabrielfeo.backintheday.data.viewmodel.MovieDetailViewModel;
+import com.gabrielfeo.backintheday.data.model.MovieDetails;
+import com.gabrielfeo.backintheday.data.viewmodel.MovieDetailsViewModel;
 import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
-import com.squareup.picasso.Picasso;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
 	private static final String EXTRA_MOVIE_KEY = "movie";
-	private MovieDetailViewModel viewModel;
+	private MovieDetailsViewModel viewModel;
 
 	private CoordinatorLayout rootView;
 	private ImageView posterView;
@@ -41,7 +40,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		viewModel = ViewModelProviders.of(this).get(MovieDetailViewModel.class);
+		viewModel = ViewModelProviders.of(this).get(MovieDetailsViewModel.class);
 		setContentView(R.layout.activity_movie_detail);
 		findViews();
 		setupToolbar();
@@ -65,12 +64,12 @@ public class MovieDetailActivity extends AppCompatActivity {
 	}
 
 	private void observeMovie() {
-		viewModel.getMovie(snackbarErrorCallback).observe(this, this::fillViewsWithMovie);
+		viewModel.getMovieDetails(snackbarErrorCallback).observe(this, this::fillViewsWithMovieDetails);
 	}
 
-	private void fillViewsWithMovie(Movie movie) {
-		titleView.setText(movie.getTitle());
-		Picasso.get().load(movie.getPosterUrl()).into(posterView);
+	private void fillViewsWithMovieDetails(MovieDetails details) {
+		titleView.setText(details.getTitle());
+		//		Picasso.get().load(movie.getPosterUrl()).into(posterView);
 	}
 
 }
