@@ -1,5 +1,8 @@
 package com.gabrielfeo.backintheday.data.model;
 
+import android.net.Uri;
+
+import com.gabrielfeo.backintheday.net.url.MoviePosterUrl;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -22,10 +25,12 @@ public class MovieDetails {
 	private final List<SpokenLanguage> languages;
 	@SerializedName("credits")
 	private final Credits credits;
+	@SerializedName("poster_path")
+	private final String posterPath;
 
 	public MovieDetails(int id, String title, String releaseDate, String sinopsis, int duration,
 	                    List<ProductionCountry> countries, List<SpokenLanguage> languages,
-	                    Credits credits) {
+	                    Credits credits, String posterPath) {
 		this.id = id;
 		this.title = title;
 		this.releaseDate = releaseDate;
@@ -34,6 +39,7 @@ public class MovieDetails {
 		this.countries = countries;
 		this.languages = languages;
 		this.credits = credits;
+		this.posterPath = posterPath;
 	}
 
 	public Credits getCredits() {
@@ -70,6 +76,10 @@ public class MovieDetails {
 
 	public int getDuration() {
 		return duration;
+	}
+
+	public Uri getPosterUrl() {
+		return MoviePosterUrl.getFor(posterPath);
 	}
 
 }
