@@ -5,6 +5,7 @@ import android.net.Uri;
 import com.gabrielfeo.backintheday.net.url.MoviePosterUrl;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDetails {
@@ -50,8 +51,20 @@ public class MovieDetails {
 		return id;
 	}
 
+	public List<String> getCountriesAbbreviated() {
+		List<String> abbreviations = new ArrayList<>();
+		for (ProductionCountry country : getCountries()) abbreviations.add(country.getAbbreviation());
+		return abbreviations;
+	}
+
 	public List<ProductionCountry> getCountries() {
 		return countries;
+	}
+
+	public List<String> getLanguagesAbbreviated() {
+		List<String> abbreviations = new ArrayList<>();
+		for (SpokenLanguage language : getLanguages()) abbreviations.add(language.getAbbreviation());
+		return abbreviations;
 	}
 
 	public List<SpokenLanguage> getLanguages() {

@@ -28,6 +28,12 @@ public class Credits {
 		return crew;
 	}
 
+	public List<String> getDirectorsNames() {
+		List<String> names = new ArrayList<>();
+		for (CrewMember director : getDirectors()) names.add(director.getName());
+		return names;
+	}
+
 	public List<CrewMember> getDirectors() {
 		List<CrewMember> directors = new ArrayList<>();
 		for (CrewMember member : crew) {
