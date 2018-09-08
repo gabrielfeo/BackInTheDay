@@ -17,6 +17,8 @@ import com.gabrielfeo.backintheday.data.viewmodel.MovieDetailsViewModel;
 import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 public class MovieDetailActivity extends AppCompatActivity {
 
 	private static final String EXTRA_MOVIE_KEY = "movie";
@@ -97,14 +99,22 @@ public class MovieDetailActivity extends AppCompatActivity {
 
 		yearView.setText(details.getReleaseYear());
 
-		String languages = TextUtils.join(", ", details.getLanguagesAbbreviated());
-		languagesView.setText(languages.toUpperCase());
+		List<String> langCodesList = details.getLanguagesAbbreviated();
+		StringBuilder langCodesStringBuilder = new StringBuilder();
+		for (String code : langCodesList) {
+			langCodesStringBuilder.append(Character.toTitleCase(code.charAt(0)))
+			                      .append(code.substring(1));
+			if (langCodesList.indexOf(code) != langCodesList.size() - 1) {
+				langCodesStringBuilder.append(", ");
+			}
+		}
+		languagesView.setText(langCodesStringBuilder.toString());
 
-		durationView.setText(String.valueOf(details.getDuration()) + " minutes"); //TODO Use string res
+		durationView.setText(String.valueOf(details.getDuration()) + " min"); //TODO Use string res
 
-		ratingTitleView.setText("Average rating"); //TODO Use string res
+		ratingTitleView.setText("Rating"); //TODO Use string res
 
-		//TODO Add rating value to model
+		ratingView.setText("7.8"); //TODO Add rating value to model
 
 		sinopsisView.setText(details.getSinopsis());
 

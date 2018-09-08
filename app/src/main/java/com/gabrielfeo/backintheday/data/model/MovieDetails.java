@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class MovieDetails {
 
@@ -63,7 +64,8 @@ public class MovieDetails {
 
 	public List<String> getLanguagesAbbreviated() {
 		List<String> abbreviations = new ArrayList<>();
-		for (SpokenLanguage language : getLanguages()) abbreviations.add(language.getAbbreviation());
+		for (SpokenLanguage language : getLanguages())
+			abbreviations.add(new Locale(language.getAbbreviation()).getISO3Language());
 		return abbreviations;
 	}
 
