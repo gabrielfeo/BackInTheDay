@@ -37,7 +37,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 	private TextView sinopsisView;
 	private final ErrorCallback snackbarErrorCallback = message -> {
 		Snackbar.make(rootView, "", Snackbar.LENGTH_LONG)
-		        .setAction("retry", view -> observeMovie())
+		        .setAction("retry", view -> refreshMovieDetails())
 		        .setText(message)
 		        .show();
 	};
@@ -56,7 +56,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 		findViews();
 		setupToolbar();
 		setMovieIdFromIntent();
-		observeMovie();
+		refreshMovieDetails();
 	}
 
 	private void findViews() {
@@ -82,8 +82,8 @@ public class MovieDetailActivity extends AppCompatActivity {
 		viewModel.setMovieId(getIntent().getIntExtra(EXTRA_MOVIE_KEY, -1));
 	}
 
-	private void observeMovie() {
-		viewModel.getMovieDetails(snackbarErrorCallback).observe(this, this::fillViewsWithMovieDetails);
+	private void refreshMovieDetails() {
+		viewModel.refreshMovieDetails(snackbarErrorCallback);
 	}
 
 	private void fillViewsWithMovieDetails(MovieDetails details) {

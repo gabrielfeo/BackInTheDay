@@ -23,24 +23,13 @@ public class MovieDetailsViewModel extends AndroidViewModel {
 		super(application);
 	}
 
-	public LiveData<MovieDetails> getMovieDetails(ErrorCallback errorCallback) {
-		if (movieDetails.getValue() == null) {
-			refreshMovieDetails(errorCallback);
-		}
-		return movieDetails;
-	}
-
-	private void refreshMovieDetails(ErrorCallback errorCallback) {
-		SuccessCallback<MovieDetails> successCallback = movieDetails::setValue;
+	public void refreshMovieDetails(ErrorCallback errorCallback) {
+		SuccessCallback<MovieDetails> successCallback = details -> {}; //TODO Implement callback
 		String errorMessage = getApplication().getString(R.string.moviedetail_error_getting_details);
 		MovieDb.getMovieService()
 		       .getMovieDetails(movieId)
 		       .enqueue(new ApiResponseHandler<>(successCallback, errorCallback,
 		                                         errorMessage));
-	}
-
-	public int getMovieId() {
-		return movieId;
 	}
 
 	public void setMovieId(int movieId) {
