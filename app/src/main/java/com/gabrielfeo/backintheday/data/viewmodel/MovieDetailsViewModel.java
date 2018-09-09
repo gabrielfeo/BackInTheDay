@@ -17,10 +17,20 @@ public class MovieDetailsViewModel extends AndroidViewModel {
 
 	private static final String TAG = MovieDetailsViewModel.class.getSimpleName();
 	private int movieId;
-	private MutableLiveData<MovieDetails> movieDetails = new MutableLiveData<>();
+	private MutableLiveData<String> title = new MutableLiveData<>();
+	private MutableLiveData<String> directors = new MutableLiveData<>();
+	private MutableLiveData<String> posterUrl = new MutableLiveData<>();
+	private MutableLiveData<String> countries = new MutableLiveData<>();
+	private MutableLiveData<String> year = new MutableLiveData<>();
+	private MutableLiveData<String> languages = new MutableLiveData<>();
+	private MutableLiveData<String> duration = new MutableLiveData<>();
+	private MutableLiveData<String> ratingTitle = new MutableLiveData<>();
+	private MutableLiveData<String> rating = new MutableLiveData<>();
+	private MutableLiveData<String> sinopsis = new MutableLiveData<>();
 
 	public MovieDetailsViewModel(@NonNull Application application) {
 		super(application);
+		ratingTitle.setValue("Rating"); //TODO Use string res
 	}
 
 	public void refreshMovieDetails(ErrorCallback errorCallback) {
@@ -35,4 +45,45 @@ public class MovieDetailsViewModel extends AndroidViewModel {
 	public void setMovieId(int movieId) {
 		this.movieId = movieId;
 	}
+
+	public LiveData<String> getTitle() {
+		return title;
+	}
+
+	public LiveData<String> getDirectors() {
+		return directors;
+	}
+
+	public LiveData<String> getPosterUrl() {
+		return posterUrl;
+	}
+
+	public LiveData<String> getCountries() {
+		return countries;
+	}
+
+	public LiveData<String> getYear() {
+		return year;
+	}
+
+	public LiveData<String> getLanguages() {
+		return languages;
+	}
+
+	public LiveData<String> getDuration() {
+		return duration;
+	}
+
+	public LiveData<String> getRatingTitle() {
+		return ratingTitle;
+	}
+
+	public LiveData<String> getRating() {
+		return rating;
+	}
+
+	public LiveData<String> getSinopsis() {
+		return sinopsis;
+	}
+
 }

@@ -56,6 +56,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 		findViews();
 		setupToolbar();
 		setMovieIdFromIntent();
+		observeMovieDetails();
 		refreshMovieDetails();
 	}
 
@@ -82,8 +83,25 @@ public class MovieDetailActivity extends AppCompatActivity {
 		viewModel.setMovieId(getIntent().getIntExtra(EXTRA_MOVIE_KEY, -1));
 	}
 
+	private void observeMovieDetails() {
+		viewModel.getTitle().observe(this, titleView::setText);
+		viewModel.getDirectors().observe(this, directorView::setText);
+		viewModel.getPosterUrl().observe(this, this::setPosterImage);
+		viewModel.getCountries().observe(this, countriesView::setText);
+		viewModel.getYear().observe(this, yearView::setText);
+		viewModel.getLanguages().observe(this, languagesView::setText);
+		viewModel.getDuration().observe(this, durationView::setText);
+		viewModel.getRatingTitle().observe(this, ratingTitleView::setText);
+		viewModel.getRating().observe(this, ratingView::setText);
+		viewModel.getSinopsis().observe(this, sinopsisView::setText);
+	}
+
 	private void refreshMovieDetails() {
 		viewModel.refreshMovieDetails(snackbarErrorCallback);
+	}
+
+	private void setPosterImage(String imageUrl) {
+		Picasso.get().load(imageUrl).into(posterView);
 	}
 
 	private void fillViewsWithMovieDetails(MovieDetails details) {
