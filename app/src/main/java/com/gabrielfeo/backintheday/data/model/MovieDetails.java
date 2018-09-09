@@ -27,12 +27,14 @@ public class MovieDetails {
 	private final List<SpokenLanguage> languages;
 	@SerializedName("credits")
 	private final Credits credits;
+	@SerializedName("vote_average")
+	private final double rating;
 	@SerializedName("poster_path")
 	private final String posterPath;
 
 	public MovieDetails(int id, String title, String releaseDate, String sinopsis, int duration,
 	                    List<ProductionCountry> countries, List<SpokenLanguage> languages,
-	                    Credits credits, String posterPath) {
+	                    Credits credits, double rating, String posterPath) {
 		this.id = id;
 		this.title = title;
 		this.releaseDate = releaseDate;
@@ -41,6 +43,7 @@ public class MovieDetails {
 		this.countries = countries;
 		this.languages = languages;
 		this.credits = credits;
+		this.rating = rating;
 		this.posterPath = posterPath;
 	}
 
@@ -54,7 +57,8 @@ public class MovieDetails {
 
 	public List<String> getCountriesAbbreviated() {
 		List<String> abbreviations = new ArrayList<>();
-		for (ProductionCountry country : getCountries()) abbreviations.add(country.getAbbreviation());
+		for (ProductionCountry country : getCountries())
+			abbreviations.add(country.getAbbreviation());
 		return abbreviations;
 	}
 
@@ -91,6 +95,10 @@ public class MovieDetails {
 
 	public int getDuration() {
 		return duration;
+	}
+
+	public double getRating() {
+		return rating;
 	}
 
 	public Uri getPosterUrl() {

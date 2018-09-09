@@ -114,7 +114,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
 		ratingTitleView.setText("Rating"); //TODO Use string res
 
-		ratingView.setText("7.8"); //TODO Add rating value to model
+		ratingView.setText(String.valueOf(details.getRating())); //TODO Add rating value to model
 
 		sinopsisView.setText(details.getSinopsis());
 

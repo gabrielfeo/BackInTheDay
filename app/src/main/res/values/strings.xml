@@ -1,5 +1,5 @@
 <resources>
 	<string name = "app_name">Back In The Day</string>
 	<string name = "movieslist_error_refresh">Couldn\'t refresh movies</string>
-	<string name = "moviedetail_error_getting_details">Could\'t get movie details.</string>
+	<string name = "moviedetail_error_getting_details">Couldn\'t get movie details.</string>
 </resources>
