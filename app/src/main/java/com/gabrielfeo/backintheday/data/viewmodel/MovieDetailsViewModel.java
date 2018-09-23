@@ -10,11 +10,14 @@ import android.text.TextUtils;
 
 import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.data.model.MovieDetails;
+import com.gabrielfeo.backintheday.data.model.ProductionCountry;
+import com.gabrielfeo.backintheday.data.model.SpokenLanguage;
 import com.gabrielfeo.backintheday.net.ApiResponseHandler;
 import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.net.callback.SuccessCallback;
 import com.gabrielfeo.backintheday.net.moviedb.MovieDb;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class MovieDetailsViewModel extends AndroidViewModel {
@@ -38,7 +41,7 @@ public class MovieDetailsViewModel extends AndroidViewModel {
 	}
 
 	private void setRatingTitle() {
-		this.ratingTitle.setValue("Rating"); //TODO Use string res
+		this.ratingTitle.setValue("Average Rating"); //TODO Use string res
 	}
 
 	public void refreshMovieDetails(ErrorCallback errorCallback) {
@@ -58,9 +61,9 @@ public class MovieDetailsViewModel extends AndroidViewModel {
 		setTitle(details.getTitle());
 		setDirectors(details.getCredits().getDirectorsNames());
 		setPosterUrl(details.getPosterUrl());
-		setCountries(details.getCountriesAbbreviated());
+		setCountries(details.getCountries());
 		setYear(details.getReleaseYear());
-		setLanguages(details.getLanguagesAbbreviated());
+		setLanguages(details.getLanguages());
 		setDuration(details.getDuration());
 		setRating(details.getRating());
 		setSinopsis(details.getSinopsis());
@@ -75,29 +78,45 @@ public class MovieDetailsViewModel extends AndroidViewModel {
 		this.directors.setValue(directors);
 	}
 
-	private void setCountries(List<String> countriesList) {
-		String countries = TextUtils.join("/", countriesList);
-		this.countries.setValue(countries);
+	private void setCountries(List<ProductionCountry> countriesList) {
+		if (countriesList.isEmpty()) return;
+		StringBuilder countriesStringBuilder = new StringBuilder();
+		if (countriesList.size() == 1) {
+			countriesStringBuilder.append(
+					(countriesList.get(0).getAbbreviation().equals("US"))
+					? "United States"
+					: countriesList.get(0).getName());
+		} else {
+			Iterator<ProductionCountry> countries = countriesList.iterator();
+			countriesStringBuilder.append(countries.next().getAbbreviation());
+			while (countries.hasNext()) {
+				countriesStringBuilder.append("/").append(countries.next().getAbbreviation());
+			}
+		}
+		this.countries.setValue(countriesStringBuilder.toString());
 	}
 
 	private void setYear(String year) {
 		this.year.setValue(year);
 	}
 
-	private void setLanguages(List<String> languagesList) {
+	private void setLanguages(List<SpokenLanguage> languagesList) {
+		if (languagesList.isEmpty()) return;
 		StringBuilder languagesStringBuilder = new StringBuilder();
-		for (String language : languagesList) {
-			languagesStringBuilder.append(Character.toTitleCase(language.charAt(0)))
-			                      .append(language.substring(1));
-			if (languagesList.indexOf(language) != languagesList.size() - 1) {
-				languagesStringBuilder.append(", ");
+		if (languagesList.size() == 1) {
+			languagesStringBuilder.append(languagesList.get(0).getName());
+		} else {
+			Iterator<SpokenLanguage> languages = languagesList.iterator();
+			languagesStringBuilder.append(languages.next().getAbbreviation(true));
+			while (languages.hasNext()) {
+				languagesStringBuilder.append(", ").append(languages.next().getAbbreviation(true));
 			}
 		}
 		this.languages.setValue(languagesStringBuilder.toString());
 	}
 
 	private void setDuration(int duration) {
-		this.duration.setValue(String.valueOf(duration));
+		this.duration.setValue(String.valueOf(duration) + " min");
 	}
 
 	private void setRating(double rating) {

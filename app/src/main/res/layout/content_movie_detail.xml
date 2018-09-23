@@ -78,7 +78,7 @@
 		app:layout_constraintEnd_toEndOf = "@id/moviedetail_tv_year"
 		app:layout_constraintStart_toStartOf = "@id/moviedetail_tv_year"
 		app:layout_constraintTop_toBottomOf = "@id/moviedetail_tv_countries"
-		tools:text = "English, Russian" />
+		tools:text = "Eng, Rus" />
 
 	<TextView
 		android:id = "@+id/moviedetail_tv_duration"
@@ -90,7 +90,7 @@
 		app:layout_constraintEnd_toEndOf = "@id/moviedetail_tv_year"
 		app:layout_constraintStart_toStartOf = "@id/moviedetail_tv_year"
 		app:layout_constraintTop_toBottomOf = "@id/moviedetail_tv_languages"
-		tools:text = "139 minutes" />
+		tools:text = "139 min" />
 
 	<TextView
 		android:id = "@+id/moviedetail_tv_rating_title"
