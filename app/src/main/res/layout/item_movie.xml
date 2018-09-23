@@ -8,36 +8,43 @@
 
 	<ImageView
 		android:id = "@+id/list_item_iv_movie_poster"
-		android:layout_width = "match_parent"
+		android:layout_width = "0dp"
 		android:layout_height = "wrap_content"
 		android:adjustViewBounds = "true"
-		app:layout_constraintBottom_toBottomOf = "parent"
-		tools:src = "@tools:sample/avatars" />
+		app:layout_constraintEnd_toEndOf = "parent"
+		app:layout_constraintStart_toStartOf = "parent"
+		tools:layout_height = "300dp" />
 
 	<View
 		android:id = "@+id/list_item_v_movie_info_background"
-		android:layout_width = "match_parent"
+		android:layout_width = "0dp"
 		android:layout_height = "0dp"
 		android:background = "#7e000000"
 		app:layout_constraintBottom_toBottomOf = "@id/list_item_tv_movie_year"
+		app:layout_constraintEnd_toEndOf = "@id/list_item_iv_movie_poster"
+		app:layout_constraintStart_toStartOf = "@id/list_item_iv_movie_poster"
 		app:layout_constraintTop_toTopOf = "@id/list_item_tv_movie_title" />
 
 	<TextView
 		android:id = "@+id/list_item_tv_movie_title"
 		style = "@style/Text.SingleLine.MovieInfoFooter"
-		android:layout_width = "match_parent"
+		android:layout_width = "0dp"
 		android:layout_height = "wrap_content"
 		android:paddingTop = "8dp"
 		app:layout_constraintBottom_toTopOf = "@id/list_item_tv_movie_year"
+		app:layout_constraintEnd_toEndOf = "parent"
+		app:layout_constraintStart_toStartOf = "parent"
 		tools:text = "The Godfather" />
 
 	<TextView
 		android:id = "@+id/list_item_tv_movie_year"
 		style = "@style/Text.SingleLine.MovieInfoFooter"
-		android:layout_width = "match_parent"
+		android:layout_width = "0dp"
 		android:layout_height = "wrap_content"
 		android:paddingBottom = "8dp"
-		app:layout_constraintTop_toBottomOf = "@id/list_item_tv_movie_title"
+		app:layout_constraintBottom_toBottomOf = "@id/list_item_iv_movie_poster"
+		app:layout_constraintEnd_toEndOf = "parent"
+		app:layout_constraintStart_toStartOf = "parent"
 		tools:text = "1972" />
 
 </android.support.constraint.ConstraintLayout>

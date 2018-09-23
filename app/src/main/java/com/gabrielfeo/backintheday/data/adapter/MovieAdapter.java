@@ -1,6 +1,5 @@
 package com.gabrielfeo.backintheday.data.adapter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +10,7 @@ import android.widget.TextView;
 
 import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.data.model.Movie;
-import com.gabrielfeo.backintheday.ui.activity.MovieDetailActivity;
+import com.gabrielfeo.backintheday.ui.listener.OnMovieClickListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -19,6 +18,11 @@ import java.util.List;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
 	private List<Movie> movies;
+	private OnMovieClickListener clickListener;
+
+	public MovieAdapter(OnMovieClickListener movieClickListener) {
+		this.clickListener = movieClickListener;
+	}
 
 	public void setMovies(List<Movie> movies) {
 		this.movies = movies;
@@ -55,17 +59,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 	}
 
 	private void setClickAction(MovieViewHolder holder, Movie currentMovie) {
-		holder.poster.setOnClickListener(view -> openMovieDetail(holder.itemView.getContext(),
-		                                                         currentMovie.getId()));
-	}
-
-	private void openMovieDetail(Context context, int movieId) {
-		context.startActivity(MovieDetailActivity.getNewIntent(context, movieId));
+		holder.poster.setOnClickListener(
+				view -> clickListener.onMovieClick(holder.itemView, currentMovie.getId()));
 	}
 
 	@Override
 	public int getItemCount() {
-		if (movies != null) { return movies.size(); } else { return 0; }
+		return (movies != null) ? movies.size() : 0;
 	}
 
 	class MovieViewHolder extends RecyclerView.ViewHolder {
