@@ -61,7 +61,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 		rootView = findViewById(R.id.moviedetail_cl_root);
 		titleView = findViewById(R.id.moviedetail_tv_title);
 		directorView = findViewById(R.id.moviedetail_tv_director);
-		posterView = findViewById(R.id.moviedetail_iv_poster);
+		posterView = findViewById(R.id.shared_iv_movie_poster);
 		countriesView = findViewById(R.id.moviedetail_tv_countries);
 		yearView = findViewById(R.id.moviedetail_tv_year);
 		languagesView = findViewById(R.id.moviedetail_tv_languages);

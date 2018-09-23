@@ -48,7 +48,7 @@ public class MoviesListActivity extends AppCompatActivity {
 
 	private void findViews() {
 		loadingIndicator = findViewById(R.id.movieslist_pb_loading);
-		contentRootView = findViewById(R.id.shared_movie);
+		contentRootView = findViewById(R.id.movieslist_content_root);
 		recyclerView = findViewById(R.id.movieslist_rv);
 	}
 
