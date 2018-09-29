@@ -49,6 +49,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		viewModel = ViewModelProviders.of(this).get(MovieDetailsViewModel.class);
+		supportPostponeEnterTransition();
 		setContentView(R.layout.activity_movie_detail);
 		findViews();
 		setupToolbar();
@@ -81,7 +82,10 @@ public class MovieDetailActivity extends AppCompatActivity {
 	}
 
 	private void observeMovieDetails() {
-		viewModel.getTitle().observe(this, titleView::setText);
+		viewModel.getTitle().observe(this, title -> {
+			titleView.setText(title);
+			supportStartPostponedEnterTransition();
+		});
 		viewModel.getDirectors().observe(this, directorView::setText);
 		viewModel.getPosterUrl().observe(this, this::setPosterImage);
 		viewModel.getCountries().observe(this, countriesView::setText);
