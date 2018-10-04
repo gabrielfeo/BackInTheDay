@@ -15,12 +15,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
+public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.MoviePosterViewHolder> {
 
 	private List<Movie> movies;
 	private OnMovieClickListener clickListener;
 
-	public MovieAdapter(OnMovieClickListener movieClickListener) {
+	public MoviePosterAdapter(OnMovieClickListener movieClickListener) {
 		this.clickListener = movieClickListener;
 	}
 
@@ -31,14 +31,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
 	@NonNull
 	@Override
-	public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+	public MoviePosterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 		LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 		View view = inflater.inflate(R.layout.item_movie, parent, false);
-		return new MovieViewHolder(view);
+		return new MoviePosterViewHolder(view);
 	}
 
 	@Override
-	public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
+	public void onBindViewHolder(@NonNull MoviePosterViewHolder holder, int position) {
 		if (movies == null) { return; }
 		Movie currentMovie = movies.get(position);
 		setPoster(holder, currentMovie);
@@ -46,19 +46,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 		setClickAction(holder, currentMovie);
 	}
 
-	private void setPoster(MovieViewHolder holder, Movie currentMovie) {
+	private void setPoster(MoviePosterViewHolder holder, Movie currentMovie) {
 		//TODO add image uri property to Movie class
 		Picasso.get()
 		       .load(currentMovie.getPosterUrl())
 		       .into(holder.poster);
 	}
 
-	private void setInfo(MovieViewHolder holder, Movie currentMovie) {
+	private void setInfo(MoviePosterViewHolder holder, Movie currentMovie) {
 		holder.title.setText(currentMovie.getTitle());
 		holder.year.setText(currentMovie.getReleaseYear());
 	}
 
-	private void setClickAction(MovieViewHolder holder, Movie currentMovie) {
+	private void setClickAction(MoviePosterViewHolder holder, Movie currentMovie) {
 		holder.poster.setOnClickListener(
 				view -> clickListener.onMovieClick(holder.itemView, currentMovie.getId()));
 	}
@@ -68,12 +68,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 		return (movies != null) ? movies.size() : 0;
 	}
 
-	class MovieViewHolder extends RecyclerView.ViewHolder {
+	class MoviePosterViewHolder extends RecyclerView.ViewHolder {
 		private final ImageView poster;
 		private final TextView title;
 		private final TextView year;
 
-		MovieViewHolder(View itemView) {
+		MoviePosterViewHolder(View itemView) {
 			super(itemView);
 			this.poster = itemView.findViewById(R.id.shared_iv_movie_poster);
 			this.title = itemView.findViewById(R.id.list_item_tv_movie_title);
