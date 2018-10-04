@@ -5,12 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.data.model.Movie;
 import com.gabrielfeo.backintheday.ui.listener.OnMovieClickListener;
+import com.gabrielfeo.backintheday.ui.view.MoviePosterView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -40,27 +39,27 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
 	@Override
 	public void onBindViewHolder(@NonNull MoviePosterViewHolder holder, int position) {
 		if (movies == null) { return; }
+		MoviePosterView currentView = holder.moviePosterView;
 		Movie currentMovie = movies.get(position);
-		setPoster(holder, currentMovie);
-		setInfo(holder, currentMovie);
-		setClickAction(holder, currentMovie);
+		setPoster(currentView, currentMovie);
+		setInfo(currentView, currentMovie);
+		setClickAction(currentView, currentMovie);
 	}
 
-	private void setPoster(MoviePosterViewHolder holder, Movie currentMovie) {
+	private void setPoster(MoviePosterView view, Movie movie) {
 		//TODO add image uri property to Movie class
 		Picasso.get()
-		       .load(currentMovie.getPosterUrl())
-		       .into(holder.poster);
+		       .load(movie.getPosterUrl())
+		       .into(view);
 	}
 
-	private void setInfo(MoviePosterViewHolder holder, Movie currentMovie) {
-		holder.title.setText(currentMovie.getTitle());
-		holder.year.setText(currentMovie.getReleaseYear());
+	private void setInfo(MoviePosterView view, Movie movie) {
+		view.setTitle(movie.getTitle());
+		view.setYear(movie.getReleaseYear());
 	}
 
-	private void setClickAction(MoviePosterViewHolder holder, Movie currentMovie) {
-		holder.poster.setOnClickListener(
-				view -> clickListener.onMovieClick(holder.itemView, currentMovie.getId()));
+	private void setClickAction(MoviePosterView view, Movie movie) {
+		view.setOnClickListener(clickedView -> clickListener.onMovieClick(view, movie.getId()));
 	}
 
 	@Override
@@ -69,15 +68,11 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
 	}
 
 	class MoviePosterViewHolder extends RecyclerView.ViewHolder {
-		private final ImageView poster;
-		private final TextView title;
-		private final TextView year;
+		private final MoviePosterView moviePosterView;
 
 		MoviePosterViewHolder(View itemView) {
 			super(itemView);
-			this.poster = itemView.findViewById(R.id.shared_iv_movie_poster);
-			this.title = itemView.findViewById(R.id.list_item_tv_movie_title);
-			this.year = itemView.findViewById(R.id.list_item_tv_movie_year);
+			this.moviePosterView = (MoviePosterView) itemView;
 		}
 
 	}
