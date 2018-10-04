@@ -32,8 +32,8 @@ public final class MoviePosterView extends ConstraintLayout {
 		if (posterDrawable != null) setImage(posterDrawable);
 		String title = attributes.getString(R.styleable.MoviePosterView_title);
 		if (title != null) setTitle(title);
-		int year = attributes.getInt(R.styleable.MoviePosterView_year, -1);
-		if (year > 0) setYear(year);
+		String year = attributes.getString(R.styleable.MoviePosterView_year);
+		if (year != null) setYear(year);
 	}
 
 	public void setImage(Drawable drawable) {
@@ -44,8 +44,8 @@ public final class MoviePosterView extends ConstraintLayout {
 		titleView.setText(title);
 	}
 
-	public void setYear(int year) {
-		yearView.setText(String.valueOf(year));
+	public void setYear(String year) {
+		yearView.setText(year);
 	}
 
 	public void setImage(Bitmap bitmap) {

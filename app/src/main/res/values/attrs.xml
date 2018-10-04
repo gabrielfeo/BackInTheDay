@@ -4,7 +4,7 @@
 	<declare-styleable name = "MoviePosterView">
 		<attr name = "posterImage" format = "reference" />
 		<attr name = "title" format = "string" />
-		<attr name = "year" format = "integer" />
+		<attr name = "year" format = "string" />
 	</declare-styleable>
 
 </resources>
