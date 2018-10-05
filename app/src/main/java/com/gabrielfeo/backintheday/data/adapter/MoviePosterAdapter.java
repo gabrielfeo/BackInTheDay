@@ -2,11 +2,9 @@ package com.gabrielfeo.backintheday.data.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.data.model.Movie;
 import com.gabrielfeo.backintheday.ui.listener.OnMovieClickListener;
 import com.gabrielfeo.backintheday.ui.view.MoviePosterView;
@@ -31,8 +29,7 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
 	@NonNull
 	@Override
 	public MoviePosterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-		View view = inflater.inflate(R.layout.item_movie, parent, false);
+		View view = new MoviePosterView(parent.getContext(), null);
 		return new MoviePosterViewHolder(view);
 	}
 

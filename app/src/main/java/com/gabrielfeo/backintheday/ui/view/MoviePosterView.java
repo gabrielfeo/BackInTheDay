@@ -25,7 +25,7 @@ public final class MoviePosterView extends ConstraintLayout implements Target {
 		super(context, attrs);
 		inflate(context, R.layout.item_movie, this);
 		TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.MoviePosterView);
-		posterImageView = findViewById(R.id.shared_iv_movie_poster); //TODO Change ID
+		posterImageView = findViewById(R.id.list_item_iv_movie_poster_image);
 		titleView = findViewById(R.id.list_item_tv_movie_title);
 		yearView = findViewById(R.id.list_item_tv_movie_year);
 		setAttributes(attributes);
