@@ -17,18 +17,33 @@ import com.squareup.picasso.Target;
 public final class MoviePosterView extends ConstraintLayout implements Target {
 
 	private static final String TAG = MoviePosterView.class.getSimpleName();
-	private final ImageView posterImageView;
-	private final TextView titleView;
-	private final TextView yearView;
+	private ImageView posterImageView;
+	private TextView titleView;
+	private TextView yearView;
 
-	public MoviePosterView(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		inflate(context, R.layout.item_movie, this);
-		TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.MoviePosterView);
+	public MoviePosterView(Context context) {
+		super(context);
+		init(null);
+	}
+
+	private void init(AttributeSet attrs) {
+		inflate(getContext(), R.layout.item_movie, this);
+		TypedArray attributes = getContext().obtainStyledAttributes(attrs, R.styleable.MoviePosterView);
 		posterImageView = findViewById(R.id.list_item_iv_movie_poster_image);
 		titleView = findViewById(R.id.list_item_tv_movie_title);
 		yearView = findViewById(R.id.list_item_tv_movie_year);
 		setAttributes(attributes);
+		attributes.recycle();
+	}
+
+	public MoviePosterView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		init(attrs);
+	}
+
+	public MoviePosterView(Context context, AttributeSet attrs, int defStyleAttrs) {
+		super(context, attrs, defStyleAttrs);
+		init(attrs);
 	}
 
 	private void setAttributes(TypedArray attributes) {
@@ -52,7 +67,7 @@ public final class MoviePosterView extends ConstraintLayout implements Target {
 	@Override
 	public void onBitmapFailed(Exception exception, Drawable errorDrawable) {
 		Log.e(TAG, "onBitmapFailed: ", exception);
-		setImage(errorDrawable);
+		if (errorDrawable != null) setImage(errorDrawable);
 	}
 
 	public void setImage(Drawable drawable) {
@@ -61,7 +76,7 @@ public final class MoviePosterView extends ConstraintLayout implements Target {
 
 	@Override
 	public void onPrepareLoad(Drawable placeHolderDrawable) {
-		setImage(placeHolderDrawable);
+		if (placeHolderDrawable != null) setImage(placeHolderDrawable);
 	}
 
 	public void setTitle(String title) {
