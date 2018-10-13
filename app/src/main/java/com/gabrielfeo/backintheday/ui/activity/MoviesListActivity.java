@@ -11,10 +11,10 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.gabrielfeo.backintheday.R;
-import com.gabrielfeo.backintheday.data.adapter.MovieAdapter;
+import com.gabrielfeo.backintheday.data.adapter.MoviePosterAdapter;
 import com.gabrielfeo.backintheday.data.viewmodel.MoviesListViewModel;
 import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
-import com.gabrielfeo.backintheday.ui.listener.OnMovieClickListener;
+import com.gabrielfeo.backintheday.ui.listener.OnMoviePosterClickListener;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -25,9 +25,9 @@ public class MoviesListActivity extends AppCompatActivity {
 	private ProgressBar loadingIndicator;
 	private View contentRootView;
 	private RecyclerView recyclerView;
-	private MovieAdapter adapter = new MovieAdapter(getMovieClickListener());
+	private MoviePosterAdapter adapter = new MoviePosterAdapter(getMovieClickListener());
 
-	private OnMovieClickListener getMovieClickListener() {
+	private OnMoviePosterClickListener getMovieClickListener() {
 		return (view, id) -> {
 			Bundle options = ActivityOptionsCompat.makeSceneTransitionAnimation(
 					this, view, getString(R.string.transition_list_to_detail)).toBundle();

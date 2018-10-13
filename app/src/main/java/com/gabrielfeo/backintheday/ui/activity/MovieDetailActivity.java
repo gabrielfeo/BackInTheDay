@@ -8,12 +8,12 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.data.viewmodel.MovieDetailsViewModel;
 import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
+import com.gabrielfeo.backintheday.ui.view.MoviePosterView;
 import com.squareup.picasso.Picasso;
 
 public class MovieDetailActivity extends AppCompatActivity {
@@ -24,7 +24,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 	private CoordinatorLayout rootView;
 	private TextView titleView;
 	private TextView directorView;
-	private ImageView posterView;
+	private MoviePosterView posterView;
 	private TextView countriesView;
 	private TextView yearView;
 	private TextView languagesView;
@@ -62,7 +62,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 		rootView = findViewById(R.id.moviedetail_cl_root);
 		titleView = findViewById(R.id.moviedetail_tv_title);
 		directorView = findViewById(R.id.moviedetail_tv_director);
-		posterView = findViewById(R.id.shared_iv_movie_poster);
+		posterView = findViewById(R.id.shared_mpv_movie_poster);
 		countriesView = findViewById(R.id.moviedetail_tv_countries);
 		yearView = findViewById(R.id.moviedetail_tv_year);
 		languagesView = findViewById(R.id.moviedetail_tv_languages);
