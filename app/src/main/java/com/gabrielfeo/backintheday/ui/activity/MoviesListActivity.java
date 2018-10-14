@@ -1,9 +1,14 @@
 package com.gabrielfeo.backintheday.ui.activity;
 
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
+import android.animation.AnimatorListenerAdapter;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.SharedElementCallback;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +20,9 @@ import com.gabrielfeo.backintheday.data.adapter.MoviePosterAdapter;
 import com.gabrielfeo.backintheday.data.viewmodel.MoviesListViewModel;
 import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.ui.listener.OnMoviePosterClickListener;
+import com.gabrielfeo.backintheday.ui.view.MoviePosterView;
+
+import java.util.List;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -28,11 +36,24 @@ public class MoviesListActivity extends AppCompatActivity {
 	private MoviePosterAdapter adapter = new MoviePosterAdapter(getMovieClickListener());
 
 	private OnMoviePosterClickListener getMovieClickListener() {
-		return (view, id) -> {
-			Bundle options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-					this, view, getString(R.string.transition_list_to_detail)).toBundle();
-			startActivity(MovieDetailActivity.getNewIntent(this, id), options);
+		return (moviePosterView, movieId) -> {
+			AnimatorListener animationEndListener = new AnimatorListenerAdapter() {
+				@Override
+				public void onAnimationEnd(Animator animation) {
+					super.onAnimationEnd(animation);
+					startMovieDetailActivity(moviePosterView, movieId);
+				}
+			};
+			moviePosterView.fadeFooterOut(animationEndListener);
 		};
+	}
+
+	private void startMovieDetailActivity(MoviePosterView moviePosterView, int movieId) {
+		String transitionId = getString(R.string.transition_list_to_detail);
+		Intent intent = MovieDetailActivity.getNewIntent(this, movieId);
+		Bundle options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+				this, moviePosterView, transitionId).toBundle();
+		startActivity(intent, options);
 	}
 
 	@Override
@@ -40,6 +61,7 @@ public class MoviesListActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		viewModel = ViewModelProviders.of(this).get(MoviesListViewModel.class);
 		setContentView(R.layout.activity_movies_list);
+		setExitSharedElementCallback(new ReturningSharedPosterViewCallback());
 		findViews();
 		setIsLoading(true);
 		setupRecyclerView();
@@ -62,8 +84,8 @@ public class MoviesListActivity extends AppCompatActivity {
 	private void setIsLoading(boolean isLoading) {
 		int contentVisibility = (isLoading) ? GONE : VISIBLE;
 		contentRootView.setVisibility(contentVisibility);
-		int loadingVisibility = (isLoading) ? VISIBLE : GONE;
-		loadingIndicator.setVisibility(loadingVisibility);
+		int loadingIndicatorVisibility = (isLoading) ? VISIBLE : GONE;
+		loadingIndicator.setVisibility(loadingIndicatorVisibility);
 	}
 
 	private void getMovies() {
@@ -74,6 +96,25 @@ public class MoviesListActivity extends AppCompatActivity {
 			         adapter.setMovies(movies);
 			         setIsLoading(false);
 		         });
+	}
+
+	private final class ReturningSharedPosterViewCallback extends SharedElementCallback {
+
+		@Override
+		public void onSharedElementEnd(List<String> sharedElementNames,
+		                               List<View> sharedElements,
+		                               List<View> sharedElementSnapshots) {
+			super.onSharedElementEnd(sharedElementNames, sharedElements, sharedElementSnapshots);
+			MoviePosterView posterView = findPosterView(sharedElementNames, sharedElements);
+			posterView.fadeFooterIn(null);
+		}
+
+		private MoviePosterView findPosterView(List<String> elementNames, List<View> elements) {
+			String posterViewTransitionId = getString(R.string.transition_list_to_detail);
+			int posterViewIndex = elementNames.indexOf(posterViewTransitionId);
+			return (MoviePosterView) elements.get(posterViewIndex);
+		}
+
 	}
 
 }

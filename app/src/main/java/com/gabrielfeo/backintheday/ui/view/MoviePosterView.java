@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -98,7 +99,7 @@ public final class MoviePosterView extends ConstraintLayout implements Target {
 		yearView.setText(year);
 	}
 
-	public void fadeFooterIn(AnimatorListener listener) {
+	public void fadeFooterIn(@Nullable AnimatorListener listener) {
 		fadeFooterTo(1f, listener);
 	}
 
@@ -118,8 +119,15 @@ public final class MoviePosterView extends ConstraintLayout implements Target {
 		return animator;
 	}
 
-	public void fadeFooterOut(AnimatorListener listener) {
+	public void fadeFooterOut(@Nullable AnimatorListener listener) {
 		fadeFooterTo(0f, listener);
+	}
+
+	public void setIsFooterVisible(boolean visible) {
+		int visibility = (visible) ? View.VISIBLE : View.INVISIBLE;
+		infoBackgroundView.setVisibility(visibility);
+		titleView.setVisibility(visibility);
+		yearView.setVisibility(visibility);
 	}
 
 }

@@ -53,9 +53,14 @@ public class MovieDetailActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_movie_detail);
 		findViews();
 		setupToolbar();
+		hidePosterFooter();
 		setMovieIdFromIntent();
 		observeMovieDetails();
 		refreshMovieDetails();
+	}
+
+	private void hidePosterFooter() {
+		posterView.setIsFooterVisible(false);
 	}
 
 	private void findViews() {
@@ -82,12 +87,12 @@ public class MovieDetailActivity extends AppCompatActivity {
 	}
 
 	private void observeMovieDetails() {
-		viewModel.getTitle().observe(this, title -> {
-			titleView.setText(title);
+		viewModel.getTitle().observe(this, this::setTitle);
+		viewModel.getDirectors().observe(this, directorView::setText);
+		viewModel.getPosterUrl().observe(this, url -> {
+			setPosterImage(url);
 			supportStartPostponedEnterTransition();
 		});
-		viewModel.getDirectors().observe(this, directorView::setText);
-		viewModel.getPosterUrl().observe(this, this::setPosterImage);
 		viewModel.getCountries().observe(this, countriesView::setText);
 		viewModel.getYear().observe(this, yearView::setText);
 		viewModel.getLanguages().observe(this, languagesView::setText);
