@@ -87,7 +87,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 	}
 
 	private void observeMovieDetails() {
-		viewModel.getTitle().observe(this, this::setTitle);
+		viewModel.getTitle().observe(this, titleView::setText);
 		viewModel.getDirectors().observe(this, directorView::setText);
 		viewModel.getPosterUrl().observe(this, url -> {
 			setPosterImage(url);
