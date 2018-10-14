@@ -8,12 +8,12 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.data.viewmodel.MovieDetailsViewModel;
 import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
+import com.gabrielfeo.backintheday.ui.view.MoviePosterView;
 import com.squareup.picasso.Picasso;
 
 public class MovieDetailActivity extends AppCompatActivity {
@@ -24,7 +24,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 	private CoordinatorLayout rootView;
 	private TextView titleView;
 	private TextView directorView;
-	private ImageView posterView;
+	private MoviePosterView posterView;
 	private TextView countriesView;
 	private TextView yearView;
 	private TextView languagesView;
@@ -49,19 +49,25 @@ public class MovieDetailActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		viewModel = ViewModelProviders.of(this).get(MovieDetailsViewModel.class);
+		supportPostponeEnterTransition();
 		setContentView(R.layout.activity_movie_detail);
 		findViews();
 		setupToolbar();
+		hidePosterFooter();
 		setMovieIdFromIntent();
 		observeMovieDetails();
 		refreshMovieDetails();
+	}
+
+	private void hidePosterFooter() {
+		posterView.setIsFooterVisible(false);
 	}
 
 	private void findViews() {
 		rootView = findViewById(R.id.moviedetail_cl_root);
 		titleView = findViewById(R.id.moviedetail_tv_title);
 		directorView = findViewById(R.id.moviedetail_tv_director);
-		posterView = findViewById(R.id.moviedetail_iv_poster);
+		posterView = findViewById(R.id.shared_mpv_movie_poster);
 		countriesView = findViewById(R.id.moviedetail_tv_countries);
 		yearView = findViewById(R.id.moviedetail_tv_year);
 		languagesView = findViewById(R.id.moviedetail_tv_languages);
@@ -81,9 +87,12 @@ public class MovieDetailActivity extends AppCompatActivity {
 	}
 
 	private void observeMovieDetails() {
-		viewModel.getTitle().observe(this, titleView::setText);
+		viewModel.getTitle().observe(this, this::setTitle);
 		viewModel.getDirectors().observe(this, directorView::setText);
-		viewModel.getPosterUrl().observe(this, this::setPosterImage);
+		viewModel.getPosterUrl().observe(this, url -> {
+			setPosterImage(url);
+			supportStartPostponedEnterTransition();
+		});
 		viewModel.getCountries().observe(this, countriesView::setText);
 		viewModel.getYear().observe(this, yearView::setText);
 		viewModel.getLanguages().observe(this, languagesView::setText);

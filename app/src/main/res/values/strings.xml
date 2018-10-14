@@ -2,4 +2,6 @@
 	<string name = "app_name">Back In The Day</string>
 	<string name = "movieslist_error_refresh">Couldn\'t refresh movies</string>
 	<string name = "moviedetail_error_getting_details">Couldn\'t get movie details.</string>
+
+	<string name = "transition_list_to_detail">5347898642139</string>
 </resources>
