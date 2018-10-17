@@ -5,19 +5,16 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.gabrielfeo.backintheday.R;
-import com.gabrielfeo.backintheday.data.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.data.model.Movie;
 import com.gabrielfeo.backintheday.data.model.MoviesResponse;
-import com.gabrielfeo.backintheday.data.service.MovieDb;
+import com.gabrielfeo.backintheday.net.ApiResponseHandler;
+import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
+import com.gabrielfeo.backintheday.net.callback.SuccessCallback;
+import com.gabrielfeo.backintheday.net.moviedb.MovieDb;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MoviesListViewModel extends AndroidViewModel {
 
@@ -34,26 +31,12 @@ public class MoviesListViewModel extends AndroidViewModel {
 	}
 
 	private void refreshMovies(ErrorCallback errorCallback) {
-		MovieDb.getMovieService().getPopular().enqueue(new Callback<MoviesResponse>() {
-			@Override
-			public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
-				if (response.body() != null && response.isSuccessful()) {
-					movies.setValue(response.body().getMoviesList());
-				} else {
-					errorCallback.onError(getErrorMessage());
-				}
-			}
-
-			private String getErrorMessage() {
-				return getApplication().getString(R.string.movieslist_error_refresh);
-			}
-
-			@Override
-			public void onFailure(Call<MoviesResponse> call, Throwable t) {
-				Log.e(TAG, "API call failed with " + call.request().toString(), t);
-				errorCallback.onError(getErrorMessage());
-			}
-		});
+		SuccessCallback<MoviesResponse> successCallback =
+				moviesResponse -> movies.setValue(moviesResponse.getMoviesList());
+		String errorMessage = getApplication().getString(R.string.movieslist_error_refresh);
+		MovieDb.getMovieService()
+		       .getPopular()
+		       .enqueue(new ApiResponseHandler<>(successCallback, errorCallback, errorMessage));
 	}
 
 }

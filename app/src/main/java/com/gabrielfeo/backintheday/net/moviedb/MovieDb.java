@@ -1,4 +1,4 @@
-package com.gabrielfeo.backintheday.data.service;
+package com.gabrielfeo.backintheday.net.moviedb;
 
 import com.gabrielfeo.backintheday.BuildConfig;
 
