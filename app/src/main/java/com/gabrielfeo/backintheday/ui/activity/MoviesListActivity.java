@@ -12,6 +12,7 @@ import android.support.v4.app.SharedElementCallback;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -30,6 +31,7 @@ import static android.view.View.VISIBLE;
 public class MoviesListActivity extends AppCompatActivity {
 
 	private MoviesListViewModel viewModel;
+	private Toolbar toolbar;
 	private ProgressBar loadingIndicator;
 	private View contentRootView;
 	private RecyclerView recyclerView;
@@ -64,14 +66,22 @@ public class MoviesListActivity extends AppCompatActivity {
 		setExitSharedElementCallback(new ReturningSharedPosterViewCallback());
 		findViews();
 		setIsLoading(true);
+		setupToolbar();
 		setupRecyclerView();
 		getMovies();
 	}
 
 	private void findViews() {
+		toolbar = findViewById(R.id.movieslist_t_toolbar);
 		loadingIndicator = findViewById(R.id.movieslist_pb_loading);
 		contentRootView = findViewById(R.id.movieslist_content_root);
 		recyclerView = findViewById(R.id.movieslist_rv);
+	}
+
+	private void setupToolbar() {
+		setSupportActionBar(toolbar);
+		String title = getString(R.string.app_name) + "...";
+		getSupportActionBar().setTitle(title);
 	}
 
 	private void setupRecyclerView() {
