@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.gabrielfeo.backintheday.R;
@@ -22,6 +23,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 	private MovieDetailsViewModel viewModel;
 
 	private CoordinatorLayout rootView;
+	private Toolbar toolbar;
 	private TextView titleView;
 	private TextView directorView;
 	private MoviePosterView posterView;
@@ -65,6 +67,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
 	private void findViews() {
 		rootView = findViewById(R.id.moviedetail_cl_root);
+		toolbar = findViewById(R.id.moviedetail_t_toolbar);
 		titleView = findViewById(R.id.moviedetail_tv_title);
 		directorView = findViewById(R.id.moviedetail_tv_director);
 		posterView = findViewById(R.id.shared_mpv_movie_poster);
@@ -78,8 +81,9 @@ public class MovieDetailActivity extends AppCompatActivity {
 	}
 
 	private void setupToolbar() {
-		setSupportActionBar(findViewById(R.id.moviedetail_t_toolbar));
+		setSupportActionBar(toolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setTitle(R.string.moviedetail_toolbar_title);
 	}
 
 	private void setMovieIdFromIntent() {
