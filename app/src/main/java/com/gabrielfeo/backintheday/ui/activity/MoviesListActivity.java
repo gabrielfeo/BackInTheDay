@@ -12,6 +12,7 @@ import android.support.v4.app.SharedElementCallback;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -30,6 +31,7 @@ import static android.view.View.VISIBLE;
 
 public class MoviesListActivity extends AppCompatActivity {
 
+	private static final String TAG = MoviesListActivity.class.getSimpleName();
 	private MoviesListViewModel viewModel;
 	private Toolbar toolbar;
 	private ProgressBar loadingIndicator;
@@ -98,7 +100,23 @@ public class MoviesListActivity extends AppCompatActivity {
 		loadingIndicator.setVisibility(loadingIndicatorVisibility);
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		restoreFootersOfAllViews(recyclerView.getLayoutManager());
+		if (adapter.getItemCount() == 0) getMovies();
+	}
+
+	private void restoreFootersOfAllViews(LayoutManager layoutManager) {
+		if (layoutManager == null) return;
+		for (int position = 0; position < layoutManager.getItemCount(); position++) {
+			View currentView = layoutManager.getChildAt(position);
+			if (currentView instanceof MoviePosterView) { restoreFooterOf((MoviePosterView) currentView); }
+		}
+	}
+
 	private void getMovies() {
+		//TODO This callback is delegating presentation to the ViewModel layer. Move string res to Activity.
 		ErrorCallback errorCallback =
 				message -> Snackbar.make(recyclerView, message, Snackbar.LENGTH_SHORT).show();
 		viewModel.getMovies(errorCallback)
@@ -106,6 +124,10 @@ public class MoviesListActivity extends AppCompatActivity {
 			         adapter.setMovies(movies);
 			         setIsLoading(false);
 		         });
+	}
+
+	private void restoreFooterOf(MoviePosterView posterView) {
+		if (!posterView.isFooterFullyVisible()) { posterView.fadeFooterIn(null); }
 	}
 
 	private final class ReturningSharedPosterViewCallback extends SharedElementCallback {
@@ -116,7 +138,7 @@ public class MoviesListActivity extends AppCompatActivity {
 		                               List<View> sharedElementSnapshots) {
 			super.onSharedElementEnd(sharedElementNames, sharedElements, sharedElementSnapshots);
 			MoviePosterView posterView = findPosterView(sharedElementNames, sharedElements);
-			posterView.fadeFooterIn(null);
+			restoreFooterOf(posterView);
 		}
 
 		private MoviePosterView findPosterView(List<String> elementNames, List<View> elements) {
