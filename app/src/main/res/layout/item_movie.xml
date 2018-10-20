@@ -17,11 +17,11 @@
 		app:layout_constraintStart_toStartOf = "parent"
 		tools:layout_height = "300dp" />
 
-	<View
+	<ImageView
 		android:id = "@+id/list_item_v_movie_info_background"
 		android:layout_width = "0dp"
 		android:layout_height = "0dp"
-		android:background = "#7e000000"
+		android:src = "@drawable/poster_info_footer"
 		app:layout_constraintBottom_toBottomOf = "@id/list_item_tv_movie_year"
 		app:layout_constraintEnd_toEndOf = "parent"
 		app:layout_constraintStart_toStartOf = "parent"

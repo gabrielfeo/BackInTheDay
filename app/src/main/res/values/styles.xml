@@ -1,10 +1,14 @@
 <resources>
 
 	<style name = "AppTheme" parent = "Theme.AppCompat.Light.NoActionBar">
-		<item name = "colorPrimary">@color/colorPrimary</item>
-		<item name = "colorPrimaryDark">@color/colorPrimaryDark</item>
-		<item name = "colorAccent">@color/colorAccent</item>
-		<item name = "android:textColorPrimary">@color/textPrimary</item>
+		<item name = "colorPrimary">@color/movieDbPrimary</item>
+		<item name = "colorPrimaryDark">@color/movieDbPrimary</item>
+		<item name = "colorAccent">@color/movieDbSecondary</item>
+		<item name = "android:textColorPrimary">@color/textRegular</item>
+	</style>
+
+	<style name = "ToolbarTheme" parent = "ThemeOverlay.MaterialComponents.Dark.ActionBar">
+		<item name = "android:elevation">8dp</item>
 	</style>
 
 	<style name = "Text">
@@ -18,7 +22,7 @@
 	<style name = "Text.SingleLine.MovieInfoFooter">
 		<item name = "android:paddingStart">10dp</item>
 		<item name = "android:paddingEnd">10dp</item>
-		<item name = "android:textColor">@color/textPrimary</item>
+		<item name = "android:textColor">@color/textRegular</item>
 	</style>
 
 	<style name = "Text.SingleLine.MovieDetailTechnicalInfo" parent = "TextAppearance.MaterialComponents.Caption">

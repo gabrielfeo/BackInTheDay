@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name = "colorPrimary">#3F51B5</color>
-	<color name = "colorPrimaryDark">#303F9F</color>
-	<color name = "colorAccent">#FF4081</color>
+	<color name = "movieDbPrimary">#081c24</color>
+	<color name = "movieDbSecondary">#01d277</color>
 
-	<color name = "textPrimary">@android:color/white</color>
+	<color name = "background">#161616</color>
+	<color name = "textRegular">@android:color/white</color>
+	<color name = "textAccented">@color/movieDbSecondary</color>
 </resources>
