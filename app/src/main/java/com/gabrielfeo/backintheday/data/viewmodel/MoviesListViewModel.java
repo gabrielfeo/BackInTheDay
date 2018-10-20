@@ -35,7 +35,7 @@ public class MoviesListViewModel extends AndroidViewModel {
 				moviesResponse -> movies.setValue(moviesResponse.getMoviesList());
 		String errorMessage = getApplication().getString(R.string.movieslist_error_refresh);
 		MovieDb.getMovieService()
-		       .getPopular()
+		       .getMoviesOfYear(1978)
 		       .enqueue(new ApiResponseHandler<>(successCallback, errorCallback, errorMessage));
 	}
 
