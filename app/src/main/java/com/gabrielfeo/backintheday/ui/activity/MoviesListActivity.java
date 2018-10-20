@@ -41,6 +41,7 @@ public class MoviesListActivity extends AppCompatActivity {
 
 	private OnMoviePosterClickListener getMovieClickListener() {
 		return (moviePosterView, movieId) -> {
+			moviePosterView.setClickable(false);
 			AnimatorListener animationEndListener = new AnimatorListenerAdapter() {
 				@Override
 				public void onAnimationEnd(Animator animation) {
@@ -111,7 +112,10 @@ public class MoviesListActivity extends AppCompatActivity {
 		if (layoutManager == null) return;
 		for (int position = 0; position < layoutManager.getItemCount(); position++) {
 			View currentView = layoutManager.getChildAt(position);
-			if (currentView instanceof MoviePosterView) { restoreFooterOf((MoviePosterView) currentView); }
+			if (currentView instanceof MoviePosterView) {
+				restoreFooterOf((MoviePosterView) currentView);
+				currentView.setClickable(true);
+			}
 		}
 	}
 
