@@ -7,7 +7,9 @@
 		<item name = "android:textColorPrimary">@color/textRegular</item>
 	</style>
 
-	<style name = "ToolbarTheme" parent = "ThemeOverlay.MaterialComponents.Dark.ActionBar" />
+	<style name = "ToolbarTheme" parent = "ThemeOverlay.MaterialComponents.Dark.ActionBar">
+		<item name = "android:elevation">8dp</item>
+	</style>
 
 	<style name = "Text">
 		<item name = "android:ellipsize">end</item>
