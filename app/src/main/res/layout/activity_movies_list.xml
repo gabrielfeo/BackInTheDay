@@ -13,10 +13,20 @@
 		<android.support.v7.widget.Toolbar
 			android:id = "@+id/movieslist_t_toolbar"
 			android:layout_width = "match_parent"
-			android:layout_height = "wrap_content"
+			android:layout_height = "?android:attr/actionBarSize"
 			android:background = "?attr/colorPrimary"
 			app:layout_scrollFlags = "scroll|snap"
-			app:popupTheme = "@style/ToolbarTheme" />
+			app:popupTheme = "@style/ToolbarTheme">
+
+			<ImageView
+				android:layout_width = "@dimen/movieslist_imageview_w_action_bar_logo"
+				android:layout_height = "match_parent"
+				android:layout_gravity = "end"
+				android:layout_marginEnd = "16dp"
+				android:adjustViewBounds = "true"
+				android:src = "@drawable/ic_logo_moviedb" />
+
+		</android.support.v7.widget.Toolbar>
 
 	</android.support.design.widget.AppBarLayout>
 

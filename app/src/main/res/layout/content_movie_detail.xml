@@ -135,7 +135,19 @@
 			android:layout_marginTop = "24dp"
 			android:textAppearance = "@style/TextAppearance.MaterialComponents.Body2"
 			app:layout_constraintTop_toBottomOf = "@id/shared_mpv_movie_poster"
+			app:layout_constraintBottom_toTopOf = "@id/moviedetail_iv_moviedb_logo"
 			tools:text = "@sample/sinopsis" />
+
+		<ImageView
+			android:id = "@+id/moviedetail_iv_moviedb_logo"
+			android:layout_width = "@dimen/moviedetail_imageview_w_footer_logo"
+			android:layout_height = "wrap_content"
+			android:layout_marginTop = "16dp"
+			android:layout_marginEnd = "16dp"
+			android:adjustViewBounds = "true"
+			android:src = "@drawable/ic_logo_moviedb_powered_by"
+			app:layout_constraintEnd_toEndOf = "@id/moviedetail_tv_sinopsis"
+			app:layout_constraintTop_toBottomOf = "@id/moviedetail_tv_sinopsis" />
 
 	</android.support.constraint.ConstraintLayout>
 
