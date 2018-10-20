@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.data.viewmodel.MovieDetailsViewModel;
@@ -35,10 +35,8 @@ public class MovieDetailActivity extends AppCompatActivity {
 	private TextView ratingView;
 	private TextView sinopsisView;
 	private final ErrorCallback snackbarErrorCallback = message -> {
-		Snackbar.make(rootView, "", Snackbar.LENGTH_LONG)
-		        .setAction("retry", view -> refreshMovieDetails())
-		        .setText(message)
-		        .show();
+		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+		finish();
 	};
 
 	public static Intent getNewIntent(Context context, int movieId) {
@@ -62,7 +60,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 	}
 
 	private void hidePosterFooter() {
-		posterView.setIsFooterVisible(false);
+		posterView.setFooterVisible(false);
 	}
 
 	private void findViews() {
@@ -114,4 +112,9 @@ public class MovieDetailActivity extends AppCompatActivity {
 		Picasso.get().load(imageUrl).into(posterView);
 	}
 
+	@Override
+	public boolean onSupportNavigateUp() {
+		if (!isTaskRoot()) onBackPressed();
+		return true;
+	}
 }
