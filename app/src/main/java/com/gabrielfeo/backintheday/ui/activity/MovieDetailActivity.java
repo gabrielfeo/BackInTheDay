@@ -112,4 +112,9 @@ public class MovieDetailActivity extends AppCompatActivity {
 		Picasso.get().load(imageUrl).into(posterView);
 	}
 
+	@Override
+	public boolean onSupportNavigateUp() {
+		if (!isTaskRoot()) onBackPressed();
+		return true;
+	}
 }
