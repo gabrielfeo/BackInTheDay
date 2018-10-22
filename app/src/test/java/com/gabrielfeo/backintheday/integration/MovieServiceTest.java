@@ -33,7 +33,7 @@ public class MovieServiceTest {
 	@Before
 	public void setUp() throws IOException {
 		response = new LoggingMovieDb(this::setJson, Level.BODY)
-				.getMovieService().getPopular().execute();
+				.getMovieService().getMoviesOfYear(1990).execute();
 	}
 
 	@Test
