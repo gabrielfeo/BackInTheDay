@@ -13,9 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.LayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 
 import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.data.adapter.MoviePosterAdapter;
@@ -33,7 +35,7 @@ public class MoviesListActivity extends AppCompatActivity {
 
 	private static final String TAG = MoviesListActivity.class.getSimpleName();
 	private MoviesListViewModel viewModel;
-	private Toolbar toolbar;
+	private Spinner yearSelectorView;
 	private ProgressBar loadingIndicator;
 	private View contentRootView;
 	private RecyclerView recyclerView;
@@ -68,23 +70,44 @@ public class MoviesListActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_movies_list);
 		setExitSharedElementCallback(new ReturningSharedPosterViewCallback());
 		findViews();
-		setIsLoading(true);
-		setupToolbar();
+		setupYearSelector();
 		setupRecyclerView();
-		getMovies();
 	}
 
 	private void findViews() {
-		toolbar = findViewById(R.id.movieslist_t_toolbar);
+		yearSelectorView = findViewById(R.id.movieslist_s_year_selector);
 		loadingIndicator = findViewById(R.id.movieslist_pb_loading);
 		contentRootView = findViewById(R.id.movieslist_content_root);
 		recyclerView = findViewById(R.id.movieslist_rv);
 	}
 
-	private void setupToolbar() {
-		setSupportActionBar(toolbar);
-		String title = getString(R.string.app_name) + "...";
-		getSupportActionBar().setTitle(title);
+	private void setupYearSelector() {
+		Integer[] years = viewModel.getYears();
+		ArrayAdapter yearAdapter = new ArrayAdapter<>(this, R.layout.textview_actionbar_year, years);
+		yearAdapter.setDropDownViewResource(R.layout.item_year);
+		yearSelectorView.setAdapter(yearAdapter);
+		yearSelectorView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				getMovies();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> view) {}
+		});
+		setFirstYearSelection();
+	}
+
+	private void getMovies() {
+		//TODO This callback is delegating presentation to the ViewModel layer. Move string res to Activity.
+		ErrorCallback errorCallback =
+				message -> Snackbar.make(recyclerView, message, Snackbar.LENGTH_SHORT).show();
+		setIsLoading(true);
+		viewModel.getMovies(getSelectedYear(), errorCallback)
+		         .observe(this, movies -> {
+			         adapter.setMovies(movies);
+			         setIsLoading(false);
+		         });
 	}
 
 	private void setupRecyclerView() {
@@ -119,15 +142,12 @@ public class MoviesListActivity extends AppCompatActivity {
 		}
 	}
 
-	private void getMovies() {
-		//TODO This callback is delegating presentation to the ViewModel layer. Move string res to Activity.
-		ErrorCallback errorCallback =
-				message -> Snackbar.make(recyclerView, message, Snackbar.LENGTH_SHORT).show();
-		viewModel.getMovies(errorCallback)
-		         .observe(this, movies -> {
-			         adapter.setMovies(movies);
-			         setIsLoading(false);
-		         });
+	private void setFirstYearSelection() {
+		yearSelectorView.setSelection(viewModel.getRandomYear());
+	}
+
+	private int getSelectedYear() {
+		return (int) yearSelectorView.getSelectedItem();
 	}
 
 	private void restoreFooterOf(MoviePosterView posterView) {
