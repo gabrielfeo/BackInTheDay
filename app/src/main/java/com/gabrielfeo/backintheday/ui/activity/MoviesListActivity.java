@@ -24,7 +24,7 @@ import com.gabrielfeo.backintheday.data.adapter.MoviePosterAdapter;
 import com.gabrielfeo.backintheday.data.viewmodel.MoviesListViewModel;
 import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.ui.listener.OnMoviePosterClickListener;
-import com.gabrielfeo.backintheday.ui.view.MoviePosterView;
+import com.gabrielfeo.backintheday.ui.widget.MoviePosterView;
 
 import java.util.List;
 

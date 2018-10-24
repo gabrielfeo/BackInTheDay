@@ -1,6 +1,6 @@
 package com.gabrielfeo.backintheday.ui.listener;
 
-import com.gabrielfeo.backintheday.ui.view.MoviePosterView;
+import com.gabrielfeo.backintheday.ui.widget.MoviePosterView;
 
 public interface OnMoviePosterClickListener {
 
