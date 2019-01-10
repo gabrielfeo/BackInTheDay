@@ -1,4 +1,4 @@
-package com.gabrielfeo.backintheday.ui.view;
+package com.gabrielfeo.backintheday.ui.widget;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;

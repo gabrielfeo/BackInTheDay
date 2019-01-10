@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.gabrielfeo.backintheday.data.model.Movie;
 import com.gabrielfeo.backintheday.ui.listener.OnMoviePosterClickListener;
-import com.gabrielfeo.backintheday.ui.view.MoviePosterView;
+import com.gabrielfeo.backintheday.ui.widget.MoviePosterView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
