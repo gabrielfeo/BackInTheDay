@@ -21,7 +21,6 @@ import android.widget.Spinner;
 
 import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.data.adapter.MoviePosterAdapter;
-import com.gabrielfeo.backintheday.data.model.Sorting;
 import com.gabrielfeo.backintheday.data.viewmodel.MoviesListViewModel;
 import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.ui.listener.OnMoviePosterClickListener;
@@ -83,7 +82,7 @@ public class MoviesListActivity extends AppCompatActivity {
 	}
 
 	private void setupYearSelector() {
-		Sorting[] sortingOptions = Sorting.values();
+		String[] sortingOptions = viewModel.getSortingOptions();
 		ArrayAdapter yearAdapter = new ArrayAdapter<>(this, R.layout.textview_actionbar_year, sortingOptions);
 		yearAdapter.setDropDownViewResource(R.layout.item_year);
 		yearSelectorView.setAdapter(yearAdapter);
@@ -146,8 +145,8 @@ public class MoviesListActivity extends AppCompatActivity {
 		yearSelectorView.setSelection(0);
 	}
 
-	private Sorting getSelectedYear() {
-		return (Sorting) yearSelectorView.getSelectedItem();
+	private String getSelectedYear() {
+		return (String) yearSelectorView.getSelectedItem();
 	}
 
 	private void restoreFooterOf(MoviePosterView posterView) {
