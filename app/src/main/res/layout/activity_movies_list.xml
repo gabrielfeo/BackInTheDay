@@ -26,11 +26,11 @@
 				android:gravity = "center_vertical"
 				android:text = "Back In "
 				android:textAppearance = "@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-				app:layout_constraintEnd_toStartOf = "@id/movieslist_s_year_selector"
+				app:layout_constraintEnd_toStartOf = "@id/movieslist_s_sorting_selector"
 				app:layout_constraintStart_toStartOf = "parent" />
 
 			<Spinner
-				android:id = "@+id/movieslist_s_year_selector"
+				android:id = "@+id/movieslist_s_sorting_selector"
 				android:layout_width = "wrap_content"
 				android:layout_height = "match_parent"
 				android:spinnerMode = "dropdown"

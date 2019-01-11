@@ -35,7 +35,7 @@ public class MoviesListActivity extends AppCompatActivity {
 
 	private static final String TAG = MoviesListActivity.class.getSimpleName();
 	private MoviesListViewModel viewModel;
-	private Spinner yearSelectorView;
+	private Spinner sortingSelectorView;
 	private ProgressBar loadingIndicator;
 	private View contentRootView;
 	private RecyclerView recyclerView;
@@ -70,23 +70,23 @@ public class MoviesListActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_movies_list);
 		setExitSharedElementCallback(new ReturningSharedPosterViewCallback());
 		findViews();
-		setupYearSelector();
+		setupSortingSelector();
 		setupRecyclerView();
 	}
 
 	private void findViews() {
-		yearSelectorView = findViewById(R.id.movieslist_s_year_selector);
+		sortingSelectorView = findViewById(R.id.movieslist_s_sorting_selector);
 		loadingIndicator = findViewById(R.id.movieslist_pb_loading);
 		contentRootView = findViewById(R.id.movieslist_content_root);
 		recyclerView = findViewById(R.id.movieslist_rv);
 	}
 
-	private void setupYearSelector() {
+	private void setupSortingSelector() {
 		String[] sortingOptions = viewModel.getSortingOptions();
-		ArrayAdapter yearAdapter = new ArrayAdapter<>(this, R.layout.textview_actionbar_year, sortingOptions);
-		yearAdapter.setDropDownViewResource(R.layout.item_year);
-		yearSelectorView.setAdapter(yearAdapter);
-		yearSelectorView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+		ArrayAdapter sortingAdapter = new ArrayAdapter<>(this, R.layout.textview_actionbar_sorting, sortingOptions);
+		sortingAdapter.setDropDownViewResource(R.layout.item_sorting);
+		sortingSelectorView.setAdapter(sortingAdapter);
+		sortingSelectorView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				getMovies();
@@ -95,14 +95,14 @@ public class MoviesListActivity extends AppCompatActivity {
 			@Override
 			public void onNothingSelected(AdapterView<?> view) {}
 		});
-		setFirstYearSelection();
+		setFirstSortingSelection();
 	}
 
 	private void getMovies() {
 		ErrorCallback errorCallback =
 				message -> Snackbar.make(recyclerView, message, Snackbar.LENGTH_SHORT).show();
 		setIsLoading(true);
-		viewModel.getMovies(getSelectedYear(), errorCallback)
+		viewModel.getMovies(getSelectedSorting(), errorCallback)
 		         .observe(this, movies -> {
 			         adapter.setMovies(movies);
 			         setIsLoading(false);
@@ -141,12 +141,12 @@ public class MoviesListActivity extends AppCompatActivity {
 		}
 	}
 
-	private void setFirstYearSelection() {
-		yearSelectorView.setSelection(0);
+	private void setFirstSortingSelection() {
+		sortingSelectorView.setSelection(0);
 	}
 
-	private String getSelectedYear() {
-		return (String) yearSelectorView.getSelectedItem();
+	private String getSelectedSorting() {
+		return (String) sortingSelectorView.getSelectedItem();
 	}
 
 	private void restoreFooterOf(MoviePosterView posterView) {
