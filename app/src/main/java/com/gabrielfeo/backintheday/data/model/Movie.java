@@ -18,12 +18,19 @@ public class Movie {
 	private final String releaseDate;
 	@SerializedName("poster_path")
 	private final String posterPath;
+	@SerializedName("popularity")
+	private final float popularity;
+	@SerializedName("vote_average")
+	private final float voteAverage;
 
-	public Movie(int id, String title, String releaseDate, String posterPath) {
+	public Movie(int id, String title, String releaseDate, String posterPath,
+	             float popularity, float voteAverage) {
 		this.id = id;
 		this.title = title;
 		this.releaseDate = releaseDate;
 		this.posterPath = posterPath;
+		this.popularity = popularity;
+		this.voteAverage = voteAverage;
 	}
 
 	public String getTitle() {
@@ -44,6 +51,14 @@ public class Movie {
 
 	public int getId() {
 		return id;
+	}
+
+	public float getPopularity() {
+		return popularity;
+	}
+
+	public float getVoteAverage() {
+		return voteAverage;
 	}
 
 }
