@@ -16,19 +16,35 @@ public final class MovieSorter {
 	public List<Movie> sortBy(Sorting sorting) {
 		switch (sorting) {
 			case MOST_POPULAR:
-				sortByPopularity();
+				sortByPopularityDescending();
 			case HIGHEST_RATED:
-				sortByRating();
+				sortByRatingDescending();
 		}
 		return movies;
 	}
 
-	private void sortByPopularity() {
-        movies.sort((movie1, movie2) -> Float.compare(movie1.getPopularity(), movie2.getPopularity()));
+	private void sortByPopularityDescending() {
+		movies.sort((movie1, movie2) -> {
+			if (movie1.getPopularity() < movie2.getPopularity()) {
+				return 1;
+			} else if (movie1.getPopularity() > movie2.getPopularity()) { return -1; } else return 0;
+		});
 	}
 
-	private void sortByRating() {
-        movies.sort((movie1, movie2) -> Float.compare(movie1.getVoteAverage(), movie2.getVoteAverage()));
+	private void sortByRatingDescending() {
+		movies.sort((movie1, movie2) -> {
+			if (movie1.getVoteAverage() < movie2.getVoteAverage()) {
+				return 1;
+			} else if (movie1.getVoteAverage() > movie2.getVoteAverage()) { return -1; } else return 0;
+		});
+	}
+
+	private void sortByPopularityAscending() {
+		movies.sort((movie1, movie2) -> Float.compare(movie1.getPopularity(), movie2.getPopularity()));
+	}
+
+	private void sortByRatingAscending() {
+		movies.sort((movie1, movie2) -> Float.compare(movie1.getVoteAverage(), movie2.getVoteAverage()));
 	}
 
 }
