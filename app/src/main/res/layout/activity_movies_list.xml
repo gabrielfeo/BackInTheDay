@@ -19,22 +19,12 @@
 			app:layout_scrollFlags = "scroll|snap|enterAlways"
 			app:popupTheme = "@style/ToolbarTheme">
 
-			<TextView
-				android:id = "@+id/movieslist_tv_activity_title"
-				android:layout_width = "wrap_content"
-				android:layout_height = "match_parent"
-				android:gravity = "center_vertical"
-				android:text = "Back In "
-				android:textAppearance = "@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-				app:layout_constraintEnd_toStartOf = "@id/movieslist_s_sorting_selector"
-				app:layout_constraintStart_toStartOf = "parent" />
-
 			<Spinner
 				android:id = "@+id/movieslist_s_sorting_selector"
 				android:layout_width = "wrap_content"
 				android:layout_height = "match_parent"
 				android:spinnerMode = "dropdown"
-				app:layout_constraintStart_toEndOf = "@id/movieslist_tv_activity_title" />
+				app:layout_constraintStart_toStartOf = "parent" />
 
 			<ImageView
 				android:layout_width = "@dimen/movieslist_imageview_w_action_bar_logo"
