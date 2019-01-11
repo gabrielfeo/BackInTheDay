@@ -21,6 +21,7 @@ import android.widget.Spinner;
 
 import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.data.adapter.MoviePosterAdapter;
+import com.gabrielfeo.backintheday.data.model.Sorting;
 import com.gabrielfeo.backintheday.data.viewmodel.MoviesListViewModel;
 import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.ui.listener.OnMoviePosterClickListener;
@@ -82,8 +83,8 @@ public class MoviesListActivity extends AppCompatActivity {
 	}
 
 	private void setupYearSelector() {
-		Integer[] years = viewModel.getYears();
-		ArrayAdapter yearAdapter = new ArrayAdapter<>(this, R.layout.textview_actionbar_year, years);
+		Sorting[] sortingOptions = Sorting.values();
+		ArrayAdapter yearAdapter = new ArrayAdapter<>(this, R.layout.textview_actionbar_year, sortingOptions);
 		yearAdapter.setDropDownViewResource(R.layout.item_year);
 		yearSelectorView.setAdapter(yearAdapter);
 		yearSelectorView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -99,7 +100,6 @@ public class MoviesListActivity extends AppCompatActivity {
 	}
 
 	private void getMovies() {
-		//TODO This callback is delegating presentation to the ViewModel layer. Move string res to Activity.
 		ErrorCallback errorCallback =
 				message -> Snackbar.make(recyclerView, message, Snackbar.LENGTH_SHORT).show();
 		setIsLoading(true);
@@ -143,11 +143,11 @@ public class MoviesListActivity extends AppCompatActivity {
 	}
 
 	private void setFirstYearSelection() {
-		yearSelectorView.setSelection(viewModel.getRandomYear());
+		yearSelectorView.setSelection(0);
 	}
 
-	private int getSelectedYear() {
-		return (int) yearSelectorView.getSelectedItem();
+	private Sorting getSelectedYear() {
+		return (Sorting) yearSelectorView.getSelectedItem();
 	}
 
 	private void restoreFooterOf(MoviePosterView posterView) {
