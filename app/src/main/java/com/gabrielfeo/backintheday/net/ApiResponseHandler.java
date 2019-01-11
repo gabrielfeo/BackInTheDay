@@ -34,8 +34,9 @@ public class ApiResponseHandler<T> implements Callback<T> {
 	}
 
 	@Override
-	public void onFailure(@NonNull Call<T> call, @NonNull Throwable t) {
-		Log.e(TAG, "API call failed with " + call.request().toString(), t);
+	public void onFailure(@NonNull Call<T> call, @NonNull Throwable throwable) {
+		Log.e(TAG, "API call failed with " + call.request().toString(), throwable);
+		throwable.printStackTrace();
 		errorCallback.onError(errorMessage);
 	}
 
