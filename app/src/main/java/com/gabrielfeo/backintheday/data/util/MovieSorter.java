@@ -24,11 +24,11 @@ public final class MovieSorter {
 	}
 
 	private void sortByPopularity() {
-		// TODO Sorting by popularity
+        movies.sort((movie1, movie2) -> Float.compare(movie1.getPopularity(), movie2.getPopularity()));
 	}
 
 	private void sortByRating() {
-		// TODO Sorting by rating
+        movies.sort((movie1, movie2) -> Float.compare(movie1.getVoteAverage(), movie2.getVoteAverage()));
 	}
 
 }
