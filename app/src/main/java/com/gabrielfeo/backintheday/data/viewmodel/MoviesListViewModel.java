@@ -20,33 +20,33 @@ import java.util.Random;
 
 public class MoviesListViewModel extends AndroidViewModel {
 
-	private static final String TAG = MoviesListViewModel.class.getSimpleName();
-	private MutableLiveData<List<Movie>> movies = new MutableLiveData();
+    private static final String TAG = MoviesListViewModel.class.getSimpleName();
+    private MutableLiveData<List<Movie>> movies = new MutableLiveData();
 
-	public MoviesListViewModel(@NonNull Application application) {
-		super(application);
-	}
+    public MoviesListViewModel(@NonNull Application application) {
+        super(application);
+    }
 
-	public Integer[] getYears() {
-		return IntegerRange.of(1901, 2001);
-	}
+    public Integer[] getYears() {
+        return IntegerRange.of(1901, 2001);
+    }
 
-	public int getRandomYear() {
-		int biasedRandomSelection = 60 + new Random().nextInt(40);
-		return biasedRandomSelection;
-	}
+    public int getRandomYear() {
+        int biasedRandomSelection = 60 + new Random().nextInt(40);
+        return biasedRandomSelection;
+    }
 
-	public LiveData<List<Movie>> getMovies(int year, ErrorCallback errorCallback) {
-		refreshMovies(year, errorCallback);
-		return movies;
-	}
+    public LiveData<List<Movie>> getMovies(int year, ErrorCallback errorCallback) {
+        refreshMovies(year, errorCallback);
+        return movies;
+    }
 
-	private void refreshMovies(int year, ErrorCallback errorCallback) {
-		SuccessCallback<MoviesResponse> successCallback =
-				moviesResponse -> movies.setValue(moviesResponse.getMoviesList());
-		String errorMessage = getApplication().getString(R.string.movieslist_error_refresh);
-		MovieDb.getMovieService()
-		       .getMoviesOfYear(year)
-		       .enqueue(new ApiResponseHandler<>(successCallback, errorCallback, errorMessage));
-	}
+    private void refreshMovies(int year, ErrorCallback errorCallback) {
+        SuccessCallback<MoviesResponse> successCallback =
+                moviesResponse -> movies.setValue(moviesResponse.getMoviesList());
+        String errorMessage = getApplication().getString(R.string.movieslist_error_refresh);
+        MovieDb.getMovieService()
+               .getMoviesOfYear(year)
+               .enqueue(new ApiResponseHandler<>(successCallback, errorCallback, errorMessage));
+    }
 }
