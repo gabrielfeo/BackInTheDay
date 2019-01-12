@@ -12,15 +12,15 @@
 		android:roundIcon = "@mipmap/ic_launcher_round"
 		android:supportsRtl = "true"
 		android:theme = "@style/AppTheme">
-		<activity android:name = ".ui.activity.MoviesListActivity">
+        <activity android:name=".ui.movieslist.MoviesListActivity">
 			<intent-filter>
 				<action android:name = "android.intent.action.MAIN" />
 				<category android:name = "android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
 		<activity
-			android:name = ".ui.activity.MovieDetailActivity"
-			android:parentActivityName = ".ui.activity.MoviesListActivity"></activity>
+            android:name=".ui.moviedetails.MovieDetailActivity"
+            android:parentActivityName=".ui.movieslist.MoviesListActivity"></activity>
 	</application>
 
 </manifest>

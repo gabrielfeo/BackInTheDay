@@ -1,4 +1,4 @@
-package com.gabrielfeo.backintheday.data.viewmodel;
+package com.gabrielfeo.backintheday.ui.movieslist;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

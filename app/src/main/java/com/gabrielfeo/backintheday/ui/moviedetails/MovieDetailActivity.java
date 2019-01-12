@@ -1,4 +1,4 @@
-package com.gabrielfeo.backintheday.ui.activity;
+package com.gabrielfeo.backintheday.ui.moviedetails;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gabrielfeo.backintheday.R;
-import com.gabrielfeo.backintheday.data.viewmodel.MovieDetailsViewModel;
 import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.ui.widget.MoviePosterView;
 import com.squareup.picasso.Picasso;
