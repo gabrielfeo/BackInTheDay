@@ -6,8 +6,11 @@ import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static okhttp3.logging.HttpLoggingInterceptor.Level.BODY;
 
 public final class MovieDb {
 
@@ -33,7 +36,11 @@ public final class MovieDb {
     }
 
     private static OkHttpClient getNewClient() {
-        return new OkHttpClient.Builder().addInterceptor(getApiKeyInterceptor()).build();
+        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
+        clientBuilder.addInterceptor(getApiKeyInterceptor());
+        if (BuildConfig.DEBUG)
+            clientBuilder.addInterceptor(new HttpLoggingInterceptor().setLevel(BODY));
+        return clientBuilder.build();
     }
 
     private static Interceptor getApiKeyInterceptor() {
