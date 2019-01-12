@@ -15,13 +15,10 @@ public class ApiResponseHandler<T> implements Callback<T> {
     private static final String TAG = ApiResponseHandler.class.getSimpleName();
     private final SuccessCallback<T> successCallback;
     private final ErrorCallback errorCallback;
-    private final String errorMessage;
 
-    public ApiResponseHandler(SuccessCallback<T> successCallback,
-                              ErrorCallback errorCallback, String errorMessage) {
+    public ApiResponseHandler(SuccessCallback<T> successCallback, ErrorCallback errorCallback) {
         this.successCallback = successCallback;
         this.errorCallback = errorCallback;
-        this.errorMessage = errorMessage;
     }
 
     @Override
@@ -29,15 +26,15 @@ public class ApiResponseHandler<T> implements Callback<T> {
         if (response.body() != null && response.isSuccessful()) {
             successCallback.onSuccess(response.body());
         } else {
-            errorCallback.onError(errorMessage);
+            onFailure(call, null);
         }
     }
 
     @Override
     public void onFailure(@NonNull Call<T> call, @NonNull Throwable throwable) {
         Log.e(TAG, "API call failed with " + call.request().toString(), throwable);
-        throwable.printStackTrace();
-        errorCallback.onError(errorMessage);
+        if (throwable != null) throwable.printStackTrace();
+        errorCallback.onError();
     }
 
 }

@@ -29,7 +29,7 @@ public class AppMovieRepository implements MovieRepository {
         MovieDb.getMovieService()
                .getMoviesOfYear(year)
                .enqueue(new ApiResponseHandler<>(response -> movies.postValue(response.getMoviesList()),
-                                                 message -> Log.e(TAG, message), "Error getting movies from remote"));
+                                                 () -> Log.e(TAG, "Error getting movies from remote")));
         return movies;
     }
 
@@ -39,8 +39,7 @@ public class AppMovieRepository implements MovieRepository {
         MovieDb.getMovieService()
                .getMovieDetails(movieId)
                .enqueue(new ApiResponseHandler<>(movieDetails::postValue,
-                                                 message -> Log.e(TAG, message),
-                                                 "Error getting movie details from remote"));
+                                                 () -> Log.e(TAG, "Error getting movie details from remote")));
         return movieDetails;
     }
 
