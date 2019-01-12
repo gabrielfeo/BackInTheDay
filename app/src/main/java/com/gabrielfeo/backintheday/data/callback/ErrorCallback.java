@@ -1,4 +1,4 @@
-package com.gabrielfeo.backintheday.net.callback;
+package com.gabrielfeo.backintheday.data.callback;
 
 public interface ErrorCallback {
 

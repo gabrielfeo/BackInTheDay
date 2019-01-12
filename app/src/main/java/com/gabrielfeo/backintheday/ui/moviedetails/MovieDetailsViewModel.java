@@ -9,13 +9,13 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.gabrielfeo.backintheday.R;
+import com.gabrielfeo.backintheday.data.ApiResponseHandler;
+import com.gabrielfeo.backintheday.data.callback.ErrorCallback;
+import com.gabrielfeo.backintheday.data.callback.SuccessCallback;
+import com.gabrielfeo.backintheday.data.moviedb.MovieDb;
 import com.gabrielfeo.backintheday.model.MovieDetails;
 import com.gabrielfeo.backintheday.model.ProductionCountry;
 import com.gabrielfeo.backintheday.model.SpokenLanguage;
-import com.gabrielfeo.backintheday.net.ApiResponseHandler;
-import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
-import com.gabrielfeo.backintheday.net.callback.SuccessCallback;
-import com.gabrielfeo.backintheday.net.moviedb.MovieDb;
 
 import java.util.Iterator;
 import java.util.List;

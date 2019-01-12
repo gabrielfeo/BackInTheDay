@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gabrielfeo.backintheday.R;
-import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
+import com.gabrielfeo.backintheday.data.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.ui.widget.MoviePosterView;
 import com.squareup.picasso.Picasso;
 

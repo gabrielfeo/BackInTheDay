@@ -1,4 +1,4 @@
-package com.gabrielfeo.backintheday.net.moviedb;
+package com.gabrielfeo.backintheday.data.moviedb;
 
 import com.gabrielfeo.backintheday.model.MovieDetails;
 import com.gabrielfeo.backintheday.model.MoviesResponse;

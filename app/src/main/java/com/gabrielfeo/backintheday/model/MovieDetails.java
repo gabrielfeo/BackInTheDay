@@ -2,7 +2,7 @@ package com.gabrielfeo.backintheday.model;
 
 import android.net.Uri;
 
-import com.gabrielfeo.backintheday.net.url.MoviePosterUrl;
+import com.gabrielfeo.backintheday.data.url.MoviePosterUrl;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;

@@ -7,12 +7,12 @@ import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
 import com.gabrielfeo.backintheday.R;
+import com.gabrielfeo.backintheday.data.callback.ErrorCallback;
+import com.gabrielfeo.backintheday.data.callback.SuccessCallback;
+import com.gabrielfeo.backintheday.data.moviedb.ApiResponseHandler;
+import com.gabrielfeo.backintheday.data.moviedb.MovieDb;
 import com.gabrielfeo.backintheday.model.Movie;
 import com.gabrielfeo.backintheday.model.MoviesResponse;
-import com.gabrielfeo.backintheday.net.ApiResponseHandler;
-import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
-import com.gabrielfeo.backintheday.net.callback.SuccessCallback;
-import com.gabrielfeo.backintheday.net.moviedb.MovieDb;
 import com.gabrielfeo.backintheday.util.IntegerRange;
 
 import java.util.List;

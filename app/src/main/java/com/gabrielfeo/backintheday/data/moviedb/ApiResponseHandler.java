@@ -1,10 +1,10 @@
-package com.gabrielfeo.backintheday.net;
+package com.gabrielfeo.backintheday.data.moviedb;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
-import com.gabrielfeo.backintheday.net.callback.SuccessCallback;
+import com.gabrielfeo.backintheday.data.callback.ErrorCallback;
+import com.gabrielfeo.backintheday.data.callback.SuccessCallback;
 
 import retrofit2.Call;
 import retrofit2.Callback;
