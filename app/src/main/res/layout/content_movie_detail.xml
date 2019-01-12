@@ -1,154 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v4.widget.NestedScrollView xmlns:android = "http://schemas.android.com/apk/res/android"
-	xmlns:app = "http://schemas.android.com/apk/res-auto"
-	xmlns:tools = "http://schemas.android.com/tools"
-	android:layout_width = "match_parent"
-	android:layout_height = "wrap_content"
-	app:layout_behavior = "android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
-	tools:showIn = "@layout/activity_movie_detail">
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
+    tools:showIn="@layout/activity_movie_detail">
 
-	<android.support.constraint.ConstraintLayout
-		android:layout_width = "match_parent"
-		android:layout_height = "wrap_content"
-		android:padding = "@dimen/global_activity_padding">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/global_activity_padding">
 
-		<TextView
-			android:id = "@+id/moviedetail_tv_title"
-			android:layout_width = "match_parent"
-			android:layout_height = "wrap_content"
-			android:maxLines = "3"
-			android:textAppearance = "@style/TextAppearance.MaterialComponents.Headline5"
-			android:textColor = "@color/textRegular"
-			android:textStyle = "bold"
-			app:layout_constraintBottom_toTopOf = "@id/moviedetail_tv_director"
-			app:layout_constraintTop_toTopOf = "parent"
-			tools:text = "Dr. Strangelove or How I Learned to Stop Worrying and Love the Bomb" />
+        <TextView
+            android:id="@+id/moviedetail_tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textColor="@color/textRegular"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/moviedetail_tv_director"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Dr. Strangelove or How I Learned to Stop Worrying and Love the Bomb" />
 
-		<TextView
-			android:id = "@+id/moviedetail_tv_director"
-			android:layout_width = "match_parent"
-			android:layout_height = "wrap_content"
-			android:maxLines = "2"
-			android:textColor = "@color/textRegular"
-			app:layout_constraintStart_toStartOf = "@id/moviedetail_tv_title"
-			app:layout_constraintTop_toBottomOf = "@id/moviedetail_tv_title"
-			tools:text = "Stanley Kubrick " />
+        <TextView
+            android:id="@+id/moviedetail_tv_director"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:textColor="@color/textRegular"
+            app:layout_constraintStart_toStartOf="@id/moviedetail_tv_title"
+            app:layout_constraintTop_toBottomOf="@id/moviedetail_tv_title"
+            tools:text="Stanley Kubrick " />
 
-		<com.gabrielfeo.backintheday.ui.widget.MoviePosterView
-			android:id = "@+id/shared_mpv_movie_poster"
-			android:layout_width = "0dp"
-			android:layout_height = "0dp"
-			android:layout_marginTop = "24dp"
-			android:layout_marginEnd = "16dp"
-			android:transitionName = "@string/transition_list_to_detail"
-			app:layout_constraintDimensionRatio = "2:3"
-			app:layout_constraintEnd_toStartOf = "@id/moviedetail_tv_year"
-			app:layout_constraintStart_toStartOf = "@id/moviedetail_tv_director"
-			app:layout_constraintTop_toBottomOf = "@id/moviedetail_tv_director" />
+        <com.gabrielfeo.backintheday.ui.widget.MoviePosterView
+            android:id="@+id/shared_mpv_movie_poster"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:transitionName="@string/transition_list_to_detail"
+            app:layout_constraintDimensionRatio="2:3"
+            app:layout_constraintEnd_toStartOf="@id/moviedetail_tv_year"
+            app:layout_constraintStart_toStartOf="@id/moviedetail_tv_director"
+            app:layout_constraintTop_toBottomOf="@id/moviedetail_tv_director" />
 
-		<TextView
-			android:id = "@+id/moviedetail_tv_year"
-			android:layout_width = "wrap_content"
-			android:layout_height = "wrap_content"
-			android:layout_marginBottom = "16dp"
-			android:fontFamily = "sans-serif-condensed"
-			android:paddingStart = "24dp"
-			android:textColor = "@color/textRegular"
-			android:textAlignment = "viewEnd"
-			android:textAppearance = "@style/TextAppearance.MaterialComponents.Headline4"
-			app:layout_constraintBottom_toTopOf = "@id/moviedetail_tv_countries"
-			app:layout_constraintEnd_toEndOf = "parent"
-			app:layout_constraintTop_toTopOf = "@id/shared_mpv_movie_poster"
-			app:layout_constraintVertical_bias = "0.3"
-			app:layout_constraintVertical_chainStyle = "packed"
-			tools:text = "1964" />
+        <TextView
+            android:id="@+id/moviedetail_tv_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif-condensed"
+            android:paddingStart="24dp"
+            android:textColor="@color/textRegular"
+            android:textAlignment="viewEnd"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            app:layout_constraintBottom_toTopOf="@id/moviedetail_tv_countries"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/shared_mpv_movie_poster"
+            app:layout_constraintVertical_bias="0.3"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="1964" />
 
-		<TextView
-			android:id = "@+id/moviedetail_tv_countries"
-			style = "@style/Text.SingleLine.MovieDetailTechnicalInfo"
-			android:layout_width = "0dp"
-			android:textColor = "@color/textRegular"
-			android:layout_height = "wrap_content"
-			app:layout_constraintBottom_toTopOf = "@id/moviedetail_tv_languages"
-			app:layout_constraintEnd_toEndOf = "@id/moviedetail_tv_year"
-			app:layout_constraintStart_toStartOf = "@id/moviedetail_tv_year"
-			app:layout_constraintTop_toBottomOf = "@id/moviedetail_tv_year"
-			tools:text = "US/UK" />
+        <TextView
+            android:id="@+id/moviedetail_tv_countries"
+            style="@style/Text.SingleLine.MovieDetailTechnicalInfo"
+            android:layout_width="0dp"
+            android:textColor="@color/textRegular"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/moviedetail_tv_languages"
+            app:layout_constraintEnd_toEndOf="@id/moviedetail_tv_year"
+            app:layout_constraintStart_toStartOf="@id/moviedetail_tv_year"
+            app:layout_constraintTop_toBottomOf="@id/moviedetail_tv_year"
+            tools:text="US/UK" />
 
-		<TextView
-			android:id = "@+id/moviedetail_tv_languages"
-			style = "@style/Text.SingleLine.MovieDetailTechnicalInfo"
-			android:layout_width = "0dp"
-			android:layout_height = "wrap_content"
-			app:layout_constraintBottom_toTopOf = "@id/moviedetail_tv_duration"
-			app:layout_constraintEnd_toEndOf = "@id/moviedetail_tv_year"
-			app:layout_constraintStart_toStartOf = "@id/moviedetail_tv_year"
-			app:layout_constraintTop_toBottomOf = "@id/moviedetail_tv_countries"
-			tools:text = "Eng, Rus" />
+        <TextView
+            android:id="@+id/moviedetail_tv_languages"
+            style="@style/Text.SingleLine.MovieDetailTechnicalInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/moviedetail_tv_duration"
+            app:layout_constraintEnd_toEndOf="@id/moviedetail_tv_year"
+            app:layout_constraintStart_toStartOf="@id/moviedetail_tv_year"
+            app:layout_constraintTop_toBottomOf="@id/moviedetail_tv_countries"
+            tools:text="Eng, Rus" />
 
-		<TextView
-			android:id = "@+id/moviedetail_tv_duration"
-			style = "@style/Text.SingleLine.MovieDetailTechnicalInfo"
-			android:layout_width = "0dp"
-			android:layout_height = "wrap_content"
-			android:layout_marginBottom = "16dp"
-			app:layout_constraintBottom_toTopOf = "@id/moviedetail_tv_rating_title"
-			app:layout_constraintEnd_toEndOf = "@id/moviedetail_tv_year"
-			app:layout_constraintStart_toStartOf = "@id/moviedetail_tv_year"
-			app:layout_constraintTop_toBottomOf = "@id/moviedetail_tv_languages"
-			tools:text = "139 min" />
+        <TextView
+            android:id="@+id/moviedetail_tv_duration"
+            style="@style/Text.SingleLine.MovieDetailTechnicalInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@id/moviedetail_tv_rating_title"
+            app:layout_constraintEnd_toEndOf="@id/moviedetail_tv_year"
+            app:layout_constraintStart_toStartOf="@id/moviedetail_tv_year"
+            app:layout_constraintTop_toBottomOf="@id/moviedetail_tv_languages"
+            tools:text="139 min" />
 
-		<TextView
-			android:id = "@+id/moviedetail_tv_rating_title"
-			android:layout_width = "0dp"
-			android:layout_height = "wrap_content"
-			android:fontFamily = "sans-serif-condensed"
-			android:textAlignment = "viewEnd"
-			android:textColor = "@color/textRegular"
-			android:textAppearance = "@style/TextAppearance.MaterialComponents.Subtitle1"
-			app:layout_constraintBottom_toTopOf = "@id/moviedetail_tv_rating_value"
-			app:layout_constraintEnd_toEndOf = "@id/moviedetail_tv_year"
-			app:layout_constraintStart_toStartOf = "@id/moviedetail_tv_year"
-			app:layout_constraintTop_toBottomOf = "@id/moviedetail_tv_duration"
-			tools:text = "Average rating" />
+        <TextView
+            android:id="@+id/moviedetail_tv_rating_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/textRegular"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintBottom_toTopOf="@id/moviedetail_tv_rating_value"
+            app:layout_constraintEnd_toEndOf="@id/moviedetail_tv_year"
+            app:layout_constraintStart_toStartOf="@id/moviedetail_tv_year"
+            app:layout_constraintTop_toBottomOf="@id/moviedetail_tv_duration"
+            tools:text="Average rating" />
 
-		<TextView
-			android:id = "@+id/moviedetail_tv_rating_value"
-			android:layout_width = "0dp"
-			android:layout_height = "wrap_content"
-			android:fontFamily = "sans-serif-condensed"
-			android:textColor = "@color/textRegular"
-			android:textAlignment = "viewEnd"
-			android:textAppearance = "@style/TextAppearance.MaterialComponents.Headline5"
-			app:layout_constraintBottom_toBottomOf = "@id/shared_mpv_movie_poster"
-			app:layout_constraintEnd_toEndOf = "@id/moviedetail_tv_year"
-			app:layout_constraintStart_toStartOf = "@id/moviedetail_tv_year"
-			app:layout_constraintTop_toBottomOf = "@id/moviedetail_tv_rating_title"
-			tools:text = "7.8" />
+        <TextView
+            android:id="@+id/moviedetail_tv_rating_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/textRegular"
+            android:textAlignment="viewEnd"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            app:layout_constraintBottom_toBottomOf="@id/shared_mpv_movie_poster"
+            app:layout_constraintEnd_toEndOf="@id/moviedetail_tv_year"
+            app:layout_constraintStart_toStartOf="@id/moviedetail_tv_year"
+            app:layout_constraintTop_toBottomOf="@id/moviedetail_tv_rating_title"
+            tools:text="7.8" />
 
-		<TextView
-			android:id = "@+id/moviedetail_tv_sinopsis"
-			android:layout_width = "match_parent"
-			android:layout_height = "wrap_content"
-			android:textColor = "@color/textRegular"
-			android:layout_marginTop = "36dp"
-			android:textAppearance = "@style/TextAppearance.MaterialComponents.Body2"
-			app:layout_constraintTop_toBottomOf = "@id/shared_mpv_movie_poster"
-			app:layout_constraintBottom_toTopOf = "@id/moviedetail_iv_moviedb_logo"
-			tools:text = "@sample/sinopsis" />
+        <TextView
+            android:id="@+id/moviedetail_tv_sinopsis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textRegular"
+            android:layout_marginTop="36dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            app:layout_constraintTop_toBottomOf="@id/shared_mpv_movie_poster"
+            app:layout_constraintBottom_toTopOf="@id/moviedetail_iv_moviedb_logo"
+            tools:text="@sample/sinopsis" />
 
-		<ImageView
-			android:id = "@+id/moviedetail_iv_moviedb_logo"
-			android:layout_width = "@dimen/moviedetail_imageview_w_footer_logo"
-			android:layout_height = "wrap_content"
-			android:layout_marginTop = "16dp"
-			android:layout_marginEnd = "16dp"
-			android:adjustViewBounds = "true"
-			android:src = "@drawable/ic_logo_moviedb_powered_by"
-			app:layout_constraintEnd_toEndOf = "@id/moviedetail_tv_sinopsis"
-			app:layout_constraintTop_toBottomOf = "@id/moviedetail_tv_sinopsis" />
+        <ImageView
+            android:id="@+id/moviedetail_iv_moviedb_logo"
+            android:layout_width="@dimen/moviedetail_imageview_w_footer_logo"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_logo_moviedb_powered_by"
+            app:layout_constraintEnd_toEndOf="@id/moviedetail_tv_sinopsis"
+            app:layout_constraintTop_toBottomOf="@id/moviedetail_tv_sinopsis" />
 
-	</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.v4.widget.NestedScrollView>
