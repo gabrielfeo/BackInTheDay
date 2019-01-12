@@ -1,17 +1,19 @@
 package com.gabrielfeo.backintheday.data;
 
-import com.gabrielfeo.backintheday.data.callback.SuccessCallback;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+import android.util.Log;
+
 import com.gabrielfeo.backintheday.data.moviedb.ApiResponseHandler;
 import com.gabrielfeo.backintheday.data.moviedb.MovieDb;
 import com.gabrielfeo.backintheday.model.Movie;
 import com.gabrielfeo.backintheday.model.MovieDetails;
-import com.gabrielfeo.backintheday.model.MoviesResponse;
 
 import java.util.List;
 
-import retrofit2.Callback;
-
 public class AppMovieRepository implements MovieRepository {
+
+    private static final String TAG = AppMovieRepository.class.getSimpleName();
 
     private static final class InstanceHolder {
         private static AppMovieRepository INSTANCE = new AppMovieRepository();
@@ -22,31 +24,24 @@ public class AppMovieRepository implements MovieRepository {
     }
 
     @Override
-    public void getMoviesOfYear(int year, DataRequest<List<Movie>> request) {
-        final SuccessCallback<List<Movie>> movieCallback = request.getSuccessCallback();
-        final SuccessCallback<MoviesResponse> responseSuccessCallback =
-                (response) -> movieCallback.onSuccess(response.getMoviesList());
+    public LiveData<List<Movie>> getMoviesOfYear(int year) {
+        final MutableLiveData<List<Movie>> movies = new MutableLiveData<>();
         MovieDb.getMovieService()
                .getMoviesOfYear(year)
-               .enqueue(wrapAsCallback(responseSuccessCallback, request));
+               .enqueue(new ApiResponseHandler<>(response -> movies.postValue(response.getMoviesList()),
+                                                 message -> Log.e(TAG, message), "Error getting movies from remote"));
+        return movies;
     }
 
     @Override
-    public void getMovieDetails(int movieId, DataRequest<MovieDetails> request) {
+    public LiveData<MovieDetails> getMovieDetails(int movieId) {
+        final MutableLiveData<MovieDetails> movieDetails = new MutableLiveData<>();
         MovieDb.getMovieService()
                .getMovieDetails(movieId)
-               .enqueue(wrapAsCallback(request));
-    }
-
-    private <TResult> Callback<TResult> wrapAsCallback(DataRequest<TResult> originalRequest) {
-        return wrapAsCallback(originalRequest.getSuccessCallback(), originalRequest);
-    }
-
-    private <TResponse, TResult> Callback<TResponse> wrapAsCallback(SuccessCallback<TResponse> newSuccessCallback,
-                                                                    DataRequest<TResult> originalRequest) {
-        return new ApiResponseHandler<TResponse>(newSuccessCallback,
-                                                 originalRequest.getErrorCallback(),
-                                                 originalRequest.getErrorMessage());
+               .enqueue(new ApiResponseHandler<>(movieDetails::postValue,
+                                                 message -> Log.e(TAG, message),
+                                                 "Error getting movie details from remote"));
+        return movieDetails;
     }
 
 
