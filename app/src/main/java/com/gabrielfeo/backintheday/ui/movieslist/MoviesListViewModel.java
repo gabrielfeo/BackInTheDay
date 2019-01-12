@@ -7,9 +7,9 @@ import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
 import com.gabrielfeo.backintheday.R;
-import com.gabrielfeo.backintheday.data.model.Movie;
-import com.gabrielfeo.backintheday.data.model.MoviesResponse;
 import com.gabrielfeo.backintheday.data.util.IntegerRange;
+import com.gabrielfeo.backintheday.model.Movie;
+import com.gabrielfeo.backintheday.model.MoviesResponse;
 import com.gabrielfeo.backintheday.net.ApiResponseHandler;
 import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.net.callback.SuccessCallback;

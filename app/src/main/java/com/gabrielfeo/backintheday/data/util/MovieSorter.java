@@ -1,7 +1,7 @@
 package com.gabrielfeo.backintheday.data.util;
 
-import com.gabrielfeo.backintheday.data.model.Movie;
-import com.gabrielfeo.backintheday.data.model.Sorting;
+import com.gabrielfeo.backintheday.model.Movie;
+import com.gabrielfeo.backintheday.model.Sorting;
 
 import java.util.List;
 

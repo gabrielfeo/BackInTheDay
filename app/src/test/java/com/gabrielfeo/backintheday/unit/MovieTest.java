@@ -1,6 +1,6 @@
 package com.gabrielfeo.backintheday.unit;
 
-import com.gabrielfeo.backintheday.data.model.Movie;
+import com.gabrielfeo.backintheday.model.Movie;
 
 import org.junit.Before;
 import org.junit.Test;

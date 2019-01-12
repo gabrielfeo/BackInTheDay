@@ -1,7 +1,7 @@
 package com.gabrielfeo.backintheday.net.moviedb;
 
-import com.gabrielfeo.backintheday.data.model.MovieDetails;
-import com.gabrielfeo.backintheday.data.model.MoviesResponse;
+import com.gabrielfeo.backintheday.model.MovieDetails;
+import com.gabrielfeo.backintheday.model.MoviesResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -1,4 +1,4 @@
-package com.gabrielfeo.backintheday.data.model;
+package com.gabrielfeo.backintheday.model;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gabrielfeo.backintheday.data.model.Movie;
+import com.gabrielfeo.backintheday.model.Movie;
 import com.gabrielfeo.backintheday.ui.widget.MoviePosterView;
 import com.squareup.picasso.Picasso;
 

@@ -9,9 +9,9 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.gabrielfeo.backintheday.R;
-import com.gabrielfeo.backintheday.data.model.MovieDetails;
-import com.gabrielfeo.backintheday.data.model.ProductionCountry;
-import com.gabrielfeo.backintheday.data.model.SpokenLanguage;
+import com.gabrielfeo.backintheday.model.MovieDetails;
+import com.gabrielfeo.backintheday.model.ProductionCountry;
+import com.gabrielfeo.backintheday.model.SpokenLanguage;
 import com.gabrielfeo.backintheday.net.ApiResponseHandler;
 import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.net.callback.SuccessCallback;
