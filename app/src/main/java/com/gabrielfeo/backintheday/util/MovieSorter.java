@@ -1,4 +1,4 @@
-package com.gabrielfeo.backintheday.data.util;
+package com.gabrielfeo.backintheday.util;
 
 import com.gabrielfeo.backintheday.model.Movie;
 import com.gabrielfeo.backintheday.model.Sorting;
