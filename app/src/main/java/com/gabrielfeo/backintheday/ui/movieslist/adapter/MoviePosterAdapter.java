@@ -1,4 +1,4 @@
-package com.gabrielfeo.backintheday.data.adapter;
+package com.gabrielfeo.backintheday.ui.movieslist.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

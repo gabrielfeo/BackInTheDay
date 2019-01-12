@@ -20,9 +20,9 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import com.gabrielfeo.backintheday.R;
-import com.gabrielfeo.backintheday.data.adapter.MoviePosterAdapter;
 import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.ui.moviedetails.MovieDetailActivity;
+import com.gabrielfeo.backintheday.ui.movieslist.adapter.MoviePosterAdapter;
 import com.gabrielfeo.backintheday.ui.widget.MoviePosterView;
 
 import java.util.List;
