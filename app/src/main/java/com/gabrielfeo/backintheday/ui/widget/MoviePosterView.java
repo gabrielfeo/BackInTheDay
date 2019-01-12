@@ -25,6 +25,9 @@ import java.util.List;
 
 public final class MoviePosterView extends ConstraintLayout implements Target {
 
+    public static interface OnMoviePosterClickListener {
+        void onMoviePosterClick(MoviePosterView moviePosterView, int movieId);
+    }
     private static final String TAG = MoviePosterView.class.getSimpleName();
     private ImageView posterImageView;
     private View infoBackgroundView;
@@ -50,16 +53,6 @@ public final class MoviePosterView extends ConstraintLayout implements Target {
         attributes.recycle();
     }
 
-    public MoviePosterView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(attrs);
-    }
-
-    public MoviePosterView(Context context, AttributeSet attrs, int defStyleAttrs) {
-        super(context, attrs, defStyleAttrs);
-        init(attrs);
-    }
-
     private void setAttributes(TypedArray attributes) {
         Drawable posterDrawable = attributes.getDrawable(R.styleable.MoviePosterView_posterImage);
         if (posterDrawable != null) setImage(posterDrawable);
@@ -75,6 +68,18 @@ public final class MoviePosterView extends ConstraintLayout implements Target {
         this.footerOpaque = checkFooterViewsOpacity();
     }
 
+    public void setImage(Drawable drawable) {
+        posterImageView.setImageDrawable(drawable);
+    }
+
+    public void setTitle(String title) {
+        titleView.setText(title);
+    }
+
+    public void setYear(String year) {
+        yearView.setText(year);
+    }
+
     private boolean checkFooterViewsVisibility() {
         return (infoBackgroundView.getVisibility() == View.VISIBLE)
                 && (titleView.getVisibility() == View.VISIBLE)
@@ -86,6 +91,16 @@ public final class MoviePosterView extends ConstraintLayout implements Target {
         return (infoBackgroundView.getAlpha() == opaque)
                 && (titleView.getAlpha() == opaque)
                 && (yearView.getAlpha() == opaque);
+    }
+
+    public MoviePosterView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(attrs);
+    }
+
+    public MoviePosterView(Context context, AttributeSet attrs, int defStyleAttrs) {
+        super(context, attrs, defStyleAttrs);
+        init(attrs);
     }
 
     @Override
@@ -103,27 +118,24 @@ public final class MoviePosterView extends ConstraintLayout implements Target {
         if (errorDrawable != null) setImage(errorDrawable);
     }
 
-    public void setImage(Drawable drawable) {
-        posterImageView.setImageDrawable(drawable);
-    }
-
     @Override
     public void onPrepareLoad(Drawable placeHolderDrawable) {
         if (placeHolderDrawable != null) setImage(placeHolderDrawable);
-    }
-
-    public void setTitle(String title) {
-        titleView.setText(title);
-    }
-
-    public void setYear(String year) {
-        yearView.setText(year);
     }
 
     public void fadeFooterIn(@Nullable AnimatorListener listener) {
         if (!footerVisible) setFooterVisible(true);
         fadeFooterTo(1f, listener);
         this.footerOpaque = true;
+    }
+
+    public void setFooterVisible(boolean visible) {
+        if (this.footerVisible == visible) return;
+        int visibility = (visible) ? View.VISIBLE : View.INVISIBLE;
+        infoBackgroundView.setVisibility(visibility);
+        titleView.setVisibility(visibility);
+        yearView.setVisibility(visibility);
+        this.footerVisible = visible;
     }
 
     private void fadeFooterTo(float targetAlpha, AnimatorListener listener) {
@@ -140,15 +152,6 @@ public final class MoviePosterView extends ConstraintLayout implements Target {
         ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", view.getAlpha(), targetAlpha);
         animator.setDuration(250);
         return animator;
-    }
-
-    public void setFooterVisible(boolean visible) {
-        if (this.footerVisible == visible) return;
-        int visibility = (visible) ? View.VISIBLE : View.INVISIBLE;
-        infoBackgroundView.setVisibility(visibility);
-        titleView.setVisibility(visibility);
-        yearView.setVisibility(visibility);
-        this.footerVisible = visible;
     }
 
     public void fadeFooterOut(@Nullable AnimatorListener listener) {

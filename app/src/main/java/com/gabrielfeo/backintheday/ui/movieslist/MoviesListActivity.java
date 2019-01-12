@@ -22,7 +22,6 @@ import android.widget.Spinner;
 import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.data.adapter.MoviePosterAdapter;
 import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
-import com.gabrielfeo.backintheday.ui.listener.OnMoviePosterClickListener;
 import com.gabrielfeo.backintheday.ui.moviedetails.MovieDetailActivity;
 import com.gabrielfeo.backintheday.ui.widget.MoviePosterView;
 
@@ -41,7 +40,7 @@ public class MoviesListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MoviePosterAdapter adapter = new MoviePosterAdapter(getMovieClickListener());
 
-    private OnMoviePosterClickListener getMovieClickListener() {
+    private MoviePosterView.OnMoviePosterClickListener getMovieClickListener() {
         return (moviePosterView, movieId) -> {
             moviePosterView.setClickable(false);
             AnimatorListener animationEndListener = new AnimatorListenerAdapter() {

@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gabrielfeo.backintheday.data.model.Movie;
-import com.gabrielfeo.backintheday.ui.listener.OnMoviePosterClickListener;
 import com.gabrielfeo.backintheday.ui.widget.MoviePosterView;
 import com.squareup.picasso.Picasso;
 
@@ -15,9 +14,9 @@ import java.util.List;
 public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.MoviePosterViewHolder> {
 
     private List<Movie> movies;
-    private OnMoviePosterClickListener clickListener;
+    private MoviePosterView.OnMoviePosterClickListener clickListener;
 
-    public MoviePosterAdapter(OnMoviePosterClickListener movieClickListener) {
+    public MoviePosterAdapter(MoviePosterView.OnMoviePosterClickListener movieClickListener) {
         this.clickListener = movieClickListener;
     }
 
