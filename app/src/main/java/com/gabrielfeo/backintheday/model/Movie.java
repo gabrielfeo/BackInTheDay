@@ -5,9 +5,6 @@ import android.net.Uri;
 import com.gabrielfeo.backintheday.data.url.MoviePosterUrl;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Placeholder class, valid until the movieDb API is integrated with the app.
- */
 public class Movie {
 
     private final int id;
