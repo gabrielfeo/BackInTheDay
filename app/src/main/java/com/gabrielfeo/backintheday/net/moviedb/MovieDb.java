@@ -11,41 +11,41 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public final class MovieDb {
 
-	private static final String BASE_URL = "https://api.themoviedb.org/3/";
-	private static final String MOVIEDB_API_KEY = BuildConfig.MOVIEDB_API_KEY;
-	private static Retrofit retrofit;
+    private static final String BASE_URL = "https://api.themoviedb.org/3/";
+    private static final String MOVIEDB_API_KEY = BuildConfig.MOVIEDB_API_KEY;
+    private static Retrofit retrofit;
 
-	public static MovieService getMovieService() {
-		return getRetrofit().create(MovieService.class);
-	}
+    public static MovieService getMovieService() {
+        return getRetrofit().create(MovieService.class);
+    }
 
-	private static Retrofit getRetrofit() {
-		if (retrofit == null) { buildRetrofit(); }
-		return retrofit;
-	}
+    private static Retrofit getRetrofit() {
+        if (retrofit == null) { buildRetrofit(); }
+        return retrofit;
+    }
 
-	private static void buildRetrofit() {
-		retrofit = new Retrofit.Builder()
-				.baseUrl(BASE_URL)
-				.client(getNewClient())
-				.addConverterFactory(GsonConverterFactory.create())
-				.build();
-	}
+    private static void buildRetrofit() {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(getNewClient())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+    }
 
-	private static OkHttpClient getNewClient() {
-		return new OkHttpClient.Builder().addInterceptor(getApiKeyInterceptor()).build();
-	}
+    private static OkHttpClient getNewClient() {
+        return new OkHttpClient.Builder().addInterceptor(getApiKeyInterceptor()).build();
+    }
 
-	private static Interceptor getApiKeyInterceptor() {
-		return chain -> {
-			Request oldRequest = chain.request();
-			HttpUrl originalUrl = oldRequest.url();
-			HttpUrl newUrl = originalUrl.newBuilder()
-			                            .addQueryParameter("api_key", MOVIEDB_API_KEY)
-			                            .build();
-			Request newRequest = oldRequest.newBuilder().url(newUrl).build();
-			return chain.proceed(newRequest);
-		};
-	}
+    private static Interceptor getApiKeyInterceptor() {
+        return chain -> {
+            Request oldRequest = chain.request();
+            HttpUrl originalUrl = oldRequest.url();
+            HttpUrl newUrl = originalUrl.newBuilder()
+                                        .addQueryParameter("api_key", MOVIEDB_API_KEY)
+                                        .build();
+            Request newRequest = oldRequest.newBuilder().url(newUrl).build();
+            return chain.proceed(newRequest);
+        };
+    }
 
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?><!--TODO State naming convention-->
 <resources>
 
-	<dimen name = "movieslist_progressbar_wh_loading">48dp</dimen>
-	<dimen name = "global_activity_padding">16dp</dimen>
-	<dimen name = "moviedetail_imageview_w_footer_logo">64dp</dimen>
-	<dimen name = "movieslist_imageview_w_action_bar_logo">32dp</dimen>
+    <dimen name="movieslist_progressbar_wh_loading">48dp</dimen>
+    <dimen name="global_activity_padding">16dp</dimen>
+    <dimen name="moviedetail_imageview_w_footer_logo">64dp</dimen>
+    <dimen name="movieslist_imageview_w_action_bar_logo">32dp</dimen>
 
 </resources>

@@ -1,4 +1,4 @@
-package com.gabrielfeo.backintheday.data.util;
+package com.gabrielfeo.backintheday.util;
 
 public final class IntegerRange {
 

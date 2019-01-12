@@ -1,7 +1,7 @@
 package com.gabrielfeo.backintheday.integration;
 
 import com.gabrielfeo.backintheday.altclass.LoggingMovieDb;
-import com.gabrielfeo.backintheday.data.model.MoviesResponse;
+import com.gabrielfeo.backintheday.model.MoviesResponse;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
