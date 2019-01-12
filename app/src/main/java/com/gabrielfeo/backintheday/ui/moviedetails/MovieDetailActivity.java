@@ -104,7 +104,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void refreshMovieDetails() {
-        viewModel.refreshMovieDetails(snackbarErrorCallback);
+        viewModel.refreshMovieDetails();
     }
 
     private void setPosterImage(Uri imageUrl) {
