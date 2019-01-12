@@ -113,7 +113,6 @@
       <option name="KEEP_SIMPLE_METHODS_IN_ONE_LINE" value="true" />
       <option name="KEEP_SIMPLE_LAMBDAS_IN_ONE_LINE" value="true" />
       <option name="KEEP_SIMPLE_CLASSES_IN_ONE_LINE" value="true" />
-      <option name="IF_BRACE_FORCE" value="1" />
       <option name="WRAP_LONG_LINES" value="true" />
       <indentOptions>
         <option name="SMART_TABS" value="true" />
