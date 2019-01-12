@@ -20,7 +20,6 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import com.gabrielfeo.backintheday.R;
-import com.gabrielfeo.backintheday.data.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.ui.moviedetails.MovieDetailActivity;
 import com.gabrielfeo.backintheday.ui.movieslist.adapter.MoviePosterAdapter;
 import com.gabrielfeo.backintheday.ui.widget.MoviePosterView;
@@ -30,7 +29,7 @@ import java.util.List;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
-public class MoviesListActivity extends AppCompatActivity {
+public final class MoviesListActivity extends AppCompatActivity {
 
     private static final String TAG = MoviesListActivity.class.getSimpleName();
     private MoviesListViewModel viewModel;
@@ -98,11 +97,8 @@ public class MoviesListActivity extends AppCompatActivity {
     }
 
     private void getMovies() {
-        //TODO This callback is delegating presentation to the ViewModel layer. Move string res to Activity.
-        ErrorCallback errorCallback =
-                message -> Snackbar.make(recyclerView, message, Snackbar.LENGTH_SHORT).show();
         setIsLoading(true);
-        viewModel.getMovies(getSelectedYear(), errorCallback)
+        viewModel.getMovies(getSelectedYear())
                  .observe(this, movies -> {
                      adapter.setMovies(movies);
                      setIsLoading(false);
@@ -151,6 +147,10 @@ public class MoviesListActivity extends AppCompatActivity {
 
     private void restoreFooterOf(MoviePosterView posterView) {
         if (!posterView.isFooterFullyVisible()) { posterView.fadeFooterIn(null); }
+    }
+
+    protected void showError(String message) {
+        Snackbar.make(contentRootView, message, Snackbar.LENGTH_SHORT).show();
     }
 
     private final class ReturningSharedPosterViewCallback extends SharedElementCallback {
