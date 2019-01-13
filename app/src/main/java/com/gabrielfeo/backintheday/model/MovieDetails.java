@@ -3,14 +3,22 @@ package com.gabrielfeo.backintheday.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 import android.net.Uri;
 
+import com.gabrielfeo.backintheday.data.local.typeconverter.CreditsSerializer;
+import com.gabrielfeo.backintheday.data.local.typeconverter.ProductionCountryListSerializer;
+import com.gabrielfeo.backintheday.data.local.typeconverter.SpokenLanguageListSerializer;
 import com.gabrielfeo.backintheday.data.url.MoviePosterUrl;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 @Entity(tableName = "movie_details")
+@TypeConverters({CreditsSerializer.class,
+                 SpokenLanguageListSerializer.class,
+                 ProductionCountryListSerializer.class}
+)
 public class MovieDetails {
 
     @PrimaryKey

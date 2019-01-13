@@ -20,7 +20,7 @@ import java.util.List;
 public class MovieDetailsViewModel extends AndroidViewModel {
 
     private static final String TAG = MovieDetailsViewModel.class.getSimpleName();
-    private MovieRepository movieRepository = AppMovieRepository.getInstance();
+    private MovieRepository movieRepository = AppMovieRepository.getInstance(getApplication());
     private int movieId;
     private MediatorLiveData<String> title = new MediatorLiveData<>();
     private MediatorLiveData<String> directors = new MediatorLiveData<>();
@@ -48,77 +48,97 @@ public class MovieDetailsViewModel extends AndroidViewModel {
     }
 
     private void addNewDetailsSource(LiveData<MovieDetails> source) {
-        title.addSource(source, details -> setTitle(details.getTitle()));
-        directors.addSource(source, details -> setDirectors(details.getCredits().getDirectorsNames()));
-        posterUrl.addSource(source, details -> setPosterUrl(details.getPosterUrl()));
-        countries.addSource(source, details -> setCountries(details.getCountries()));
-        year.addSource(source, details -> setYear(details.getReleaseYear()));
-        languages.addSource(source, details -> setLanguages(details.getLanguages()));
-        duration.addSource(source, details -> setDuration(details.getDuration()));
-        rating.addSource(source, details -> setRating(details.getRating()));
-        sinopsis.addSource(source, details -> setSinopsis(details.getSinopsis()));
+        title.addSource(source, movieDetails -> setTitleFrom(movieDetails));
+        directors.addSource(source, movieDetails -> setDirectorsFrom(movieDetails));
+        posterUrl.addSource(source, movieDetails -> setPosterUrlFrom(movieDetails));
+        countries.addSource(source, movieDetails -> setCountriesFrom(movieDetails));
+        year.addSource(source, movieDetails -> setYearFrom(movieDetails));
+        languages.addSource(source, movieDetails -> setLanguagesFrom(movieDetails));
+        duration.addSource(source, movieDetails -> setDurationFrom(movieDetails));
+        rating.addSource(source, movieDetails -> setRatingFrom(movieDetails));
+        sinopsis.addSource(source, movieDetails -> setSinopsisFrom(movieDetails));
     }
 
     public void setMovieId(int movieId) {
         this.movieId = movieId;
     }
 
-    private void setTitle(String title) {
-        this.title.postValue(title);
+    private void setTitleFrom(MovieDetails details) {
+        if (details != null && details.getTitle() != null)
+            this.title.postValue(details.getTitle());
     }
 
-    private void setDirectors(List<String> directorsNames) {
-        String directors = TextUtils.join(", ", directorsNames);
-        this.directors.postValue(directors);
-    }
-
-    private void setCountries(List<ProductionCountry> countriesList) {
-        if (countriesList.isEmpty()) return;
-        StringBuilder countriesStringBuilder = new StringBuilder();
-        if (countriesList.size() == 1) {
-            countriesStringBuilder.append(
-                    (countriesList.get(0).getAbbreviation().equals("US"))
-                    ? "United States"
-                    : countriesList.get(0).getName());
-        } else {
-            Iterator<ProductionCountry> countries = countriesList.iterator();
-            countriesStringBuilder.append(countries.next().getAbbreviation());
-            while (countries.hasNext()) {
-                countriesStringBuilder.append("/").append(countries.next().getAbbreviation());
-            }
+    private void setDirectorsFrom(MovieDetails details) {
+        if (details != null && details.getCredits() != null && details.getCredits().getDirectorsNames() != null) {
+            List<String> directorsNames = details.getCredits().getDirectorsNames();
+            String directors = TextUtils.join(", ", directorsNames);
+            this.directors.postValue(directors);
         }
-        this.countries.postValue(countriesStringBuilder.toString());
     }
 
-    private void setYear(String year) {
-        this.year.postValue(year);
-    }
-
-    private void setLanguages(List<SpokenLanguage> languagesList) {
-        if (languagesList.isEmpty()) return;
-        StringBuilder languagesStringBuilder = new StringBuilder();
-        if (languagesList.size() == 1) {
-            languagesStringBuilder.append(languagesList.get(0).getName());
-        } else {
-            Iterator<SpokenLanguage> languages = languagesList.iterator();
-            languagesStringBuilder.append(languages.next().getAbbreviation(true));
-            while (languages.hasNext()) {
-                languagesStringBuilder.append(", ").append(languages.next().getAbbreviation(true));
+    private void setCountriesFrom(MovieDetails details) {
+        if (details != null && details.getCountries() != null && !details.getCountries().isEmpty()) {
+            List<ProductionCountry> countriesList = details.getCountries();
+            StringBuilder countriesStringBuilder = new StringBuilder();
+            if (countriesList.size() == 1) {
+                countriesStringBuilder.append(
+                        (countriesList.get(0).getAbbreviation().equals("US"))
+                        ? "United States"
+                        : countriesList.get(0).getName());
+            } else {
+                Iterator<ProductionCountry> countries = countriesList.iterator();
+                countriesStringBuilder.append(countries.next().getAbbreviation());
+                while (countries.hasNext()) {
+                    countriesStringBuilder.append("/").append(countries.next().getAbbreviation());
+                }
             }
+            this.countries.postValue(countriesStringBuilder.toString());
         }
-        this.languages.postValue(languagesStringBuilder.toString());
     }
 
-    private void setDuration(int duration) {
-        this.duration.postValue(String.valueOf(duration) + " min");
+    private void setYearFrom(MovieDetails details) {
+        if (details != null && details.getReleaseYear() != null) {
+            String year = details.getReleaseYear();
+            this.year.postValue(year);
+        }
     }
 
-    private void setRating(double rating) {
-        this.rating.postValue(String.valueOf(rating));
+    private void setLanguagesFrom(MovieDetails details) {
+        if (details != null && details.getLanguages() != null) {
+            List<SpokenLanguage> languagesList = details.getLanguages();
+            if (languagesList.isEmpty()) return;
+            StringBuilder languagesStringBuilder = new StringBuilder();
+            if (languagesList.size() == 1) {
+                languagesStringBuilder.append(languagesList.get(0).getName());
+            } else {
+                Iterator<SpokenLanguage> languages = languagesList.iterator();
+                languagesStringBuilder.append(languages.next().getAbbreviation(true));
+                while (languages.hasNext()) {
+                    languagesStringBuilder.append(", ").append(languages.next().getAbbreviation(true));
+                }
+            }
+            this.languages.postValue(languagesStringBuilder.toString());
+        }
     }
 
-    private void setSinopsis(String sinopsis) {
-        this.sinopsis.postValue(sinopsis);
+    private void setDurationFrom(MovieDetails details) {
+        if (details != null && details.getDuration() > 0)
+            this.duration.postValue(String.valueOf(details.getDuration()) + " min");
+    }
+
+    private void setRatingFrom(MovieDetails details) {
+        if (details != null && details.getRating() > 0)
+            this.rating.postValue(String.valueOf(details.getRating()));
+    }
+
+    private void setSinopsisFrom(MovieDetails details) {
+        if (details != null && details.getSinopsis() != null)
+            this.sinopsis.postValue(details.getSinopsis());
+    }
+
+    private void setPosterUrlFrom(MovieDetails details) {
+        if (details != null && details.getPosterUrl() != null)
+            this.posterUrl.postValue(details.getPosterUrl());
     }
 
     public LiveData<Uri> getPosterUrl() {
@@ -131,10 +151,6 @@ public class MovieDetailsViewModel extends AndroidViewModel {
 
     public LiveData<String> getDirectors() {
         return directors;
-    }
-
-    private void setPosterUrl(Uri posterUrl) {
-        this.posterUrl.postValue(posterUrl);
     }
 
     public LiveData<String> getCountries() {

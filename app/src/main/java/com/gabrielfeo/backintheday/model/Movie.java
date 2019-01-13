@@ -58,10 +58,6 @@ public class Movie {
         return releaseDate;
     }
 
-    public Uri getPosterUrl() {
-        return MoviePosterUrl.getFor(posterPath);
-    }
-
     public int getId() {
         return id;
     }
@@ -72,6 +68,14 @@ public class Movie {
 
     public float getVoteAverage() {
         return voteAverage;
+    }
+
+    public String getPosterPath() {
+        return posterPath;
+    }
+
+    public Uri getPosterUrl() {
+        return MoviePosterUrl.getFor(posterPath);
     }
 
 }
