@@ -20,6 +20,7 @@ import java.util.List;
 public class AppMovieRepository implements MovieRepository {
 
     private static final String TAG = AppMovieRepository.class.getSimpleName();
+    private static final AppMovieRepository instance = new AppMovieRepository();
     private final MovieService remote = MovieDb.getMovieService();
     private MovieCacheDao cache;
 
@@ -48,7 +49,7 @@ public class AppMovieRepository implements MovieRepository {
 
     // @formatter:off
     private final SuccessCallback<MovieDetails> moviesDetailsSuccessCallback =
-            cache::insert;
+            (movieDetails) -> cache.insert(movieDetails);
     private final ErrorCallback moviesDetailsErrorCallback =
             () -> logError("Error getting movie details from remote");
     @Override                                                                                       // @formatter:on
