@@ -36,14 +36,19 @@ public class Movie {
     @SerializedName("vote_average")
     private final float voteAverage;
 
+    @ColumnInfo(name = "has_video")
+    @SerializedName("video")
+    private final boolean hasVideo;
+
     public Movie(int id, String title, String releaseDate, String posterPath,
-                 float popularity, float voteAverage) {
+                 float popularity, float voteAverage, boolean hasVideo) {
         this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;
         this.posterPath = posterPath;
         this.popularity = popularity;
         this.voteAverage = voteAverage;
+        this.hasVideo = hasVideo;
     }
 
     public String getTitle() {
@@ -76,6 +81,10 @@ public class Movie {
 
     public Uri getPosterUrl() {
         return MoviePosterUrl.getFor(posterPath);
+    }
+
+    public boolean isHasVideo() {
+        return hasVideo;
     }
 
 }
