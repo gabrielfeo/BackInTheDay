@@ -1,25 +1,38 @@
 package com.gabrielfeo.backintheday.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.net.Uri;
 
-import com.gabrielfeo.backintheday.net.url.MoviePosterUrl;
+import com.gabrielfeo.backintheday.data.url.MoviePosterUrl;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Placeholder class, valid until the movieDb API is integrated with the app.
- */
+@Entity(tableName = "movies")
 public class Movie {
 
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    @SerializedName("id")
     private final int id;
 
+    @ColumnInfo(name = "original_title")
     @SerializedName("original_title")
     private final String title;
+
+    @ColumnInfo(name = "release_date")
     @SerializedName("release_date")
     private final String releaseDate;
+
+    @ColumnInfo(name = "poster_path")
     @SerializedName("poster_path")
     private final String posterPath;
+
+    @ColumnInfo(name = "popularity")
     @SerializedName("popularity")
     private final float popularity;
+
+    @ColumnInfo(name = "vote_average")
     @SerializedName("vote_average")
     private final float voteAverage;
 
@@ -45,10 +58,6 @@ public class Movie {
         return releaseDate;
     }
 
-    public Uri getPosterUrl() {
-        return MoviePosterUrl.getFor(posterPath);
-    }
-
     public int getId() {
         return id;
     }
@@ -59,6 +68,14 @@ public class Movie {
 
     public float getVoteAverage() {
         return voteAverage;
+    }
+
+    public String getPosterPath() {
+        return posterPath;
+    }
+
+    public Uri getPosterUrl() {
+        return MoviePosterUrl.getFor(posterPath);
     }
 
 }

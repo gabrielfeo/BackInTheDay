@@ -12,8 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gabrielfeo.backintheday.R;
-import com.gabrielfeo.backintheday.net.callback.ErrorCallback;
+import com.gabrielfeo.backintheday.data.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.ui.widget.MoviePosterView;
+import com.gabrielfeo.backintheday.util.Timeout;
 import com.squareup.picasso.Picasso;
 
 public class MovieDetailActivity extends AppCompatActivity {
@@ -33,10 +34,12 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView ratingTitleView;
     private TextView ratingView;
     private TextView sinopsisView;
-    private final ErrorCallback snackbarErrorCallback = message -> {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    private final ErrorCallback snackbarErrorCallback = () -> {
+        Toast.makeText(this, getString(R.string.moviedetail_error_getting_details),
+                       Toast.LENGTH_SHORT).show();
         finish();
     };
+    private final Timeout loadDetailsTimeout = new Timeout(2500, snackbarErrorCallback);
 
     public static Intent getNewIntent(Context context, int movieId) {
         Intent intent = new Intent(context, MovieDetailActivity.class);
@@ -55,7 +58,9 @@ public class MovieDetailActivity extends AppCompatActivity {
         hidePosterFooter();
         setMovieIdFromIntent();
         observeMovieDetails();
+
         refreshMovieDetails();
+        loadDetailsTimeout.start();
     }
 
     private void hidePosterFooter() {
@@ -92,6 +97,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         viewModel.getDirectors().observe(this, directorView::setText);
         viewModel.getPosterUrl().observe(this, url -> {
             setPosterImage(url);
+            loadDetailsTimeout.cancel();
             supportStartPostponedEnterTransition();
         });
         viewModel.getCountries().observe(this, countriesView::setText);
@@ -104,7 +110,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void refreshMovieDetails() {
-        viewModel.refreshMovieDetails(snackbarErrorCallback);
+        viewModel.refreshMovieDetails();
     }
 
     private void setPosterImage(Uri imageUrl) {
