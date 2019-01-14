@@ -1,18 +1,22 @@
 package com.gabrielfeo.backintheday.model;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
 public class MovieTrailersResponse {
 
-    @SerializedName("id")
+    @JsonProperty("id")
     private final int movieId;
 
-    @SerializedName("results")
+    @JsonProperty("results")
     private final List<Trailer> trailers;
 
-    public MovieTrailersResponse(int movieId, List<Trailer> videos) {
+    @JsonCreator
+    public MovieTrailersResponse(
+            @JsonProperty("id") int movieId,
+            @JsonProperty("results") List<Trailer> videos) {
         this.movieId = movieId;
         this.trailers = videos;
         linkTrailersWithMovieId();

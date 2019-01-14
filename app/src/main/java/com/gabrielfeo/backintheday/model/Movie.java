@@ -4,44 +4,54 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gabrielfeo.backintheday.data.url.MoviePosterUrl;
-import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "movies")
 public class Movie {
 
+    @NonNull
     @PrimaryKey
     @ColumnInfo(name = "id")
-    @SerializedName("id")
+    @JsonProperty("id")
     private final int id;
 
-    @ColumnInfo(name = "original_title")
-    @SerializedName("original_title")
+    @ColumnInfo(name = "title")
+    @JsonProperty("original_title")
     private final String title;
 
     @ColumnInfo(name = "release_date")
-    @SerializedName("release_date")
+    @JsonProperty("release_date")
     private final String releaseDate;
 
     @ColumnInfo(name = "poster_path")
-    @SerializedName("poster_path")
+    @JsonProperty("poster_path")
     private final String posterPath;
 
     @ColumnInfo(name = "popularity")
-    @SerializedName("popularity")
+    @JsonProperty("popularity")
     private final float popularity;
 
     @ColumnInfo(name = "vote_average")
-    @SerializedName("vote_average")
+    @JsonProperty("vote_average")
     private final float voteAverage;
 
     @ColumnInfo(name = "has_video")
-    @SerializedName("video")
+    @JsonProperty("video")
     private final boolean hasVideo;
 
-    public Movie(int id, String title, String releaseDate, String posterPath,
-                 float popularity, float voteAverage, boolean hasVideo) {
+    @JsonCreator
+    public Movie(
+            @JsonProperty("id") int id,
+            @JsonProperty("original_title") String title,
+            @JsonProperty("release_date") String releaseDate,
+            @JsonProperty("poster_path") String posterPath,
+            @JsonProperty("popularity") float popularity,
+            @JsonProperty("vote_average") float voteAverage,
+            @JsonProperty("has_video") boolean hasVideo) {
         this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;

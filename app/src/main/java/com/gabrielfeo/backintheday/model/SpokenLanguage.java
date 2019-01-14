@@ -1,18 +1,23 @@
 package com.gabrielfeo.backintheday.model;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Locale;
 import java.util.MissingResourceException;
 
 public class SpokenLanguage {
 
-    @SerializedName("iso_639_1")
+    @JsonProperty("iso_639_1")
     private final String abbreviation;
-    @SerializedName("name")
+
+    @JsonProperty("name")
     private final String name;
 
-    public SpokenLanguage(String abbreviation, String name) {
+    @JsonCreator
+    public SpokenLanguage(
+            @JsonProperty("iso_639_1") String abbreviation,
+            @JsonProperty("name") String name) {
         this.abbreviation = abbreviation;
         this.name = name;
     }

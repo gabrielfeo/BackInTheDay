@@ -36,6 +36,12 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$lifecycleVersion"
     implementation "android.arch.lifecycle:runtime:$lifecycleVersion"
 
+    //JSON Serialization library
+    def jacksonVersion = '2.9.8'
+    implementation "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
+    implementation "com.fasterxml.jackson.module:jackson-module-parameter-names:$jacksonVersion"
+    //TODO Try to make named parameters work
+
     //Room (persistence library)
     def roomVersion = '1.1.1'
     implementation "android.arch.persistence.room:runtime:$roomVersion"
@@ -48,8 +54,9 @@ dependencies {
     implementation fileTree(include: ['YouTubeAndroidPlayerApi_1.2.2.jar'], dir: '../libs')
 
     //Retrofit (RESTful networking library)
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    def retrofitVersion = '2.5.0'
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-jackson:$retrofitVersion"
 
     //Debugging (libraries for debug builds)
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'

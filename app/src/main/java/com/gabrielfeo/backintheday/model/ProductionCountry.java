@@ -1,15 +1,20 @@
 package com.gabrielfeo.backintheday.model;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ProductionCountry {
 
-    @SerializedName("iso_3166_1")
+    @JsonProperty("iso_3166_1")
     private final String abbreviation;
-    @SerializedName("name")
+
+    @JsonProperty("name")
     private final String name;
 
-    public ProductionCountry(String abbreviation, String name) {
+    @JsonCreator
+    public ProductionCountry(
+            @JsonProperty("iso_3166_1") String abbreviation,
+            @JsonProperty("name") String name) {
         this.abbreviation = abbreviation;
         this.name = name;
     }

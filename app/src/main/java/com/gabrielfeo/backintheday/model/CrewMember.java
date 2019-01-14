@@ -1,19 +1,28 @@
 package com.gabrielfeo.backintheday.model;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CrewMember {
 
-    @SerializedName("id")
+    @JsonProperty("id")
     private final int id;
-    @SerializedName("job")
+
+    @JsonProperty("job")
     private final String job;
-    @SerializedName("name")
+
+    @JsonProperty("name")
     private final String name;
-    @SerializedName("profile_path")
+
+    @JsonProperty("profile_path")
     private final String profilePhotoPath;
 
-    public CrewMember(int id, String job, String name, String profilePhotoPath) {
+    @JsonCreator
+    public CrewMember(
+            @JsonProperty("id") int id,
+            @JsonProperty("job") String job,
+            @JsonProperty("name") String name,
+            @JsonProperty("profile_path") String profilePhotoPath) {
         this.id = id;
         this.job = job;
         this.name = name;

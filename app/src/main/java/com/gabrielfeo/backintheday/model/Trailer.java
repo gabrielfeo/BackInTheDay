@@ -2,48 +2,58 @@ package com.gabrielfeo.backintheday.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity(tableName = "movie_trailers")
 public class Trailer {
 
+    @NonNull
     @PrimaryKey
     @ColumnInfo(name = "video_id")
-    @SerializedName("key")
+    @JsonProperty("key")
     private final String videoId;
 
     @ColumnInfo(name = "movie_id")
-    @Expose(serialize = false, deserialize = false)
+    @JsonIgnore
     private int movieId;
 
     @ColumnInfo(name = "title")
-    @SerializedName("name")
+    @JsonProperty("name")
     private final String title;
 
     @ColumnInfo(name = "site_name")
-    @SerializedName("site")
+    @JsonProperty("site")
     private final String siteName;
 
     @ColumnInfo(name = "language")
-    @SerializedName("iso_639_1")
+    @JsonProperty("iso_639_1")
     private final String language;
 
     @ColumnInfo(name = "country")
-    @SerializedName("iso_3166_1")
+    @JsonProperty("iso_3166_1")
     private final String country;
 
-    public Trailer(String id, String title, String siteName,
-                   String language, String country) {
-        this(id, 0, title, siteName, language, country);
+    @Ignore
+    @JsonCreator
+    public Trailer(
+            @JsonProperty("key") String videoId,
+            @JsonProperty("name") String title,
+            @JsonProperty("site") String siteName,
+            @JsonProperty("iso_639_1") String language,
+            @JsonProperty("iso_3166_1") String country) {
+        this(videoId, 0, title, siteName, language, country);
     }
 
-    public Trailer(String id, int movieId, String title, String siteName,
+    public Trailer(String videoId, int movieId, String title, String siteName,
                    String language, String country) {
 
-        this.videoId = id;
+        this.videoId = videoId;
         this.movieId = movieId;
         this.title = title;
         this.siteName = siteName;
