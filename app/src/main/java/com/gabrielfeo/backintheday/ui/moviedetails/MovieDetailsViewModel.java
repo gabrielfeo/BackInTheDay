@@ -13,6 +13,7 @@ import com.gabrielfeo.backintheday.data.MovieRepository;
 import com.gabrielfeo.backintheday.model.MovieDetails;
 import com.gabrielfeo.backintheday.model.ProductionCountry;
 import com.gabrielfeo.backintheday.model.SpokenLanguage;
+import com.gabrielfeo.backintheday.model.Trailer;
 
 import java.util.Iterator;
 import java.util.List;
@@ -32,6 +33,7 @@ public class MovieDetailsViewModel extends AndroidViewModel {
     private MediatorLiveData<String> ratingTitle = new MediatorLiveData<>();
     private MediatorLiveData<String> rating = new MediatorLiveData<>();
     private MediatorLiveData<String> sinopsis = new MediatorLiveData<>();
+    private MediatorLiveData<List<Trailer>> trailers = new MediatorLiveData<>();
 
     public MovieDetailsViewModel(@NonNull Application application) {
         super(application);
@@ -45,6 +47,8 @@ public class MovieDetailsViewModel extends AndroidViewModel {
     public void refreshMovieDetails() {
         LiveData<MovieDetails> newDetails = movieRepository.getMovieDetails(movieId);
         addNewDetailsSource(newDetails);
+        LiveData<List<Trailer>> newTrailers = movieRepository.getTrailersByMovieId(movieId);
+        addNewTrailersSource(newTrailers);
     }
 
     private void addNewDetailsSource(LiveData<MovieDetails> source) {
@@ -57,6 +61,10 @@ public class MovieDetailsViewModel extends AndroidViewModel {
         duration.addSource(source, movieDetails -> setDurationFrom(movieDetails));
         rating.addSource(source, movieDetails -> setRatingFrom(movieDetails));
         sinopsis.addSource(source, movieDetails -> setSinopsisFrom(movieDetails));
+    }
+
+    private void addNewTrailersSource(LiveData<List<Trailer>> source) {
+        trailers.addSource(source, movieTrailers -> setTrailersFrom(movieTrailers));
     }
 
     public void setMovieId(int movieId) {
@@ -141,6 +149,11 @@ public class MovieDetailsViewModel extends AndroidViewModel {
             this.posterUrl.postValue(details.getPosterUrl());
     }
 
+    private void setTrailersFrom(List<Trailer> trailers) {
+        if (trailers != null && trailers.size() > 0)
+            this.trailers.postValue(trailers);
+    }
+
     public LiveData<Uri> getPosterUrl() {
         return posterUrl;
     }
@@ -179,6 +192,10 @@ public class MovieDetailsViewModel extends AndroidViewModel {
 
     public LiveData<String> getSinopsis() {
         return sinopsis;
+    }
+
+    public LiveData<List<Trailer>> getTrailers() {
+        return trailers;
     }
 
 }
