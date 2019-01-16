@@ -7,11 +7,13 @@ import android.content.Context;
 
 import com.gabrielfeo.backintheday.model.Movie;
 import com.gabrielfeo.backintheday.model.MovieDetails;
+import com.gabrielfeo.backintheday.model.Trailer;
 
 @Database(entities = {Movie.class,
-                      MovieDetails.class},
+                      MovieDetails.class,
+                      Trailer.class},
 
-          version = 1, exportSchema = false)
+          version = 2, exportSchema = false)
 public abstract class MovieCache extends RoomDatabase {
 
     private static final String DATABASE_NAME = "movie_cache";
@@ -28,6 +30,7 @@ public abstract class MovieCache extends RoomDatabase {
     private static void buildDatabase(Context context) {
         instance = Room.databaseBuilder(context, MovieCache.class, DATABASE_NAME)
                        .allowMainThreadQueries() // TODO Disallow
+                       .fallbackToDestructiveMigration()
                        .build();
     }
 
