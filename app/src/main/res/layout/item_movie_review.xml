@@ -36,7 +36,7 @@
     <!--TODO Make tools text work with review sample-->
 
     <Button
-        android:id="@+id/moviedetail_b_reviews_read_more_button"
+        android:id="@+id/moviedetailreviews_b_read_more_button"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
         android:background="@android:color/transparent"
