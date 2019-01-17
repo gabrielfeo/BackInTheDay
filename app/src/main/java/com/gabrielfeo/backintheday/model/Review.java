@@ -31,15 +31,22 @@ public class Review {
     @JsonProperty("content")
     private final String content;
 
+    @ColumnInfo(name = "url")
+    @JsonProperty("url")
+    private final String url;
+
     @Ignore
     @JsonCreator
-    public Review(String id, String author, String content) {this(id, 0, author, content);}
+    public Review(String id, String author, String content, String url) {
+        this(id, 0, author, content, url);
+    }
 
-    public Review(String id, int movieId, String author, String content) {
+    public Review(String id, int movieId, String author, String content, String url) {
         this.id = id;
         this.movieId = movieId;
         this.author = author;
         this.content = content;
+        this.url = url;
     }
 
     public String getId() {
@@ -56,6 +63,10 @@ public class Review {
 
     public String getContent() {
         return content;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     public void setMovieId(int movieId) {
