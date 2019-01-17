@@ -1,6 +1,7 @@
 package com.gabrielfeo.backintheday.data.moviedb;
 
 import com.gabrielfeo.backintheday.model.MovieDetails;
+import com.gabrielfeo.backintheday.model.MovieReviewsResponse;
 import com.gabrielfeo.backintheday.model.MovieTrailersResponse;
 import com.gabrielfeo.backintheday.model.MoviesResponse;
 
@@ -19,5 +20,8 @@ public interface MovieService {
 
     @GET("movie/{movie_id}/videos")
     Call<MovieTrailersResponse> getTrailersByMovieId(@Path("movie_id") int movieId);
+
+    @GET("movie/{movie_id}/reviews")
+    Call<MovieReviewsResponse> getReviewsByMovieId(@Path("movie_id") int movieId);
 
 }
