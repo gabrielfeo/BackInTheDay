@@ -3,7 +3,10 @@
     <color name="movieDbPrimary">#081c24</color>
     <color name="movieDbSecondary">#01d277</color>
 
+    <color name="materialGray400">#bdbdbd</color>
+
     <color name="background">#161616</color>
     <color name="textRegular">@android:color/white</color>
     <color name="textAccented">@color/movieDbSecondary</color>
+    <color name="textMinimal">@color/materialGray400</color>
 </resources>
