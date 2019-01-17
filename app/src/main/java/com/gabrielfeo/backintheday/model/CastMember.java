@@ -1,21 +1,32 @@
 package com.gabrielfeo.backintheday.model;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CastMember {
 
-    @SerializedName("id")
+    @JsonProperty("id")
     private final String id;
-    @SerializedName("character")
+
+    @JsonProperty("character")
     private final String character;
-    @SerializedName("order")
+
+    @JsonProperty("order")
     private final String order;
-    @SerializedName("name")
+
+    @JsonProperty("name")
     private final String name;
-    @SerializedName("profile_path")
+
+    @JsonProperty("profile_path")
     private final String photoPath;
 
-    public CastMember(String id, String character, String order, String name, String photoPath) {
+    @JsonCreator
+    public CastMember(
+            @JsonProperty("id") String id,
+            @JsonProperty("character") String character,
+            @JsonProperty("order") String order,
+            @JsonProperty("name") String name,
+            @JsonProperty("profile_path") String photoPath) {
         this.id = id;
         this.character = character;
         this.order = order;

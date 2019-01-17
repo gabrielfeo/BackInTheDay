@@ -1,6 +1,7 @@
 package com.gabrielfeo.backintheday.model;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +11,15 @@ public class Credits {
     private static final String JOB_DIRECTOR = "Director";
     private static final String JOB_PRODUCER = "Producer";
 
-    @SerializedName("cast")
+    @JsonProperty("cast")
     private final List<CastMember> cast;
-    @SerializedName("crew")
+    @JsonProperty("crew")
     private final List<CrewMember> crew;
 
-    public Credits(List<CastMember> cast, List<CrewMember> crew) {
+    @JsonCreator
+    public Credits(
+            @JsonProperty("cast") List<CastMember> cast,
+            @JsonProperty("crew") List<CrewMember> crew) {
         this.cast = cast;
         this.crew = crew;
     }

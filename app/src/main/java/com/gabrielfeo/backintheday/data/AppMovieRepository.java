@@ -13,7 +13,9 @@ import com.gabrielfeo.backintheday.data.moviedb.MovieDb;
 import com.gabrielfeo.backintheday.data.moviedb.MovieService;
 import com.gabrielfeo.backintheday.model.Movie;
 import com.gabrielfeo.backintheday.model.MovieDetails;
+import com.gabrielfeo.backintheday.model.MovieTrailersResponse;
 import com.gabrielfeo.backintheday.model.MoviesResponse;
+import com.gabrielfeo.backintheday.model.Trailer;
 
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class AppMovieRepository implements MovieRepository {
 
     // @formatter:off
     private final SuccessCallback<MoviesResponse> moviesByYearSuccessCallback =
-            response -> cache.insert(response.getMoviesList());
+            response -> cache.insertMovies(response.getMoviesList());
     private final ErrorCallback moviesByYearErrorCallback =
             () -> logError("Error getting movies from remote");
     @Override                                                                                       // @formatter:on
@@ -58,6 +60,21 @@ public class AppMovieRepository implements MovieRepository {
               .enqueue(new ApiResponseHandler<MovieDetails>(moviesDetailsSuccessCallback, moviesDetailsErrorCallback));
         return cache.getMovieDetails(movieId);
     }
+
+
+    // @formatter:off
+    private final SuccessCallback<MovieTrailersResponse> trailersByMovieIdSuccessCallback =
+            (response) -> cache.insertTrailers(response.getTrailers());
+    private final ErrorCallback trailersByMovieIdErrorCallback =
+            () -> logError("Error getting movie trailers from remote");
+    @Override                                                                                       // @formatter:on
+    public LiveData<List<Trailer>> getTrailersByMovieId(int movieId) {
+        remote.getTrailersByMovieId(movieId)
+              .enqueue(new ApiResponseHandler<MovieTrailersResponse>(trailersByMovieIdSuccessCallback,
+                                                                     moviesDetailsErrorCallback));
+        return cache.getTrailersByMovieId(movieId);
+    }
+
 
 
     private void logError(String message) {

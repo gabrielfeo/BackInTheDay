@@ -7,18 +7,27 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.data.callback.ErrorCallback;
+import com.gabrielfeo.backintheday.ui.moviedetails.adapter.TrailerAdapter;
 import com.gabrielfeo.backintheday.ui.widget.MoviePosterView;
 import com.gabrielfeo.backintheday.util.Timeout;
+import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.squareup.picasso.Picasso;
+
+import static android.support.v7.widget.LinearLayoutManager.HORIZONTAL;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
+    private static final String TAG = MovieDetailActivity.class.getSimpleName();
     private static final String EXTRA_MOVIE_KEY = "movie";
     private MovieDetailsViewModel viewModel;
 
@@ -34,6 +43,10 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView ratingTitleView;
     private TextView ratingView;
     private TextView sinopsisView;
+    private RecyclerView trailersView;
+
+    private TrailerAdapter trailerAdapter = new TrailerAdapter();
+
     private final ErrorCallback snackbarErrorCallback = () -> {
         Toast.makeText(this, getString(R.string.moviedetail_error_getting_details),
                        Toast.LENGTH_SHORT).show();
@@ -55,10 +68,10 @@ public class MovieDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_detail);
         findViews();
         setupToolbar();
+        setupTrailersView();
         hidePosterFooter();
         setMovieIdFromIntent();
         observeMovieDetails();
-
         refreshMovieDetails();
         loadDetailsTimeout.start();
     }
@@ -80,6 +93,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         ratingTitleView = findViewById(R.id.moviedetail_tv_rating_title);
         ratingView = findViewById(R.id.moviedetail_tv_rating_value);
         sinopsisView = findViewById(R.id.moviedetail_tv_sinopsis);
+        trailersView = findViewById(R.id.moviedetail_rv_movie_trailers);
     }
 
     private void setupToolbar() {
@@ -88,9 +102,17 @@ public class MovieDetailActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.moviedetail_toolbar_title);
     }
 
+    private void setupTrailersView() {
+        trailersView.setAdapter(trailerAdapter);
+        trailersView.setHasFixedSize(true);
+        trailersView.setLayoutManager(new LinearLayoutManager(this, HORIZONTAL, false));
+    }
+
     private void setMovieIdFromIntent() {
         viewModel.setMovieId(getIntent().getIntExtra(EXTRA_MOVIE_KEY, -1));
     }
+
+    private YouTubeThumbnailLoader thumbnailLoader;
 
     private void observeMovieDetails() {
         viewModel.getTitle().observe(this, titleView::setText);
@@ -107,6 +129,16 @@ public class MovieDetailActivity extends AppCompatActivity {
         viewModel.getRatingTitle().observe(this, ratingTitleView::setText);
         viewModel.getRating().observe(this, ratingView::setText);
         viewModel.getSinopsis().observe(this, sinopsisView::setText);
+        viewModel.getTrailers().observe(this, trailers -> {
+            if (trailers.size() > 0) {
+                trailerAdapter.setTrailers(trailers);
+                showTrailersView();
+                Log.i(TAG, "Not empty; showed view");
+            } else {
+                hideTrailersView();
+                Log.i(TAG, "Empty; hid view");
+            }
+        });
     }
 
     private void refreshMovieDetails() {
@@ -115,6 +147,14 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private void setPosterImage(Uri imageUrl) {
         Picasso.get().load(imageUrl).into(posterView);
+    }
+
+    private void showTrailersView() {
+        trailersView.setVisibility(View.VISIBLE);
+    }
+
+    private void hideTrailersView() {
+        trailersView.setVisibility(View.GONE);
     }
 
     @Override

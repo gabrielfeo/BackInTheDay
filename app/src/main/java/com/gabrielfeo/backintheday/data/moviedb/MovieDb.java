@@ -1,5 +1,8 @@
 package com.gabrielfeo.backintheday.data.moviedb;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.gabrielfeo.backintheday.BuildConfig;
 
 import okhttp3.HttpUrl;
@@ -7,8 +10,9 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Converter;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import static okhttp3.logging.HttpLoggingInterceptor.Level.BODY;
 
@@ -31,7 +35,7 @@ public final class MovieDb {
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(getNewClient())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(getNewConverterFactory())
                 .build();
     }
 
@@ -53,6 +57,13 @@ public final class MovieDb {
             Request newRequest = oldRequest.newBuilder().url(newUrl).build();
             return chain.proceed(newRequest);
         };
+    }
+
+    private static Converter.Factory getNewConverterFactory() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new ParameterNamesModule());
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return JacksonConverterFactory.create(mapper);
     }
 
 }

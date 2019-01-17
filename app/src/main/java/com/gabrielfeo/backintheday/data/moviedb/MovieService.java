@@ -1,6 +1,7 @@
 package com.gabrielfeo.backintheday.data.moviedb;
 
 import com.gabrielfeo.backintheday.model.MovieDetails;
+import com.gabrielfeo.backintheday.model.MovieTrailersResponse;
 import com.gabrielfeo.backintheday.model.MoviesResponse;
 
 import retrofit2.Call;
@@ -15,5 +16,8 @@ public interface MovieService {
 
     @GET("movie/{movie_id}" + "?append_to_response=credits")
     Call<MovieDetails> getMovieDetails(@Path("movie_id") int movieId);
+
+    @GET("movie/{movie_id}/videos")
+    Call<MovieTrailersResponse> getTrailersByMovieId(@Path("movie_id") int movieId);
 
 }

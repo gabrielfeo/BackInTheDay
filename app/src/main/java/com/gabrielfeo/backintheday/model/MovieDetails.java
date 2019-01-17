@@ -6,11 +6,12 @@ import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 import android.net.Uri;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gabrielfeo.backintheday.data.local.typeconverter.CreditsSerializer;
 import com.gabrielfeo.backintheday.data.local.typeconverter.ProductionCountryListSerializer;
 import com.gabrielfeo.backintheday.data.local.typeconverter.SpokenLanguageListSerializer;
 import com.gabrielfeo.backintheday.data.url.MoviePosterUrl;
-import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -23,48 +24,57 @@ public class MovieDetails {
 
     @PrimaryKey
     @ColumnInfo(name = "id")
-    @SerializedName("id")
+    @JsonProperty("id")
     private final int id;
 
-    @ColumnInfo(name = "original_title")
-    @SerializedName("original_title")
+    @ColumnInfo(name = "title")
+    @JsonProperty("original_title")
     private final String title;
 
     @ColumnInfo(name = "release_date")
-    @SerializedName("release_date")
+    @JsonProperty("release_date")
     private final String releaseDate;
 
-    @ColumnInfo(name = "overview")
-    @SerializedName("overview")
+    @ColumnInfo(name = "sinopsis")
+    @JsonProperty("overview")
     private final String sinopsis;
 
-    @ColumnInfo(name = "runtime")
-    @SerializedName("runtime")
+    @ColumnInfo(name = "duration")
+    @JsonProperty("runtime")
     private final int duration;
 
-    @ColumnInfo(name = "production_countries")
-    @SerializedName("production_countries")
+    @ColumnInfo(name = "countries")
+    @JsonProperty("production_countries")
     private final List<ProductionCountry> countries;
 
-    @ColumnInfo(name = "spoken_languages")
-    @SerializedName("spoken_languages")
+    @ColumnInfo(name = "languages")
+    @JsonProperty("spoken_languages")
     private final List<SpokenLanguage> languages;
 
     @ColumnInfo(name = "credits")
-    @SerializedName("credits")
+    @JsonProperty("credits")
     private final Credits credits;
 
-    @ColumnInfo(name = "vote_average")
-    @SerializedName("vote_average")
+    @ColumnInfo(name = "rating")
+    @JsonProperty("vote_average")
     private final double rating;
 
     @ColumnInfo(name = "poster_path")
-    @SerializedName("poster_path")
+    @JsonProperty("poster_path")
     private final String posterPath;
 
-    public MovieDetails(int id, String title, String releaseDate, String sinopsis, int duration,
-                        List<ProductionCountry> countries, List<SpokenLanguage> languages,
-                        Credits credits, double rating, String posterPath) {
+    @JsonCreator
+    public MovieDetails(
+            @JsonProperty("id") int id,
+            @JsonProperty("original_title") String title,
+            @JsonProperty("release_date") String releaseDate,
+            @JsonProperty("overview") String sinopsis,
+            @JsonProperty("runtime") int duration,
+            @JsonProperty("production_countries") List<ProductionCountry> countries,
+            @JsonProperty("spoken_languages") List<SpokenLanguage> languages,
+            @JsonProperty("credits") Credits credits,
+            @JsonProperty("vote_average") double rating,
+            @JsonProperty("poster_path") String posterPath) {
         this.id = id;
         this.title = title;
         this.releaseDate = releaseDate;
