@@ -3,6 +3,8 @@ package com.gabrielfeo.backintheday.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,6 +13,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity(tableName = "movie_reviews")
 public class Review {
 
+    @NonNull
+    @PrimaryKey
     @ColumnInfo(name = "id")
     @JsonProperty("id")
     private final String id;
