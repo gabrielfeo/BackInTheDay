@@ -5,6 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
+import com.gabrielfeo.backintheday.model.Favorite;
 import com.gabrielfeo.backintheday.model.Movie;
 import com.gabrielfeo.backintheday.model.MovieDetails;
 import com.gabrielfeo.backintheday.model.Review;
@@ -13,7 +14,8 @@ import com.gabrielfeo.backintheday.model.Trailer;
 @Database(entities = {Movie.class,
                       MovieDetails.class,
                       Trailer.class,
-                      Review.class},
+                      Review.class,
+                      Favorite.class},
 
           version = 4, exportSchema = false)
 public abstract class MovieCache extends RoomDatabase {
