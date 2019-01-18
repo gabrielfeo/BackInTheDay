@@ -40,7 +40,7 @@ public final class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> 
     public void onBindViewHolder(@NonNull ReviewViewHolder viewHolder, int position) {
         setAuthorFrom(reviews.get(position), viewHolder);
         setContentFrom(reviews.get(position), viewHolder);
-        setReadMoreButtonAction(reviews.get(position), viewHolder);
+        setViewClickAction(reviews.get(position), viewHolder);
     }
 
     private void setAuthorFrom(Review review, ReviewViewHolder viewHolder) {
@@ -53,10 +53,10 @@ public final class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> 
         viewHolder.contentView.setText(content);
     }
 
-    private void setReadMoreButtonAction(Review review, ReviewViewHolder viewHolder) {
+    private void setViewClickAction(Review review, ReviewViewHolder viewHolder) {
         ErrorCallback errorCallback = () -> Snackbar.make(viewHolder.itemView,
                                                           R.string.moviedetail_reviews_read_more_error, LENGTH_SHORT);
-        viewHolder.readMoreButton.setOnClickListener(
+        viewHolder.itemView.setOnClickListener(
                 view -> sendOpenReviewIntent(view.getContext(), review.getUrl(), errorCallback));
     }
 
