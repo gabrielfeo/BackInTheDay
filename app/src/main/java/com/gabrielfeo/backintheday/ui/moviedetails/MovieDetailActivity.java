@@ -10,18 +10,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.data.callback.ErrorCallback;
+import com.gabrielfeo.backintheday.model.Review;
+import com.gabrielfeo.backintheday.model.Trailer;
+import com.gabrielfeo.backintheday.ui.moviedetails.adapter.ReviewAdapter;
 import com.gabrielfeo.backintheday.ui.moviedetails.adapter.TrailerAdapter;
 import com.gabrielfeo.backintheday.ui.widget.MoviePosterView;
 import com.gabrielfeo.backintheday.util.Timeout;
 import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import static android.support.v7.widget.LinearLayoutManager.HORIZONTAL;
 
@@ -43,9 +47,13 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView ratingTitleView;
     private TextView ratingView;
     private TextView sinopsisView;
+    private View trailersSection;
     private RecyclerView trailersView;
+    private View reviewsSection;
+    private RecyclerView reviewsView;
 
     private TrailerAdapter trailerAdapter = new TrailerAdapter();
+    private ReviewAdapter reviewAdapter = new ReviewAdapter();
 
     private final ErrorCallback snackbarErrorCallback = () -> {
         Toast.makeText(this, getString(R.string.moviedetail_error_getting_details),
@@ -69,6 +77,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         findViews();
         setupToolbar();
         setupTrailersView();
+        setupReviewsView();
         hidePosterFooter();
         setMovieIdFromIntent();
         observeMovieDetails();
@@ -93,7 +102,10 @@ public class MovieDetailActivity extends AppCompatActivity {
         ratingTitleView = findViewById(R.id.moviedetail_tv_rating_title);
         ratingView = findViewById(R.id.moviedetail_tv_rating_value);
         sinopsisView = findViewById(R.id.moviedetail_tv_sinopsis);
+        trailersSection = findViewById(R.id.moviedetail_g_trailers_section);
         trailersView = findViewById(R.id.moviedetail_rv_movie_trailers);
+        reviewsSection = findViewById(R.id.moviedetail_g_reviews_section);
+        reviewsView = findViewById(R.id.moviedetail_rv_movie_reviews);
     }
 
     private void setupToolbar() {
@@ -106,6 +118,12 @@ public class MovieDetailActivity extends AppCompatActivity {
         trailersView.setAdapter(trailerAdapter);
         trailersView.setHasFixedSize(true);
         trailersView.setLayoutManager(new LinearLayoutManager(this, HORIZONTAL, false));
+    }
+
+    private void setupReviewsView() {
+        reviewsView.setAdapter(reviewAdapter);
+        reviewsView.setHasFixedSize(true);
+        reviewsView.setLayoutManager(new LinearLayoutManager(this, HORIZONTAL, false));
     }
 
     private void setMovieIdFromIntent() {
@@ -129,16 +147,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         viewModel.getRatingTitle().observe(this, ratingTitleView::setText);
         viewModel.getRating().observe(this, ratingView::setText);
         viewModel.getSinopsis().observe(this, sinopsisView::setText);
-        viewModel.getTrailers().observe(this, trailers -> {
-            if (trailers.size() > 0) {
-                trailerAdapter.setTrailers(trailers);
-                showTrailersView();
-                Log.i(TAG, "Not empty; showed view");
-            } else {
-                hideTrailersView();
-                Log.i(TAG, "Empty; hid view");
-            }
-        });
+        viewModel.getTrailers().observe(this, this::setTrailers);
+        viewModel.getReviews().observe(this, this::setReviews);
     }
 
     private void refreshMovieDetails() {
@@ -149,12 +159,18 @@ public class MovieDetailActivity extends AppCompatActivity {
         Picasso.get().load(imageUrl).into(posterView);
     }
 
-    private void showTrailersView() {
-        trailersView.setVisibility(View.VISIBLE);
+    private void setTrailers(List<Trailer> trailers) {
+        trailerAdapter.setTrailers(trailers);
+        show(trailersSection);
     }
 
-    private void hideTrailersView() {
-        trailersView.setVisibility(View.GONE);
+    private void setReviews(List<Review> reviews) {
+        reviewAdapter.setReviews(reviews);
+        show(reviewsSection);
+    }
+
+    private void show(View view) {
+        view.setVisibility(View.VISIBLE);
     }
 
     @Override

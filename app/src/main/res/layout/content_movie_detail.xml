@@ -110,7 +110,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
-            android:textAlignment="viewEnd"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:textColor="@color/textRegular"
             app:layout_constraintBottom_toTopOf="@id/moviedetail_tv_rating_value"
@@ -170,6 +169,13 @@
             app:layout_constraintBottom_toTopOf="@id/moviedetail_tv_reviews_title"
             app:layout_constraintTop_toBottomOf="@id/moviedetail_tv_trailers_title" />
 
+        <android.support.constraint.Group
+            android:id="@+id/moviedetail_g_trailers_section"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:constraint_referenced_ids="moviedetail_tv_trailers_title, moviedetail_rv_movie_trailers" />
+
         <TextView
             android:id="@+id/moviedetail_tv_reviews_title"
             style="@style/Text.SingleLine.MovieDetailSectionTitle"
@@ -192,6 +198,13 @@
             android:paddingStart="@dimen/global_activity_padding"
             android:paddingEnd="@dimen/global_activity_padding"
             app:layout_constraintTop_toBottomOf="@id/moviedetail_tv_reviews_title" />
+
+        <android.support.constraint.Group
+            android:id="@+id/moviedetail_g_reviews_section"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:constraint_referenced_ids="moviedetail_tv_reviews_title, moviedetail_rv_movie_reviews" />
 
         <ImageView
             android:id="@+id/moviedetail_iv_moviedb_logo"

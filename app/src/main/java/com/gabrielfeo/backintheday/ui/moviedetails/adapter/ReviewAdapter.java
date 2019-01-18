@@ -14,13 +14,15 @@ import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.data.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.model.Review;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.design.widget.Snackbar.LENGTH_SHORT;
 
 public final class ReviewAdapter extends RecyclerView.Adapter<ReviewViewHolder> {
 
-    private List<Review> reviews;
+    @NonNull
+    private List<Review> reviews = new ArrayList<>();
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;

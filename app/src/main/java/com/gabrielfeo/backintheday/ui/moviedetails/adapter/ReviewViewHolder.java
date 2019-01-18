@@ -18,7 +18,7 @@ final class ReviewViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         authorView = itemView.findViewById(R.id.moviedetailreviews_tv_review_author);
         contentView = itemView.findViewById(R.id.moviedetailreviews_tv_review_content);
-        readMoreButton = itemView.findViewById(R.id.moviedetail_b_reviews_read_more_button);
+        readMoreButton = itemView.findViewById(R.id.moviedetailreviews_b_read_more_button);
     }
 
 }
