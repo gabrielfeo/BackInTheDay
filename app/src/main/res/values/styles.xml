@@ -31,4 +31,9 @@
 
     <style name="Text.SingleLine.MovieDetailSectionTitle" parent="@style/TextAppearance.MaterialComponents.Headline6" />
 
+    <style name="Text.MovieReview">
+        <item name="android:textColor">@color/textMinimal</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Caption</item>
+    </style>
+
 </resources>
