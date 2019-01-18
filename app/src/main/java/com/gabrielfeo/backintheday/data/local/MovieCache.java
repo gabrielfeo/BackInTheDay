@@ -17,7 +17,7 @@ import com.gabrielfeo.backintheday.model.Trailer;
                       Review.class,
                       Favorite.class},
 
-          version = 4, exportSchema = false)
+          version = 5, exportSchema = false)
 public abstract class MovieCache extends RoomDatabase {
 
     private static final String DATABASE_NAME = "movie_cache";

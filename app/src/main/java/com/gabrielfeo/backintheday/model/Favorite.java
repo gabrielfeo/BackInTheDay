@@ -11,14 +11,14 @@ public class Favorite {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "movie_id")
-    private final String movieId;
+    private final int movieId;
 
-    public Favorite(@NonNull String movieId) {
+    public Favorite(@NonNull int movieId) {
         this.movieId = movieId;
     }
 
     @NonNull
-    public String getMovieId() {
+    public int getMovieId() {
         return movieId;
     }
 
