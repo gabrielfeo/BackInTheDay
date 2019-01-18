@@ -7,13 +7,15 @@ import android.content.Context;
 
 import com.gabrielfeo.backintheday.model.Movie;
 import com.gabrielfeo.backintheday.model.MovieDetails;
+import com.gabrielfeo.backintheday.model.Review;
 import com.gabrielfeo.backintheday.model.Trailer;
 
 @Database(entities = {Movie.class,
                       MovieDetails.class,
-                      Trailer.class},
+                      Trailer.class,
+                      Review.class},
 
-          version = 2, exportSchema = false)
+          version = 4, exportSchema = false)
 public abstract class MovieCache extends RoomDatabase {
 
     private static final String DATABASE_NAME = "movie_cache";

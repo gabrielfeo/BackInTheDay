@@ -13,8 +13,10 @@ import com.gabrielfeo.backintheday.data.moviedb.MovieDb;
 import com.gabrielfeo.backintheday.data.moviedb.MovieService;
 import com.gabrielfeo.backintheday.model.Movie;
 import com.gabrielfeo.backintheday.model.MovieDetails;
+import com.gabrielfeo.backintheday.model.MovieReviewsResponse;
 import com.gabrielfeo.backintheday.model.MovieTrailersResponse;
 import com.gabrielfeo.backintheday.model.MoviesResponse;
+import com.gabrielfeo.backintheday.model.Review;
 import com.gabrielfeo.backintheday.model.Trailer;
 
 import java.util.List;
@@ -71,10 +73,23 @@ public class AppMovieRepository implements MovieRepository {
     public LiveData<List<Trailer>> getTrailersByMovieId(int movieId) {
         remote.getTrailersByMovieId(movieId)
               .enqueue(new ApiResponseHandler<MovieTrailersResponse>(trailersByMovieIdSuccessCallback,
-                                                                     moviesDetailsErrorCallback));
+                                                                     trailersByMovieIdErrorCallback));
         return cache.getTrailersByMovieId(movieId);
     }
 
+
+    // @formatter:off
+    private final SuccessCallback<MovieReviewsResponse> reviewsByMovieIdSuccessCallback =
+            (response) -> cache.insertReviews(response.getReviews());
+    private final ErrorCallback reviewsByMovieIdErrorCallback =
+            () -> logError("Error getting movie reviews from remote");
+    @Override                                                                                       // @formatter:on
+    public LiveData<List<Review>> getReviewsByMovieId(int movieId) {
+        remote.getReviewsByMovieId(movieId)
+              .enqueue(new ApiResponseHandler<MovieReviewsResponse>(reviewsByMovieIdSuccessCallback,
+                                                                    reviewsByMovieIdErrorCallback));
+        return cache.getReviewsByMovieId(movieId);
+    }
 
 
     private void logError(String message) {

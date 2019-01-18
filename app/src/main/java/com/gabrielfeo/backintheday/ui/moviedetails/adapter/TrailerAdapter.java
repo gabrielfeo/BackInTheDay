@@ -21,14 +21,26 @@ import java.util.List;
 public final class TrailerAdapter extends RecyclerView.Adapter<TrailerViewHolder> {
 
     private static final String TAG = TrailerAdapter.class.getSimpleName();
+    private final TrailersListener trailersListener;
     private List<Trailer> trailers;
+    private int loadableTrailersCount;
 
     public void setTrailers(List<Trailer> trailers) {
         final List<Trailer> youtubeTrailers = trailers;
         trailers.removeIf(trailer -> !trailer.getSiteName().toLowerCase().equals("youtube"));
         this.trailers = youtubeTrailers;
+        loadableTrailersCount = trailers.size();
         notifyDataSetChanged();
+        if (loadableTrailersCount < 1) trailersListener.onTrailersListEmpty();
         Log.d(TAG, "Trailers list changed. Size: " + trailers.size());
+    }
+
+    public interface TrailersListener {
+        void onTrailersListEmpty();
+    }
+
+    public TrailerAdapter(TrailersListener trailersListener) {
+        this.trailersListener = trailersListener;
     }
 
     @NonNull
@@ -63,7 +75,13 @@ public final class TrailerAdapter extends RecyclerView.Adapter<TrailerViewHolder
         return (trailers != null) ? trailers.size() : 0;
     }
 
-    private final class TrailerThumbnailListener implements YouTubeThumbnailView.OnInitializedListener {
+    private void decreaseLoadableTrailersCount() {
+        loadableTrailersCount--;
+        if (loadableTrailersCount < 1) trailersListener.onTrailersListEmpty();
+    }
+
+    private final class TrailerThumbnailListener
+            implements YouTubeThumbnailView.OnInitializedListener, YouTubeThumbnailLoader.OnThumbnailLoadedListener {
 
         private final String videoId;
 
@@ -74,7 +92,9 @@ public final class TrailerAdapter extends RecyclerView.Adapter<TrailerViewHolder
         @Override
         public void onInitializationSuccess(YouTubeThumbnailView view,
                                             YouTubeThumbnailLoader loader) {
+
             loader.setVideo(videoId);
+            Log.d(TAG, "Tried to load video with ID " + videoId);
         }
 
         @Override
@@ -82,7 +102,18 @@ public final class TrailerAdapter extends RecyclerView.Adapter<TrailerViewHolder
                                             YouTubeInitializationResult initializationResult) {
             Log.e(TAG, "Error initializing YouTube thumbnail. Initialization result: "
                        + initializationResult.toString());
+            decreaseLoadableTrailersCount();
         }
+
+        @Override
+        public void onThumbnailError(YouTubeThumbnailView youTubeThumbnailView,
+                                     YouTubeThumbnailLoader.ErrorReason errorReason) {
+            Log.e(TAG, "Error loading video with ID " + videoId + ". Reason: " + errorReason.name());
+            decreaseLoadableTrailersCount();
+        }
+
+        @Override
+        public void onThumbnailLoaded(YouTubeThumbnailView youTubeThumbnailView, String s) { }
     }
 
 }

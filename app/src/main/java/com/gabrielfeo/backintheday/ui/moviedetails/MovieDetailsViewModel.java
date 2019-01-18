@@ -12,6 +12,7 @@ import com.gabrielfeo.backintheday.data.AppMovieRepository;
 import com.gabrielfeo.backintheday.data.MovieRepository;
 import com.gabrielfeo.backintheday.model.MovieDetails;
 import com.gabrielfeo.backintheday.model.ProductionCountry;
+import com.gabrielfeo.backintheday.model.Review;
 import com.gabrielfeo.backintheday.model.SpokenLanguage;
 import com.gabrielfeo.backintheday.model.Trailer;
 
@@ -34,6 +35,7 @@ public class MovieDetailsViewModel extends AndroidViewModel {
     private MediatorLiveData<String> rating = new MediatorLiveData<>();
     private MediatorLiveData<String> sinopsis = new MediatorLiveData<>();
     private MediatorLiveData<List<Trailer>> trailers = new MediatorLiveData<>();
+    private MediatorLiveData<List<Review>> reviews = new MediatorLiveData<>();
 
     public MovieDetailsViewModel(@NonNull Application application) {
         super(application);
@@ -49,6 +51,8 @@ public class MovieDetailsViewModel extends AndroidViewModel {
         addNewDetailsSource(newDetails);
         LiveData<List<Trailer>> newTrailers = movieRepository.getTrailersByMovieId(movieId);
         addNewTrailersSource(newTrailers);
+        LiveData<List<Review>> newReviews = movieRepository.getReviewsByMovieId(movieId);
+        addNewReviewsSource(newReviews);
     }
 
     private void addNewDetailsSource(LiveData<MovieDetails> source) {
@@ -65,6 +69,10 @@ public class MovieDetailsViewModel extends AndroidViewModel {
 
     private void addNewTrailersSource(LiveData<List<Trailer>> source) {
         trailers.addSource(source, movieTrailers -> setTrailersFrom(movieTrailers));
+    }
+
+    private void addNewReviewsSource(LiveData<List<Review>> source) {
+        trailers.addSource(source, movieReviews -> setReviewsFrom(movieReviews));
     }
 
     public void setMovieId(int movieId) {
@@ -154,6 +162,13 @@ public class MovieDetailsViewModel extends AndroidViewModel {
             this.trailers.postValue(trailers);
     }
 
+    private void setReviewsFrom(List<Review> reviews) {
+        if (reviews != null && reviews.size() > 0) {
+            reviews.forEach(review -> review.setContent("\"" + review.getContent() + "\""));
+            this.reviews.postValue(reviews);
+        }
+    }
+
     public LiveData<Uri> getPosterUrl() {
         return posterUrl;
     }
@@ -196,6 +211,10 @@ public class MovieDetailsViewModel extends AndroidViewModel {
 
     public LiveData<List<Trailer>> getTrailers() {
         return trailers;
+    }
+
+    public LiveData<List<Review>> getReviews() {
+        return reviews;
     }
 
 }

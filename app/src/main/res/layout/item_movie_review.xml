@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="256dp"
+    android:layout_height="match_parent"
+    android:layout_marginEnd="16dp"
+    android:padding="8dp"
+    tools:background="@color/background"
+    tools:layout_height="176dp">
+
+    <!--TODO Test with card view-->
+
+    <TextView
+        android:id="@+id/moviedetailreviews_tv_review_author"
+        style="@style/Text.SingleLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textRegular"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/moviedetailreviews_tv_review_content"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@sample/review_author" />
+
+    <TextView
+        android:id="@+id/moviedetailreviews_tv_review_content"
+        style="@style/Text.MovieReview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:maxLines="4"
+        app:layout_constraintBottom_toTopOf="@id/moviedetailreviews_b_read_more_button"
+        app:layout_constraintTop_toBottomOf="@id/moviedetailreviews_tv_review_author"
+        tools:text="@sample/sinopsis" />
+    <!--TODO Make tools text work with review sample-->
+
+    <Button
+        android:id="@+id/moviedetailreviews_b_read_more_button"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:background="@android:color/transparent"
+        android:text="@string/moviedetail_reviews_read_more_button"
+        android:textColor="@color/textAccented"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/moviedetailreviews_tv_review_content" />
+
+</android.support.constraint.ConstraintLayout>

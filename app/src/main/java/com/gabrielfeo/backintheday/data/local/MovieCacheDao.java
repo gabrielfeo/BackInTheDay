@@ -9,6 +9,7 @@ import android.arch.persistence.room.Query;
 import com.gabrielfeo.backintheday.data.MovieRepository;
 import com.gabrielfeo.backintheday.model.Movie;
 import com.gabrielfeo.backintheday.model.MovieDetails;
+import com.gabrielfeo.backintheday.model.Review;
 import com.gabrielfeo.backintheday.model.Trailer;
 
 import java.util.List;
@@ -44,5 +45,16 @@ public abstract class MovieCacheDao implements MovieRepository {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insertTrailers(List<Trailer> trailers); // Can't be overloaded because of type erasure
+
+
+    @Override
+    @Query("SELECT * FROM movie_reviews WHERE movie_id = :movieId")
+    public abstract LiveData<List<Review>> getReviewsByMovieId(int movieId);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public abstract void insert(Review review);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public abstract void insertReviews(List<Review> reviews); // Can't be overloaded because of type erasure
 
 }
