@@ -13,11 +13,11 @@ import com.gabrielfeo.backintheday.data.moviedb.MovieDb;
 import com.gabrielfeo.backintheday.data.moviedb.MovieService;
 import com.gabrielfeo.backintheday.model.Movie;
 import com.gabrielfeo.backintheday.model.MovieDetails;
-import com.gabrielfeo.backintheday.model.MovieReviewsResponse;
-import com.gabrielfeo.backintheday.model.MovieTrailersResponse;
-import com.gabrielfeo.backintheday.model.MoviesResponse;
 import com.gabrielfeo.backintheday.model.Review;
 import com.gabrielfeo.backintheday.model.Trailer;
+import com.gabrielfeo.backintheday.model.response.MovieReviewsResponse;
+import com.gabrielfeo.backintheday.model.response.MovieTrailersResponse;
+import com.gabrielfeo.backintheday.model.response.MoviesResponse;
 
 import java.util.List;
 

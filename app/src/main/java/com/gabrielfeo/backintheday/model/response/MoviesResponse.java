@@ -1,7 +1,8 @@
-package com.gabrielfeo.backintheday.model;
+package com.gabrielfeo.backintheday.model.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.gabrielfeo.backintheday.model.Movie;
 
 import java.util.List;
 
