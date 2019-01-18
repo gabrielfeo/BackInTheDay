@@ -11,6 +11,7 @@ import com.gabrielfeo.backintheday.data.local.MovieCacheDao;
 import com.gabrielfeo.backintheday.data.moviedb.ApiResponseHandler;
 import com.gabrielfeo.backintheday.data.moviedb.MovieDb;
 import com.gabrielfeo.backintheday.data.moviedb.MovieService;
+import com.gabrielfeo.backintheday.model.Favorite;
 import com.gabrielfeo.backintheday.model.Movie;
 import com.gabrielfeo.backintheday.model.MovieDetails;
 import com.gabrielfeo.backintheday.model.Review;
@@ -90,6 +91,18 @@ public class AppMovieRepository implements MovieRepository {
                                                                     reviewsByMovieIdErrorCallback));
         return cache.getReviewsByMovieId(movieId);
     }
+
+
+    @Override
+    public LiveData<List<Favorite>> getFavorites() {
+        return cache.getFavorites();
+    }
+
+    @Override
+    public void insert(Favorite favorite) {
+        cache.insert(favorite);
+    }
+
 
 
     private void logError(String message) {
