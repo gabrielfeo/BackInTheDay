@@ -14,7 +14,9 @@ public class MovieReviewsResponse {
     private final List<Review> reviews;
 
     @JsonCreator
-    public MovieReviewsResponse(int movieId, List<Review> reviews) {
+    public MovieReviewsResponse(
+            @JsonProperty("id") int movieId,
+            @JsonProperty("results") List<Review> reviews) {
         this.movieId = movieId;
         this.reviews = reviews;
         linkReviewsWithMovieId();

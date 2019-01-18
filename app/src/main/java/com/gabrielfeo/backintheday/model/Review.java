@@ -37,7 +37,11 @@ public class Review {
 
     @Ignore
     @JsonCreator
-    public Review(String id, String author, String content, String url) {
+    public Review(
+            @JsonProperty("id") String id,
+            @JsonProperty("author") String author,
+            @JsonProperty("content") String content,
+            @JsonProperty("url") String url) {
         this(id, 0, author, content, url);
     }
 
