@@ -29,7 +29,7 @@ public class Review {
 
     @ColumnInfo(name = "content")
     @JsonProperty("content")
-    private final String content;
+    private String content;
 
     @ColumnInfo(name = "url")
     @JsonProperty("url")
@@ -71,6 +71,10 @@ public class Review {
 
     public String getUrl() {
         return url;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public void setMovieId(int movieId) {

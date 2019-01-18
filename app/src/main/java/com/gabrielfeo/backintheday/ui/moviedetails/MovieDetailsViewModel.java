@@ -163,8 +163,10 @@ public class MovieDetailsViewModel extends AndroidViewModel {
     }
 
     private void setReviewsFrom(List<Review> reviews) {
-        if (reviews != null && reviews.size() > 0)
+        if (reviews != null && reviews.size() > 0) {
+            reviews.forEach(review -> review.setContent("\"" + review.getContent() + "\""));
             this.reviews.postValue(reviews);
+        }
     }
 
     public LiveData<Uri> getPosterUrl() {
