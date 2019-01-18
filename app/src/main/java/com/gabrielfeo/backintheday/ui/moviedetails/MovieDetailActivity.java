@@ -29,7 +29,7 @@ import java.util.List;
 
 import static android.support.v7.widget.LinearLayoutManager.HORIZONTAL;
 
-public class MovieDetailActivity extends AppCompatActivity {
+public class MovieDetailActivity extends AppCompatActivity implements TrailerAdapter.TrailersListener {
 
     private static final String TAG = MovieDetailActivity.class.getSimpleName();
     private static final String EXTRA_MOVIE_KEY = "movie";
@@ -52,7 +52,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private View reviewsSection;
     private RecyclerView reviewsView;
 
-    private TrailerAdapter trailerAdapter = new TrailerAdapter();
+    private TrailerAdapter trailerAdapter = new TrailerAdapter(this);
     private ReviewAdapter reviewAdapter = new ReviewAdapter();
 
     private final ErrorCallback snackbarErrorCallback = () -> {
@@ -161,7 +161,11 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private void setTrailers(List<Trailer> trailers) {
         trailerAdapter.setTrailers(trailers);
-        show(trailersSection);
+    }
+
+    @Override
+    public void onTrailersListEmpty() {
+        hide(trailersSection);
     }
 
     private void setReviews(List<Review> reviews) {
@@ -171,6 +175,10 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private void show(View view) {
         view.setVisibility(View.VISIBLE);
+    }
+
+    private void hide(View view) {
+        view.setVisibility(View.GONE);
     }
 
     @Override
