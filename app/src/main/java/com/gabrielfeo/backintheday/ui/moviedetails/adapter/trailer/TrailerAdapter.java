@@ -1,4 +1,4 @@
-package com.gabrielfeo.backintheday.ui.moviedetails.adapter;
+package com.gabrielfeo.backintheday.ui.moviedetails.adapter.trailer;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;

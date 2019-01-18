@@ -1,4 +1,4 @@
-package com.gabrielfeo.backintheday.ui.moviedetails.adapter;
+package com.gabrielfeo.backintheday.ui.moviedetails.adapter.review;
 
 import android.content.Context;
 import android.content.Intent;
