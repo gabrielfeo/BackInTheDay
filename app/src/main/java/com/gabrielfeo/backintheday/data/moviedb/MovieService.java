@@ -1,9 +1,9 @@
 package com.gabrielfeo.backintheday.data.moviedb;
 
 import com.gabrielfeo.backintheday.model.MovieDetails;
-import com.gabrielfeo.backintheday.model.MovieReviewsResponse;
-import com.gabrielfeo.backintheday.model.MovieTrailersResponse;
-import com.gabrielfeo.backintheday.model.MoviesResponse;
+import com.gabrielfeo.backintheday.model.response.MovieReviewsResponse;
+import com.gabrielfeo.backintheday.model.response.MovieTrailersResponse;
+import com.gabrielfeo.backintheday.model.response.MoviesResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
