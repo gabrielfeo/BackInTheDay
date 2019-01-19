@@ -7,9 +7,11 @@ import android.arch.lifecycle.MediatorLiveData;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.gabrielfeo.backintheday.data.AppMovieRepository;
 import com.gabrielfeo.backintheday.data.MovieRepository;
+import com.gabrielfeo.backintheday.model.Favorite;
 import com.gabrielfeo.backintheday.model.MovieDetails;
 import com.gabrielfeo.backintheday.model.ProductionCountry;
 import com.gabrielfeo.backintheday.model.Review;
@@ -18,12 +20,14 @@ import com.gabrielfeo.backintheday.model.Trailer;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class MovieDetailsViewModel extends AndroidViewModel {
 
     private static final String TAG = MovieDetailsViewModel.class.getSimpleName();
     private MovieRepository movieRepository = AppMovieRepository.getInstance(getApplication());
     private int movieId;
+    private MediatorLiveData<Boolean> favoriteStatus = new MediatorLiveData<>();
     private MediatorLiveData<String> title = new MediatorLiveData<>();
     private MediatorLiveData<String> directors = new MediatorLiveData<>();
     private MediatorLiveData<Uri> posterUrl = new MediatorLiveData<>();
@@ -46,13 +50,33 @@ public class MovieDetailsViewModel extends AndroidViewModel {
         this.ratingTitle.setValue("Average Rating"); //TODO Use string res
     }
 
+    public void setFavoriteStatus(boolean favorite) {
+        boolean isCurrentlyAFavorite;
+        if (favoriteStatus.getValue() != null) isCurrentlyAFavorite = favoriteStatus.getValue();
+        else isCurrentlyAFavorite = false;
+
+        if (favorite && !isCurrentlyAFavorite)
+            movieRepository.insert(new Favorite(movieId));
+        else if (!favorite && isCurrentlyAFavorite)
+            movieRepository.delete(new Favorite(movieId));
+    }
+
     public void refreshMovieDetails() {
-        LiveData<MovieDetails> newDetails = movieRepository.getMovieDetails(movieId);
-        addNewDetailsSource(newDetails);
-        LiveData<List<Trailer>> newTrailers = movieRepository.getTrailersByMovieId(movieId);
-        addNewTrailersSource(newTrailers);
-        LiveData<List<Review>> newReviews = movieRepository.getReviewsByMovieId(movieId);
-        addNewReviewsSource(newReviews);
+        LiveData<MovieDetails> detailsSource = movieRepository.getMovieDetails(movieId);
+        addNewDetailsSource(detailsSource);
+
+        LiveData<List<Favorite>> favoriteStatusSource = movieRepository.getFavorites();
+        addNewFavoriteStatusSource(favoriteStatusSource);
+
+        LiveData<List<Trailer>> trailersSource = movieRepository.getTrailersByMovieId(movieId);
+        addNewTrailersSource(trailersSource);
+
+        LiveData<List<Review>> reviewsSource = movieRepository.getReviewsByMovieId(movieId);
+        addNewReviewsSource(reviewsSource);
+    }
+
+    private void addNewFavoriteStatusSource(LiveData<List<Favorite>> source) {
+        favoriteStatus.addSource(source, favorites -> setFavoriteStatusFrom(favorites));
     }
 
     private void addNewDetailsSource(LiveData<MovieDetails> source) {
@@ -167,6 +191,17 @@ public class MovieDetailsViewModel extends AndroidViewModel {
             reviews.forEach(review -> review.setContent("\"" + review.getContent() + "\""));
             this.reviews.postValue(reviews);
         }
+    }
+
+    private void setFavoriteStatusFrom(List<Favorite> favorites) {
+        Predicate<Favorite> hasThisMovieId = favorite -> favorite.getMovieId() == movieId;
+        boolean isFavorite = favorites.stream().anyMatch(hasThisMovieId);
+        Log.d(TAG, "Posting favorite status value=" + isFavorite);
+        this.favoriteStatus.postValue(isFavorite);
+    }
+
+    public LiveData<Boolean> getFavoriteStatus() {
+        return favoriteStatus;
     }
 
     public LiveData<Uri> getPosterUrl() {

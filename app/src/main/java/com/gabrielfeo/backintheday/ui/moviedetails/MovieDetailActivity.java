@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +36,8 @@ public class MovieDetailActivity extends AppCompatActivity implements TrailerAda
     private static final String TAG = MovieDetailActivity.class.getSimpleName();
     private static final String EXTRA_MOVIE_KEY = "movie";
     private MovieDetailsViewModel viewModel;
+
+    private MenuItem favoriteOption;
 
     private CoordinatorLayout rootView;
     private Toolbar toolbar;
@@ -133,6 +137,7 @@ public class MovieDetailActivity extends AppCompatActivity implements TrailerAda
     private YouTubeThumbnailLoader thumbnailLoader;
 
     private void observeMovieDetails() {
+        viewModel.getFavoriteStatus().observe(this, status -> reloadOptionsMenu());
         viewModel.getTitle().observe(this, titleView::setText);
         viewModel.getDirectors().observe(this, directorView::setText);
         viewModel.getPosterUrl().observe(this, url -> {
@@ -149,6 +154,10 @@ public class MovieDetailActivity extends AppCompatActivity implements TrailerAda
         viewModel.getSinopsis().observe(this, sinopsisView::setText);
         viewModel.getTrailers().observe(this, this::setTrailers);
         viewModel.getReviews().observe(this, this::setReviews);
+    }
+
+    private void reloadOptionsMenu() {
+        supportInvalidateOptionsMenu();
     }
 
     private void refreshMovieDetails() {
@@ -179,6 +188,36 @@ public class MovieDetailActivity extends AppCompatActivity implements TrailerAda
 
     private void hide(View view) {
         view.setVisibility(View.GONE);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.movie_details, menu);
+        favoriteOption = menu.findItem(R.id.moviedetailmenu_favorite);
+        setupFavoriteOption();
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        Boolean favoriteStatus = viewModel.getFavoriteStatus().getValue();
+        if (favoriteStatus != null)
+            favoriteOption.setChecked(favoriteStatus);
+        return true;
+    }
+
+    private void setupFavoriteOption() {
+        favoriteOption.setOnMenuItemClickListener(item -> {
+            item.setChecked(!item.isChecked()); // Must manually check the item upon click
+            saveFavoriteState(item.isChecked());
+            return true;
+        });
+    }
+
+    private void saveFavoriteState(boolean favorite) {
+        viewModel.setFavoriteStatus(favorite);
     }
 
     @Override
