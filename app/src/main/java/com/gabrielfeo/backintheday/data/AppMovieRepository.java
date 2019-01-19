@@ -103,6 +103,10 @@ public class AppMovieRepository implements MovieRepository {
         cache.insert(favorite);
     }
 
+    @Override
+    public void delete(Favorite favorite) {
+        cache.delete(favorite);
+    }
 
 
     private void logError(String message) {

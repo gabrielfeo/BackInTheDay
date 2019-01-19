@@ -19,5 +19,6 @@ public interface MovieRepository {
 
     LiveData<List<Favorite>> getFavorites();
     void insert(Favorite favorite);
+    void delete(Favorite favorite);
 
 }

@@ -2,6 +2,7 @@ package com.gabrielfeo.backintheday.data.local;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
@@ -66,5 +67,9 @@ public abstract class MovieCacheDao implements MovieRepository {
     @Override
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insert(Favorite favorite);
+
+    @Override
+    @Delete()
+    public abstract void delete(Favorite favorite);
 
 }
