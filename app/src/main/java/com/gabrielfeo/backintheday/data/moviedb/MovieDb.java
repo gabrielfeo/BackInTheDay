@@ -20,6 +20,7 @@ public final class MovieDb {
 
     private static final String BASE_URL = "https://api.themoviedb.org/3/";
     private static final String MOVIEDB_API_KEY = BuildConfig.MOVIEDB_API_KEY;
+    public static final int STANDARD_PAGE_SIZE = 20;
     private static Retrofit retrofit;
 
     public static MovieService getMovieService() {

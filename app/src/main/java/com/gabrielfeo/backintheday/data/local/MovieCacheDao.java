@@ -7,6 +7,7 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import com.gabrielfeo.backintheday.data.MovieRepository;
+import com.gabrielfeo.backintheday.data.moviedb.MovieDb;
 import com.gabrielfeo.backintheday.model.Movie;
 import com.gabrielfeo.backintheday.model.MovieDetails;
 import com.gabrielfeo.backintheday.model.Review;
@@ -17,8 +18,13 @@ import java.util.List;
 @Dao
 public abstract class MovieCacheDao implements MovieRepository {
 
+    private static final int PAGE_SIZE = MovieDb.STANDARD_PAGE_SIZE;
+
     @Override
-    @Query("SELECT * FROM movies WHERE release_date LIKE '%' || :year || '%'")
+    @Query("SELECT * FROM movies WHERE release_date LIKE '%' || :year || '%' "
+           + "ORDER BY popularity DESC "
+           + "LIMIT :page*" + PAGE_SIZE + " "
+           + "OFFSET (:page-1)*" + PAGE_SIZE)
     public abstract LiveData<List<Movie>> getMoviesOfYear(int year, int page);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
