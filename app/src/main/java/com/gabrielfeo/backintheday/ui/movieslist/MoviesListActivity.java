@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.ui.moviedetails.MovieDetailActivity;
 import com.gabrielfeo.backintheday.ui.movieslist.adapter.MoviePosterAdapter;
+import com.gabrielfeo.backintheday.ui.movieslist.paging.PageKeeper;
 import com.gabrielfeo.backintheday.ui.widget.MoviePosterView;
 
 import java.util.List;
@@ -37,7 +38,9 @@ public final class MoviesListActivity extends AppCompatActivity {
     private ProgressBar loadingIndicator;
     private View contentRootView;
     private RecyclerView recyclerView;
-    private MoviePosterAdapter adapter = new MoviePosterAdapter(getMovieClickListener());
+    private PageKeeper pageKeeper = new PageKeeper();
+    private MoviePosterAdapter adapter = new MoviePosterAdapter(getMovieClickListener(),
+                                                                getBottomReachedListener());
 
     private MoviePosterView.OnMoviePosterClickListener getMovieClickListener() {
         return (moviePosterView, movieId) -> {
@@ -50,6 +53,13 @@ public final class MoviesListActivity extends AppCompatActivity {
                 }
             };
             moviePosterView.fadeFooterOut(animationEndListener);
+        };
+    }
+
+    private MoviePosterAdapter.OnBottomReachedListener getBottomReachedListener() {
+        return () -> {
+            pageKeeper.inc();
+            getMovies();
         };
     }
 
@@ -87,6 +97,7 @@ public final class MoviesListActivity extends AppCompatActivity {
         yearSelectorView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                pageKeeper.reset();
                 getMovies();
             }
 
@@ -98,9 +109,9 @@ public final class MoviesListActivity extends AppCompatActivity {
 
     private void getMovies() {
         setIsLoading(true);
-        viewModel.getMovies(getSelectedYear())
+        viewModel.getMovies(getSelectedYear(), pageKeeper.getCurrent())
                  .observe(this, movies -> {
-                     adapter.setMovies(movies);
+                     adapter.addMovies(movies);
                      setIsLoading(false);
                  });
     }

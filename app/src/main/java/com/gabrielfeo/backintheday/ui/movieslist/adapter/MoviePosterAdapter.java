@@ -15,9 +15,21 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
 
     private List<Movie> movies;
     private MoviePosterView.OnMoviePosterClickListener clickListener;
+    private OnBottomReachedListener bottomReachedListener;
 
-    public MoviePosterAdapter(MoviePosterView.OnMoviePosterClickListener movieClickListener) {
+    public MoviePosterAdapter(MoviePosterView.OnMoviePosterClickListener movieClickListener,
+                              OnBottomReachedListener bottomReachedListener) {
         this.clickListener = movieClickListener;
+        this.bottomReachedListener = bottomReachedListener;
+    }
+
+    public void addMovies(List<Movie> newMovies) {
+        if (this.movies != null) {
+            this.movies.addAll(newMovies);
+            notifyDataSetChanged();
+        } else {
+            setMovies(newMovies);
+        }
     }
 
     public void setMovies(List<Movie> movies) {
@@ -35,6 +47,7 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
     @Override
     public void onBindViewHolder(@NonNull MoviePosterViewHolder holder, int position) {
         if (movies == null) { return; }
+        if (position == getItemCount() - 1) bottomReachedListener.onBottomReached();
         MoviePosterView currentView = holder.moviePosterView;
         Movie currentMovie = movies.get(position);
         setPoster(currentView, currentMovie);
@@ -71,6 +84,10 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
             this.moviePosterView = (MoviePosterView) itemView;
         }
 
+    }
+
+    public interface OnBottomReachedListener {
+        void onBottomReached();
     }
 
 }

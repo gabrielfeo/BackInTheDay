@@ -32,8 +32,8 @@ public class MoviesListViewModel extends AndroidViewModel {
         return biasedRandomSelection;
     }
 
-    public LiveData<List<Movie>> getMovies(int year) {
-        return movieRepository.getMoviesOfYear(year);
+    public LiveData<List<Movie>> getMovies(int year, int page) {
+        return movieRepository.getMoviesOfYear(year, page);
     }
 
 }
