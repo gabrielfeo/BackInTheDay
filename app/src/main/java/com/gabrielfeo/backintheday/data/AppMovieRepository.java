@@ -44,10 +44,10 @@ public class AppMovieRepository implements MovieRepository {
     private final ErrorCallback moviesByYearErrorCallback =
             () -> logError("Error getting movies from remote");
     @Override                                                                                       // @formatter:on
-    public LiveData<List<Movie>> getMoviesOfYear(int year) {
-        remote.getMoviesOfYear(year)
+    public LiveData<List<Movie>> getMoviesOfYear(int year, int page) {
+        remote.getMoviesOfYear(year, page)
               .enqueue(new ApiResponseHandler<>(moviesByYearSuccessCallback, moviesByYearErrorCallback));
-        return cache.getMoviesOfYear(year);
+        return cache.getMoviesOfYear(year, page);
     }
 
 

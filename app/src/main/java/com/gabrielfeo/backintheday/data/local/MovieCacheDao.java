@@ -19,7 +19,7 @@ public abstract class MovieCacheDao implements MovieRepository {
 
     @Override
     @Query("SELECT * FROM movies WHERE release_date LIKE '%' || :year || '%'")
-    public abstract LiveData<List<Movie>> getMoviesOfYear(int year);
+    public abstract LiveData<List<Movie>> getMoviesOfYear(int year, int page);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insert(Movie movie);

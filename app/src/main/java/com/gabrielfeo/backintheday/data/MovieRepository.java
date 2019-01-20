@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface MovieRepository {
 
-    LiveData<List<Movie>> getMoviesOfYear(int year);
+    LiveData<List<Movie>> getMoviesOfYear(int year, int page);
     LiveData<MovieDetails> getMovieDetails(int movieId);
     LiveData<List<Trailer>> getTrailersByMovieId(int movieId);
     LiveData<List<Review>> getReviewsByMovieId(int movieId);

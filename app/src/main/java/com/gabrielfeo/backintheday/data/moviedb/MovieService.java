@@ -13,7 +13,8 @@ import retrofit2.http.Query;
 public interface MovieService {
 
     @GET("discover/movie?sort_by=popularity.desc")
-    Call<MoviesResponse> getMoviesOfYear(@Query("primary_release_year") int year);
+    Call<MoviesResponse> getMoviesOfYear(@Query("primary_release_year") int year,
+                                         @Query("page") int page);
 
     @GET("movie/{movie_id}" + "?append_to_response=credits")
     Call<MovieDetails> getMovieDetails(@Path("movie_id") int movieId);
