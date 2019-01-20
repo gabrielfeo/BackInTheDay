@@ -21,7 +21,6 @@ import java.util.List;
 
 public class MovieDetailsViewModel extends AndroidViewModel {
 
-    private static final String TAG = MovieDetailsViewModel.class.getSimpleName();
     private MovieRepository movieRepository = AppMovieRepository.getInstance(getApplication());
     private int movieId;
     private MediatorLiveData<String> title = new MediatorLiveData<>();

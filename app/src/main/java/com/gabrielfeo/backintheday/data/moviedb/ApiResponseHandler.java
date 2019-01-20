@@ -1,10 +1,10 @@
 package com.gabrielfeo.backintheday.data.moviedb;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.gabrielfeo.backintheday.data.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.data.callback.SuccessCallback;
+import com.gabrielfeo.backintheday.util.logging.Logger;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -12,7 +12,6 @@ import retrofit2.Response;
 
 public class ApiResponseHandler<T> implements Callback<T> {
 
-    private static final String TAG = ApiResponseHandler.class.getSimpleName();
     private final SuccessCallback<T> successCallback;
     private final ErrorCallback errorCallback;
 
@@ -32,7 +31,7 @@ public class ApiResponseHandler<T> implements Callback<T> {
 
     @Override
     public void onFailure(@NonNull Call<T> call, @NonNull Throwable throwable) {
-        Log.e(TAG, "API call failed with " + call.request().toString(), throwable);
+        Logger.error(this, "API call failed with " + call.request().toString(), throwable);
         if (throwable != null) throwable.printStackTrace();
         errorCallback.onError();
     }

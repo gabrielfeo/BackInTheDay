@@ -11,12 +11,12 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gabrielfeo.backintheday.R;
+import com.gabrielfeo.backintheday.util.logging.Logger;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -28,7 +28,6 @@ public final class MoviePosterView extends ConstraintLayout implements Target {
     public static interface OnMoviePosterClickListener {
         void onMoviePosterClick(MoviePosterView moviePosterView, int movieId);
     }
-    private static final String TAG = MoviePosterView.class.getSimpleName();
     private ImageView posterImageView;
     private View infoBackgroundView;
     private TextView titleView;
@@ -114,7 +113,7 @@ public final class MoviePosterView extends ConstraintLayout implements Target {
 
     @Override
     public void onBitmapFailed(Exception exception, Drawable errorDrawable) {
-        Log.e(TAG, "onBitmapFailed: ", exception);
+        Logger.error(this, "onBitmapFailed: ", exception);
         if (errorDrawable != null) setImage(errorDrawable);
     }
 

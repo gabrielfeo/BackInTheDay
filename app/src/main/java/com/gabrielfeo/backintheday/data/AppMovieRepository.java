@@ -2,7 +2,6 @@ package com.gabrielfeo.backintheday.data;
 
 import android.arch.lifecycle.LiveData;
 import android.content.Context;
-import android.util.Log;
 
 import com.gabrielfeo.backintheday.data.callback.ErrorCallback;
 import com.gabrielfeo.backintheday.data.callback.SuccessCallback;
@@ -18,12 +17,12 @@ import com.gabrielfeo.backintheday.model.Trailer;
 import com.gabrielfeo.backintheday.model.response.MovieReviewsResponse;
 import com.gabrielfeo.backintheday.model.response.MovieTrailersResponse;
 import com.gabrielfeo.backintheday.model.response.MoviesResponse;
+import com.gabrielfeo.backintheday.util.logging.Logger;
 
 import java.util.List;
 
 public class AppMovieRepository implements MovieRepository {
 
-    private static final String TAG = AppMovieRepository.class.getSimpleName();
     private static final AppMovieRepository instance = new AppMovieRepository();
     private final MovieService remote = MovieDb.getMovieService();
     private MovieCacheDao cache;
@@ -93,7 +92,7 @@ public class AppMovieRepository implements MovieRepository {
 
 
     private void logError(String message) {
-        Log.e(TAG, message);
+        Logger.error(this, message);
     }
 
 

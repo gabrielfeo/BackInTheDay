@@ -31,7 +31,6 @@ import static android.support.v7.widget.LinearLayoutManager.HORIZONTAL;
 
 public class MovieDetailActivity extends AppCompatActivity implements TrailerAdapter.TrailersListener {
 
-    private static final String TAG = MovieDetailActivity.class.getSimpleName();
     private static final String EXTRA_MOVIE_KEY = "movie";
     private MovieDetailsViewModel viewModel;
 

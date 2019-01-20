@@ -3,7 +3,6 @@ package com.gabrielfeo.backintheday.ui.moviedetails.adapter.trailer;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.view.ViewGroup;
 import com.gabrielfeo.backintheday.BuildConfig;
 import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.model.Trailer;
+import com.gabrielfeo.backintheday.util.logging.Logger;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubeIntents;
 import com.google.android.youtube.player.YouTubeThumbnailLoader;
@@ -20,7 +20,6 @@ import java.util.List;
 
 public final class TrailerAdapter extends RecyclerView.Adapter<TrailerViewHolder> {
 
-    private static final String TAG = TrailerAdapter.class.getSimpleName();
     private final TrailersListener trailersListener;
     private List<Trailer> trailers;
     private int loadableTrailersCount;
@@ -32,7 +31,7 @@ public final class TrailerAdapter extends RecyclerView.Adapter<TrailerViewHolder
         loadableTrailersCount = trailers.size();
         notifyDataSetChanged();
         if (loadableTrailersCount < 1) trailersListener.onTrailersListEmpty();
-        Log.d(TAG, "Trailers list changed. Size: " + trailers.size());
+        Logger.debug(this, "Trailers list changed. Size: " + trailers.size());
     }
 
     public interface TrailersListener {
@@ -94,21 +93,21 @@ public final class TrailerAdapter extends RecyclerView.Adapter<TrailerViewHolder
                                             YouTubeThumbnailLoader loader) {
 
             loader.setVideo(videoId);
-            Log.d(TAG, "Tried to load video with ID " + videoId);
+            Logger.debug(this, "Tried to load video with ID " + videoId);
         }
 
         @Override
         public void onInitializationFailure(YouTubeThumbnailView view,
                                             YouTubeInitializationResult initializationResult) {
-            Log.e(TAG, "Error initializing YouTube thumbnail. Initialization result: "
-                       + initializationResult.toString());
+            Logger.error(this, "Error initializing YouTube thumbnail. Initialization result: "
+                               + initializationResult.toString());
             decreaseLoadableTrailersCount();
         }
 
         @Override
         public void onThumbnailError(YouTubeThumbnailView youTubeThumbnailView,
                                      YouTubeThumbnailLoader.ErrorReason errorReason) {
-            Log.e(TAG, "Error loading video with ID " + videoId + ". Reason: " + errorReason.name());
+            Logger.error(this, "Error loading video with ID " + videoId + ". Reason: " + errorReason.name());
             decreaseLoadableTrailersCount();
         }
 

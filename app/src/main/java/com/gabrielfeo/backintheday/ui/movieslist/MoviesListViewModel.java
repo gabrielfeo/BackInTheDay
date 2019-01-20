@@ -15,7 +15,6 @@ import java.util.Random;
 
 public class MoviesListViewModel extends AndroidViewModel {
 
-    private static final String TAG = MoviesListViewModel.class.getSimpleName();
     private final MovieRepository movieRepository;
 
     public MoviesListViewModel(@NonNull Application application) {

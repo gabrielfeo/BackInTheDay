@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.SharedElementCallback;
@@ -24,6 +25,7 @@ import com.gabrielfeo.backintheday.ui.moviedetails.MovieDetailActivity;
 import com.gabrielfeo.backintheday.ui.movieslist.adapter.MoviePosterAdapter;
 import com.gabrielfeo.backintheday.ui.movieslist.paging.PageKeeper;
 import com.gabrielfeo.backintheday.ui.widget.MoviePosterView;
+import com.gabrielfeo.backintheday.util.logging.Logger;
 
 import java.util.List;
 
@@ -32,7 +34,6 @@ import static android.view.View.VISIBLE;
 
 public final class MoviesListActivity extends AppCompatActivity {
 
-    private static final String TAG = MoviesListActivity.class.getSimpleName();
     private MoviesListViewModel viewModel;
     private Spinner yearSelectorView;
     private ProgressBar loadingIndicator;
@@ -114,6 +115,20 @@ public final class MoviesListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int totalItemsCount = layoutManager.getItemCount();
+                int onScreenItemsCount = layoutManager.getChildCount();
+                int outOfScreenItemsCount = layoutManager.findFirstVisibleItemPosition();
+                if (onScreenItemsCount + outOfScreenItemsCount >= totalItemsCount) {
+                    pageKeeper.inc();
+                    Logger.debug(this, "Increasing page count to " + pageKeeper.getCurrent());
+                    getMovies();
+                }
+            }
+        });
     }
 
     private void setIsLoading(boolean isLoading) {
