@@ -39,8 +39,7 @@ public final class MoviesListActivity extends AppCompatActivity {
     private View contentRootView;
     private RecyclerView recyclerView;
     private PageKeeper pageKeeper = new PageKeeper();
-    private MoviePosterAdapter adapter = new MoviePosterAdapter(getMovieClickListener(),
-                                                                getBottomReachedListener());
+    private MoviePosterAdapter adapter = new MoviePosterAdapter(getMovieClickListener());
 
     private MoviePosterView.OnMoviePosterClickListener getMovieClickListener() {
         return (moviePosterView, movieId) -> {
@@ -53,13 +52,6 @@ public final class MoviesListActivity extends AppCompatActivity {
                 }
             };
             moviePosterView.fadeFooterOut(animationEndListener);
-        };
-    }
-
-    private MoviePosterAdapter.OnBottomReachedListener getBottomReachedListener() {
-        return () -> {
-            pageKeeper.inc();
-            getMovies();
         };
     }
 
