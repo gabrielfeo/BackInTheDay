@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.gabrielfeo.backintheday.model.Movie;
 import com.gabrielfeo.backintheday.model.Sorting;
-import com.gabrielfeo.backintheday.ui.movieslist.paging.MovieDiffCallback;
 import com.gabrielfeo.backintheday.ui.widget.MoviePosterView;
 import com.gabrielfeo.backintheday.util.MovieSorter;
 import com.squareup.picasso.Picasso;
