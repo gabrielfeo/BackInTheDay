@@ -32,7 +32,7 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
     }
 
     public void addMovies(List<Movie> listWithNewMovies) {
-        if (this.movies != null && listWithNewMovies != null) {
+        if (this.movies != null && listWithNewMovies != null && !listWithNewMovies.equals(this.movies)) {
             final List<Movie> oldMoviesList = this.movies;
             final List<Movie> distinctNewMovies = filterRepeatedMovies(listWithNewMovies);
             this.movies.addAll(distinctNewMovies);
