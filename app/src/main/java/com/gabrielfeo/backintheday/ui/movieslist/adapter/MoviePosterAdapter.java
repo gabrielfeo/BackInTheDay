@@ -1,12 +1,16 @@
 package com.gabrielfeo.backintheday.ui.movieslist.adapter;
 
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.gabrielfeo.backintheday.model.Movie;
+import com.gabrielfeo.backintheday.model.Sorting;
+import com.gabrielfeo.backintheday.ui.movieslist.paging.MovieDiffCallback;
 import com.gabrielfeo.backintheday.ui.widget.MoviePosterView;
+import com.gabrielfeo.backintheday.util.MovieSorter;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -23,16 +27,39 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
         this.bottomReachedListener = bottomReachedListener;
     }
 
-    public void addMovies(List<Movie> newMovies) {
-        if (this.movies != null) {
-            this.movies.addAll(newMovies);
-            notifyDataSetChanged();
+    public void clearMovies() {
+        if (movies != null) movies.clear();
+    }
+
+    public void addMovies(List<Movie> listWithNewMovies) {
+        if (this.movies != null && listWithNewMovies != null) {
+            final List<Movie> oldMoviesList = this.movies;
+            final List<Movie> distinctNewMovies = filterRepeatedMovies(listWithNewMovies);
+            this.movies.addAll(distinctNewMovies);
+            sortMovies();
+            diffMovieLists(movies, oldMoviesList);
         } else {
-            setMovies(newMovies);
+            setMovies(listWithNewMovies);
         }
     }
 
-    public void setMovies(List<Movie> movies) {
+    private List<Movie> filterRepeatedMovies(List<Movie> listWithNewMovies) {
+        final List<Movie> oldMoviesList = this.movies;
+        listWithNewMovies.removeIf(newMovie -> oldMoviesList.contains(newMovie));
+        return listWithNewMovies;
+    }
+
+    private void sortMovies() {
+        this.movies = new MovieSorter(movies).sortBy(Sorting.MOST_POPULAR);
+    }
+
+    private void diffMovieLists(List<Movie> newMoviesList, List<Movie> oldMoviesList) {
+        DiffUtil.Callback diffCallback = new MovieDiffCallback(oldMoviesList, newMoviesList);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback, true);
+        diffResult.dispatchUpdatesTo(this);
+    }
+
+    private void setMovies(List<Movie> movies) {
         this.movies = movies;
         notifyDataSetChanged();
     }

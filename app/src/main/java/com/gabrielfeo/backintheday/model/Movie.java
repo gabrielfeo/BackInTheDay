@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -97,4 +98,9 @@ public class Movie {
         return hasVideo;
     }
 
+    @Override
+    public boolean equals(@Nullable Object otherMovie) {
+        return otherMovie instanceof Movie
+               && this.id == ((Movie) otherMovie).id;
+    }
 }
