@@ -155,7 +155,9 @@ public class MovieDetailActivity extends AppCompatActivity implements TrailerAda
     }
 
     private void setPosterImage(Uri imageUrl) {
-        Picasso.get().load(imageUrl).into(posterView);
+        Picasso.get()
+               .load(imageUrl)
+               .into(posterView);
     }
 
     private void setTrailers(List<Trailer> trailers) {

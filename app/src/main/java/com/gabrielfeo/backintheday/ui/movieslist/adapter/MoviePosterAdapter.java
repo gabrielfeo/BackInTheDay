@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gabrielfeo.backintheday.R;
 import com.gabrielfeo.backintheday.model.Movie;
 import com.gabrielfeo.backintheday.ui.widget.MoviePosterView;
 import com.squareup.picasso.Picasso;
@@ -74,6 +75,7 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
         //TODO add image uri property to Movie class
         Picasso.get()
                .load(movie.getPosterUrl())
+               .placeholder(R.drawable.movie_placeholder)
                .into(view);
     }
 
